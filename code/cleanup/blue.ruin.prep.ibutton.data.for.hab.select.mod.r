@@ -1,6 +1,6 @@
 #'2022_09_12
 
-setwd("C:/Users/barrehan/Box/projects/2021.alcove.DO.project")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -14,7 +14,7 @@ library(ggplot2)
 #' (selected using runif), D1 and D2 are the known depths of the bounding sensors, 
 #' and t1 and t2 are the known temperatures of those sensors
 
-br.array<- read.csv("data/temp.do.data/do.temp.combined/blue.ruin.combined.site.5.4.array.csv")
+br.array<- read.csv("data/modif.data/blue.ruin.netpen.array.do.temp.csv")
 br.array$date.time <-ymd_hms(br.array$date.time)
 br.array <- br.array %>% force_tz(br.array$date.time, tzone = "America/Los_Angeles")
 
@@ -101,7 +101,7 @@ colnames(dater)[5] <- "case"
 #'br pen 1: 1 30 3 7 10 11 23; 
 #'br pen 2: 5 31 15 8 21 22 17
 
-ib <- read.csv("data/ibutton.data/ibutton.depth.do.interpolation/ibutton.17.depth.do.interpolation.csv")
+ib <- read.csv("data/modif.data/ibutton/ibutton.01.depth.do.interpolation.csv")
 ib$date.time <- mdy_hm(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
 ib <- subset(ib, select = c(2,5,7:8))
@@ -113,14 +113,17 @@ ib$case <- 1
 df <- dater %>% filter(dater$date.time %in% ib$date.time)
 merge <-rbind(ib,df)
 
-#create time unique id
+#remove date.time before 2021-07-25 12:10:00
+merge <- merge[merge$date.time >= "2021-07-25 12:10:00",]
+
+#create unique id for time
 merge$time <- format(as.POSIXct(
   merge$date.time),format = "%H:%M:%S")
 merge <-transform(merge, time.ID = as.numeric(factor(time)))
 
 ##############################################
 #add ibutton id and netpen id
-merge$ibutton.id <- 17
+merge$ibutton.id <- 01
 merge$netpen <- "blue.ruin.netpen.1"
 ##############################################
 
