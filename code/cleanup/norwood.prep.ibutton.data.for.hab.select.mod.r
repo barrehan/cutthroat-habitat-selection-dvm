@@ -1,6 +1,6 @@
 #'2022_09_18
 
-setwd("C:/Users/barrehan/Box/projects/2021.alcove.DO.project")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -14,13 +14,12 @@ library(ggplot2)
 #' (selected using runif), D1 and D2 are the known depths of the bounding sensors, 
 #' and t1 and t2 are the known temperatures of those sensors
 
-nor.array<- read.csv("data/temp.do.data/do.temp.combined/norwood.mouth.temp.do.combined.csv")
+nor.array<- read.csv("data/raw.data/logger.array/norwood.mouth.temp.do.csv")
 nor.array$date.time <-mdy_hm(nor.array$date.time)
 nor.array <- nor.array %>% force_tz(nor.array$date.time, tzone = "America/Los_Angeles")
 #round to closest 5 minute interval for time
 nor.array$date.time <- round_date(nor.array$date.time, unit="5 minutes")
 nor.array <- nor.array[nor.array$date.time >= "2021-07-25 00:00:00"& nor.array$date.time <="2021-08-10 12:00:00",]
-
 
 #'remove temperature NA rows
 temp.array<-nor.array%>%drop_na(temperature)
@@ -29,7 +28,7 @@ temp.array<-nor.array%>%drop_na(temperature)
 
 length(unique(temp.array$date.time))
 row.ct<-4753*10
-new.dat<-as.data.frame(matrix(ncol=4,nrow=row.ct))
+new.dat<-as.data.frame(matrix(ncol=3,nrow=row.ct))
 new.dat$V1<-mdy_hms(new.dat$V1)
 new.dat$V1 <- force_tz(new.dat$V1, tzone = "America/Los_Angeles")
 
@@ -63,7 +62,6 @@ for(i in 1:nrow(dates)){
     new.dat[cntr,1]<-dt #date time
     new.dat[cntr,2]<-d.unif #depth from uniform distribution
     new.dat[cntr,3]<-t #temperature estimate for this depth using slope equation
-    new.dat[cntr,4]<-"norwood.netpen"
   }
 }
 
@@ -74,7 +72,7 @@ for(i in 1:nrow(dates)){
 #'the temp/do recorded at that sensor since difference with change in depth at the bottom
 #'is nominal (low do, low temp)
 
-colnames(new.dat) <- c("date.time","depth","temp.est","netpen")
+colnames(new.dat) <- c("date.time","depth","temperature")
 
 #'need to estimate DO at unif depths too
 #'create df for the DO data
@@ -98,24 +96,43 @@ for(i in 1:nrow(dater)){
   #'DO sensor than grab the DO from the closest sensor depth (closest.do)
   #'these bounding sensors often out of thermocline?
   do<-ifelse(is_empty(do), closest.do, do)
-  dater[i,5] <- do
+  dater[i,4] <- do
+  dater[i,5]<-0
 }
-colnames(dater)[5] <- "do.est"
+colnames(dater)[4] <- "dissolved.oxygen"
+colnames(dater)[5] <- "case"
 
 ##add in ibutton data and create new dataframe, save as .csv
 # 2 4 6 13 14 16 18 
 
-ib <- read.csv("data/ibutton.data/ibutton.depth.do.interpolation/ibutton.18.depth.do.interpolation.csv")
+ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/ibutton.18.depth.do.interpolation.csv")
 ib$date.time <- mdy_hm(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
+ib <- subset(ib, select = c(2,5,7:8))
+ib <- rename(ib, temperature = ibutton.temp)
+ib <- rename(ib, depth = fish.depth)
+ib$case <- 1
 
-#'use dplyr to find matching date times
+#find matching date.time between two df
+df <- dater %>% filter(dater$date.time %in% ib$date.time)
+merge <-rbind(ib,df)
 
-ib.array.join<-merge(dater,ib,by = 'date.time')
-ib.array.join<- subset(ib.array.join, select = -c(7,8,10))
-ib.array.join<- rename(ib.array.join, fish.do.est = dissolved.oxygen)
+#create unique id for time
+merge$time <- format(as.POSIXct(
+  merge$date.time),format = "%H:%M:%S")
+merge <-transform(merge, time.ID = as.numeric(factor(time)))
 
-new.dater <- transform(ib.array.join,                                 # Create ID by group
+##############################################
+#add ibutton id and netpen id
+merge$ibutton.id <- 18
+merge$netpen <- "norwood.netpen"
+##############################################
+
+new.dater <- transform(merge,                                 # Create ID by group
                        ID = as.numeric(factor(date.time)))
 
-write.csv(new.dater, file = "data/hab.select.mod/button.18.with.unif.depth.temp.do.est.csv", row.names = F)
+new.dater<- new.dater %>%arrange(date.time)
+
+write.csv(new.dater, file = "data/modif.data/ibutton/hab.select.mod/button.18.hab.select.mod.csv", row.names = F)
+
+

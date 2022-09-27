@@ -101,7 +101,7 @@ colnames(dater)[5] <- "case"
 #'br pen 1: 1 30 3 7 10 11 23; 
 #'br pen 2: 5 31 15 8 21 22 17
 
-ib <- read.csv("data/modif.data/ibutton/ibutton.01.depth.do.interpolation.csv")
+ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/ibutton.31.depth.do.interpolation.csv")
 ib$date.time <- mdy_hm(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
 ib <- subset(ib, select = c(2,5,7:8))
@@ -113,9 +113,6 @@ ib$case <- 1
 df <- dater %>% filter(dater$date.time %in% ib$date.time)
 merge <-rbind(ib,df)
 
-#remove date.time before 2021-07-25 12:10:00
-merge <- merge[merge$date.time >= "2021-07-25 12:10:00",]
-
 #create unique id for time
 merge$time <- format(as.POSIXct(
   merge$date.time),format = "%H:%M:%S")
@@ -123,14 +120,14 @@ merge <-transform(merge, time.ID = as.numeric(factor(time)))
 
 ##############################################
 #add ibutton id and netpen id
-merge$ibutton.id <- 01
-merge$netpen <- "blue.ruin.netpen.1"
+merge$ibutton.id <- 31
+merge$netpen <- "blue.ruin.netpen.2"
 ##############################################
 
 new.dater <- transform(merge,                                 # Create ID by group
                       ID = as.numeric(factor(date.time)))
 
+new.dater<- new.dater %>%arrange(date.time)
 
-
-write.csv(new.dater, file = "data/hab.select.mod/button.17.with.unif.depth.temp.do.est.csv", row.names = F)
+write.csv(new.dater, file = "data/modif.data/ibutton/hab.select.mod/button.31.hab.select.mod.csv", row.names = F)
 
