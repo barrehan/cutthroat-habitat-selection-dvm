@@ -11,7 +11,6 @@ s2<-read.csv("data/modif.data/logger.array/blue.ruin.site.2.array.do.temp.csv")
 s3<- read.csv("data/raw.data/logger.array/blue.ruin.site.3.mid.temp.do.csv")
 s4<-read.csv("data/modif.data/logger.array/blue.ruin.netpen.array.do.temp.csv")
 s5<-read.csv("data/raw.data/logger.array/blue.ruin.site.5.head.temp.do.csv")
-
 #clean end dates with wacky temp/do readings
 
 s0$date.time <-mdy_hm(s0$date.time)
@@ -30,11 +29,11 @@ s2<- s2%>%filter_at(vars(temperature), all_vars(!is.na(.)))
 
 s3$date.time <-mdy_hm(s3$date.time)
 s3 <- s3 %>% force_tz(s3$date.time, tzone = "America/Los_Angeles")
-s3<-s3[s1$date.time >="2021-07-26 00:00:00"& s3$date.time < "2021-08-09 00:00:00",]
+s3<-s3[s3$date.time >="2021-07-26 00:00:00"& s3$date.time < "2021-08-09 00:00:00",]
 
-s4$date.time <-ymd_hms(s4$date.time)
+s4$date.time <-mdy_hm(s4$date.time)
 s4 <- s4 %>% force_tz(s4$date.time, tzone = "America/Los_Angeles")
-s4<-s4[s1$date.time >="2021-07-26 00:00:00"& s4$date.time < "2021-08-09 00:00:00",]
+s4<-s4[s4$date.time >="2021-07-26 00:00:00"& s4$date.time < "2021-08-09 00:00:00",]
 
 s4<- s4%>%filter_at(vars(temperature), all_vars(!is.na(.)))
 
@@ -42,20 +41,47 @@ s5$date.time <-mdy_hm(s5$date.time)
 s5 <- s5 %>% force_tz(s5$date.time, tzone = "America/Los_Angeles")
 s5<-s5[s5$date.time >="2021-07-26 00:00:00"& s5$date.time < "2021-08-09 00:00:00",]
 
-#cv <- sd(#)/mean(#)*100
-#'need to automate - for each df remove NA from temp column and calculate summary
-#'stats - mean, max, min, cv for temp and do
+#'combine df to automate summary stats
+arrays<- do.call("rbind", list(s0, s1, s2, s3, s4, s5))
 
+stats.temp<- arrays %>% 
+  group_by(logger.site)%>%
+  summarise(
+    max_temp = max(temperature, na.rm = T),
+    min_temp = min(temperature, na.rm = T),
+    mean_temp = mean(temperature, na.rm = T),
+    sd_temp = sd(temperature, na.rm = T),
+    cv_temp = sd_temp/mean_temp*100,
+  )
+  
+arrays.do<- arrays%>%filter_at(vars(dissolved.oxygen), all_vars(!is.na(.)))
 
+stats.do<- arrays.do %>% 
+  group_by(logger.site)%>%
+  summarise(
+    max_do = max(dissolved.oxygen, na.rm = T),
+    min_do = min(dissolved.oxygen, na.rm = T),
+    mean_do = mean(dissolved.oxygen, na.rm = T),
+    sd_do = sd(dissolved.oxygen, na.rm = T),
+    cv_do = sd_do/mean_do*100
+  )
 
-cv.temp.s0<- sd(s0$temp)/mean(s0$temp)*100
-mean.temp.s0<-mean(s0$temp)
-cv.temp.s1<- sd(s1$temp)/mean(s1$temp)*100
+rt <- read.csv("data/modif.data/radio.tag/tag.reads.10.min.interval.csv")
+stats.rt.indiv<- rt %>% 
+  group_by(tag.id)%>%
+  summarise(
+    max_temp = max(temp.strong, na.rm = T),
+    min_temp = min(temp.strong, na.rm = T),
+    mean_temp = mean(temp.strong, na.rm = T),
+    sd_temp = sd(temp.strong, na.rm = T),
+    cv_temp = sd_temp/mean_temp*100,
+  )
 
-cv.temp.s2<- sd(s2$temp)/mean(s2$temp)*100
-
-cv.temp.s3<- sd(s3$temp)/mean(s3$temp)*100
-
-cv.temp.s4<- sd(s4$temp)/mean(s4$temp)*100
-
-cv.temp.s5<- sd(s5$temp)/mean(s5$temp)*100
+stats.rt<- rt %>% 
+  summarise(
+    max_temp = max(temp.strong, na.rm = T),
+    min_temp = min(temp.strong, na.rm = T),
+    mean_temp = mean(temp.strong, na.rm = T),
+    sd_temp = sd(temp.strong, na.rm = T),
+    cv_temp = sd_temp/mean_temp*100,
+  )
