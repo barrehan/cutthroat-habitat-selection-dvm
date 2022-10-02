@@ -38,8 +38,14 @@ river.temp <- river.temp %>% force_tz(river.temp$date.time, tzone = "America/Los
 
 ib.ms.temp<-merge(ib.temps,river.temp, "date.time")
 
-#'visual assessment now? if fish is gone for > X amount of time, is registered at
-#'antenna 1 or 2, and temperature is warmer than previous by X amount and appears
-#'reflective of ms temperature at that timestamp, we can say they likely did
-#'ms foray?
+ib.ms.temp$foray <- ifelse(ib.ms.temp$gap >= 60 & ib.ms.temp$temp.diff >= 1.5 & ib.ms.temp$receiver.site %in% c(1,2), 1, 0)
+
+names(ib.ms.temp)[12]<- 'mainstem.temp'
+
+write.csv(ib.ms.temp, "data/modif.data/radio.tag/mainstem.foray/tag.11.mainstem.movement.csv", row.names=F)
+
+
+#'visual assessment now? if fish is gone for >= 60min, is registered at
+#'antenna 1 or 2 on return, and temperature is warmer than previous by 1.5C, mark 
+#'as T for potential MS foray 
 
