@@ -67,6 +67,8 @@ stats.do<- arrays.do %>%
   )
 
 rt <- read.csv("data/modif.data/radio.tag/tag.reads.10.min.interval.csv")
+rt$date.time <- mdy_hm(rt$date.time)
+rt<-rt[rt$date.time >="2021-07-27 00:00:00",]
 stats.rt.indiv<- rt %>% 
   group_by(tag.id)%>%
   summarise(
@@ -85,3 +87,15 @@ stats.rt<- rt %>%
     sd_temp = sd(temp.strong, na.rm = T),
     cv_temp = sd_temp/mean_temp*100,
   )
+rt$tag.id<-as.factor(rt$tag.id)
+ggplot(data = rt, aes(x = date.time, y = temp.strong, colour = tag.id), group_by = tag.id)+
+  geom_line()
+
+ggplot(data = rt, aes (x = date.time, y = temp.strong))+
+  geom_line()+
+  facet_wrap(~tag.id)
+#color represents unique logger array
+#what they choose vs what is available and how that changes between sites
+#' available temps pretty consistent, just depth id different 
+#' at each timestep (of choice) for each region (1-4) what are fish temps
+#' compared to range of water temps available 

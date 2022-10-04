@@ -39,6 +39,14 @@ river.temp <- river.temp %>% force_tz(river.temp$date.time, tzone = "America/Los
 ib.ms.temp<-merge(ib.temps,river.temp, "date.time")
 
 ib.ms.temp$foray <- ifelse(ib.ms.temp$gap >= 60 & ib.ms.temp$temp.diff >= 1.5 & ib.ms.temp$receiver.site %in% c(1,2), 1, 0)
+#make gap time a variable then for loop through different time options
+#add up # of forays? 
+#' time off alcove (what is the gap of time the fish is out)
+#' previous vs current antenna
+#' detection efficiency count sum of all detect codes (unique) vs non-detect
+#' 14 stands for detected previously site 1 next site 4 this becomes a missed detection
+#' 12 for detected previously site 1 next site 2, this is a good detection
+#' code so only manual at last step
 
 names(ib.ms.temp)[12]<- 'mainstem.temp'
 
