@@ -63,13 +63,21 @@ all.ib$detection.id<-ifelse(all.ib$receiver.site == 1 & shift(all.ib$receiver.si
                                                                    ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1,
                                                                           ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
                                                                                  ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1, 0))))))))))
+all.ib<-rowid_to_column(all.ib, "unique.id")
 
 
 first.read<-all.ib %>% 
   group_by(tag.id) %>%
   filter(date.time == min(date.time))%>%
            mutate(detection.id = replace(detection.id, detection.id == 0|detection.id==1, NA))
-           
+
+##replace           
+
+df3<-unique(first.read$unique.id)
+i1<-match(all.ib$unique.id, first.read$unique.id)
+all.ib$detection.id <- first.read$detection.id[i1]
+
+
 new.ib<- all.ib[!(all.ib$date.time | all.ib$tag.id %in% first.read$date.time | first.read$tag.id),]
 
 detects<-na.exclude(count(all.ib$detection.id[all.ib$detection.id ==1],))
