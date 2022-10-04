@@ -39,6 +39,44 @@ river.temp <- river.temp %>% force_tz(river.temp$date.time, tzone = "America/Los
 ib.ms.temp<-merge(ib.temps,river.temp, "date.time")
 
 ib.ms.temp$foray <- ifelse(ib.ms.temp$gap >= 60 & ib.ms.temp$temp.diff >= 1.5 & ib.ms.temp$receiver.site %in% c(1,2), 1, 0)
+
+
+##################Detection efficiency#############################
+#' create column that counts detection patterns to determine detection efficiency
+#' 1 means zero misses 0 means missed  (skipped a receiver)
+#' good (sequential antenna) reads == 11, 12, 21, 22, 23, 32, 33, 34, 43, 44
+#' all others will be given 0
+
+all.ib <- read.csv("data/modif.data/radio.tag/tag.reads.10.min.interval.csv")
+all.ib$date.time <- mdy_hm(all.ib$date.time)
+all.ib <- all.ib %>% force_tz(all.ib$date.time, tzone = "America/Los_Angeles")
+all.ib<-all.ib[order(all.ib$tag.id, all.ib$date.time),]
+all.ib<-all.ib[all.ib$date.time >="2021-07-26 00:00:00",]
+
+all.ib$detection.id<-ifelse(all.ib$receiver.site == 1 & shift(all.ib$receiver.site == 1, n = 1L, type = "lag"), 1, 
+                         ifelse(all.ib$receiver.site ==1 & shift(all.ib$receiver.site ==2, n = 1L, type = "lag"), 1,
+                                ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site == 1, n = 1L, type = "lag"), 1,
+                                       ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site ==2, n = 1L, type = "lag"), 1,
+                                              ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
+                                                     ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 2, n = 1L, type = "lag"), 1,
+                                                            ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
+                                                                   ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1,
+                                                                          ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
+                                                                                 ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1, 0))))))))))
+
+
+first.read<-all.ib %>% 
+  group_by(tag.id) %>%
+  filter(date.time == min(date.time))%>%
+           mutate(detection.id = replace(detection.id, detection.id == 0|detection.id==1, NA))
+           
+new.ib<- all.ib[!(all.ib$date.time | all.ib$tag.id %in% first.read$date.time | first.read$tag.id),]
+
+detects<-na.exclude(count(all.ib$detection.id[all.ib$detection.id ==1],))
+miss<- na.exclude(count(all.ib$detection.id[all.ib$detection.id == 0],))
+
+efficiency <-detects$freq/(detects$freq+miss$freq)
+
 #make gap time a variable then for loop through different time options
 #add up # of forays? 
 #' time off alcove (what is the gap of time the fish is out)
