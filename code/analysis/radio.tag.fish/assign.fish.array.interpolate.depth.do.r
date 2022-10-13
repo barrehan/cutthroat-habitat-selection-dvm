@@ -1,3 +1,16 @@
+#'assign.fish.array.interpolate.depth.do.r : creating blue ruin map and interpolating
+#'fish depth/do
+#'
+#'october 11, 2022
+#'
+#'this script first creates a figure of the blue ruin polygon with points 
+#'representing receiver/array locations. receivers/antennas are then assigned to
+#'logger arrays in an if else statement. logger array data is imported, cleaned, 
+#'and combined into a single df, and a for loop determines fish closest array, and 
+#'depth using linear interpolation. this new file is saved as a .csv to the modif
+#'data folder
+
+#'packages used
 library(readr)
 library(tidyverse)
 library(lubridate)
@@ -5,28 +18,30 @@ library(dplyr)
 library(data.table)
 library(rgdal)
 
-setwd("C:/Users/barrehan/Box/projects/2021.alcove.DO.project")
+#'clear workspace
+rm(list = ls())
+#close open graphics devices
+graphics.off() 
 
-#'assign fish location (receiver site/antenna number) to closest DO/temp array
-#'use temperature to interoplate depth and DO for that timestep
+#'working directory
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
-fish.dat <- read.csv('data/radio.tag.data/tag.reads.10.min.interval.csv')
-fish.dat$date.time = mdy_hm(fish.dat$date.time)
+# Create Blue Ruin polygon with points for arrays/receivers ---------------
+
+#'import array and receiver location data
 receiver.dat <- unique(fish.dat[c("receiver.site", "antenna.number", "lat", 'long')])
 receiver.dat<- receiver.dat %>%arrange(receiver.site, antenna.number)
 receiver.dat$ID <- 1:nrow(receiver.dat)
 
-logger.dat<- read.csv('data/temp.do.data/logger.array.setup.csv')
+logger.dat<- read.csv('data/raw.data/logger.array/logger.array.setup.csv')
 logger.dat<- logger.dat[!(logger.dat$site == "telemetry.slough"),]
 logger.dat <- logger.dat[-c(1,3:7,10:12)]
 logger.dat<-unique(logger.dat[c(1:3)])
 
 #plot all points on map
-
-br.poly <- readOGR("data/blue.ruin.polygon/brpolygon.shp")
+br.poly <- readOGR("data/modif.data/blue.ruin.polygon/brpolygon.shp")
 
 ##figure out what the projection is so I can use it for my radio tag data below
-
 br.poly@proj4string
 
 plot(br.poly, axes = TRUE)
@@ -35,13 +50,11 @@ plot(br.poly, height = 700, width = 900)
 
 
 ##you have to fortify your shapefile to make it work with ggplot2
-
 br.poly <- fortify(br.poly)
 
-# Now the shapefile can be plotted as either a geom_path or a geom_polygon.
+# Now the shape file can be plotted as either a geom_path or a geom_polygon.
 # Paths handle clipping better. Polygons can be filled.
 # You need the aesthetics long, lat, and group.
-
 receiver.dat$ID<-as.factor(receiver.dat$ID)
 
 ggplot() +
@@ -61,7 +74,67 @@ map.points <- ggplot() +
                               panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
   labs(color = "Antenna")
   
-ggsave("figures/radio.tag.map.figures/blue.ruin.arrays.receivers.png", width = 15, height = 10, units = "cm")
-  
+#ggsave("results/figures/radio.tag.figures/blue.ruin.arrays.receivers.png", 
+#width = 15, height = 10, units = "cm")
 
-             
+
+# Import fish tag data and array data, clean dates and timestamps ---------
+
+#' take fish radio tag data and array data to interpolate fish depth/do using 
+#' fish temp and nearest array
+
+#'import all fish tag data corrected to all occur at ten minute intervals
+fish.dat <- read.csv('data/modif.data/radio.tag/tag.reads.10.min.interval.csv')
+fish.dat$date.time = mdy_hm(fish.dat$date.time)
+fish.dat <- fish.dat %>% force_tz(fish.dat$date.time, tzone = "America/Los_Angeles")
+
+#'assign closest logger array id
+fish.dat$logger.site<- ifelse(fish.dat$receiver.site == 1 & fish.dat$antenna.number ==1, "site.0.mouth",
+                        ifelse(fish.dat$receiver.site == 1 & fish.dat$antenna.number ==2, "site.1",
+                               ifelse(fish.dat$receiver.site == 2 & fish.dat$antenna.number == 1, "site.2",
+                                      ifelse(fish.dat$receiver.site == 2 & fish.dat$antenna.number == 2, "site.3",
+                                             ifelse(fish.dat$receiver.site == 3, "site.3",
+                                                    ifelse(fish.dat$receiver.site == 4, "site.4.netpen", NA))))))
+
+
+#'import all array .csvs and create one data frame of all combined
+s0<- read.csv("data/raw.data/logger.array/blue.ruin.site.0.river.temp.csv")
+s0$date.time<-mdy_hm(s0$date.time)
+s1<- read.csv("data/raw.data/logger.array/blue.ruin.site.1.mouth.temp.do.csv")
+s1$date.time<-mdy_hm(s1$date.time)
+#'round to nearest 5 min interval
+s1$date.time<-round_date(s1$date.time,unit="5 minutes")
+s2<-read.csv("data/modif.data/logger.array/blue.ruin.site.2.array.do.temp.csv")
+s2$date.time<-mdy_hm(s2$date.time)
+s3<-read.csv("data/raw.data/logger.array/blue.ruin.site.3.mid.temp.do.csv") 
+s3$date.time<-mdy_hm(s3$date.time)
+s4<- read.csv("data/modif.data/logger.array/blue.ruin.netpen.array.do.temp.csv")
+s4$date.time<-mdy_hm(s4$date.time)
+#rename logger site as s4.netpen - recall two loggers were snagged from the array 5
+s4$logger.site[s4$logger.site %in% c("site.5.head")] = "site.4.netpen"
+
+arrays<- do.call("rbind", list(s0, s1, s2, s3, s4))
+arrays <- arrays %>% force_tz(arrays$date.time, tzone = "America/Los_Angeles")
+
+#'curtail fish dat to narrowest array timeframe 7/26 - 8/15
+fish <- fish.dat[fish.dat$date.time >= "2021-07-26 00:00:00" & fish.dat$date.time < "2021-08-15 07:50:00",]
+
+
+# For loop to interpolate fish depth/do using closest array ---------------
+
+#if s0 depth is NA (mixed)
+#if s1-s4 use interpolation to determine depth
+for(i in 1:nrow(fish)){
+  row <- fish[i,]
+  t1 <-row$temp.strong                                                 #fish temperature
+  t.match <- arrays[arrays$date.time == row$date.time,]                #find matching time stamp
+  a.match <- t.match[t.match$logger.site == row$logger.site,]          #find matching array
+  x1 <- max(a.match$temperature[which(a.match$temperature < t1)])      #find the next closest temperature less than ibutton temp
+  x2 <- min(a.match$temperature[which(a.match$temperature > t1)])      #find the next closest temperature greater than ibutton temp
+  d1 <- a.match$sensor.depth[a.match$temperature == x1]
+  d2 <- a.match$sensor.depth[a.match$temperature == x2]
+  d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1                                  #slope equation to calculate fish depth based on sensor depth/temp
+  m <- 'mouth.mixed'
+  do <-ifelse(row$receiver.site == 1 & row$antenna.number ==1, m, d)   #if closest array is temp sensor at mouth, depth is NA
+  fish[i,11] <-do             
+}
