@@ -123,7 +123,7 @@ fish <- fish.dat[fish.dat$date.time >= "2021-07-26 00:00:00" & fish.dat$date.tim
 #remove NA temp (from site 4/5 do/temp combination)
 arrays<-arrays[!is.na(arrays$temperature),]
 
-# For loop to interpolate fish depth/do using closest array ---------------
+# For loop to interpolate fish depth using closest array ---------------
 
 #if s0 depth is NA (mixed)
 #if s1-s4 use interpolation to determine depth
@@ -150,32 +150,104 @@ for(i in 1:nrow(fish)){
   fish[i,11] <-depth            
 }
 
-colnames(fish)[11] <- "interp.fish.depth"
+colnames(fish)[11] <- "fish.depth"
+
+# For loop to interpolate fish do using calculated depth ---------------
+
+#' drop DO NAs from logger array df
+do.array <- arrays%>%drop_na(dissolved.oxygen)
+fish.2 <- fish
+fish.2 <-fish.2[!fish.2$fish.depth == "mouth.mixed",]
+fish.2 <-transform(fish.2, fish.depth = as.numeric(fish.depth))
+
+
+for(i in 1:nrow(fish.2)){
+  row <- fish.2[i,]
+  match <-do.array[do.array$date.time == row$date.time,]
+  a.match <- match[match$logger.site == row$logger.site,]
+  t1 <- row$fish.depth
+  x1<-max(a.match$sensor.depth[which(a.match$sensor.depth < t1)])
+  x2<-min(a.match$sensor.depth[which(a.match$sensor.depth > t1)])
+  d1 <- a.match$dissolved.oxygen[a.match$sensor.depth == x1]
+  d2 <- a.match$dissolved.oxygen[a.match$sensor.depth == x2]
+  d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
+  
+  deepest <- a.match[which.max(a.match$sensor.depth),]                    #reference line with deepest sensor
+  do.dep <- deepest$dissolved.oxygen                                      #do at deepest sensor
+  dep.sens<- deepest$sensor.depth                                         #deepest sensor depth value
+  d<- ifelse(dep.sens == t1 | t1> dep.sens, do.dep,d)                                    #if fish depth is equivalent to deepest sensor depth, assign that sensor DO
+  
+  shallowest <-a.match[which.min(a.match$sensor.depth),]                  #reference line with shallowest sensor
+  do.shal<-shallowest$dissolved.oxygen                                    #do at shallowest sensor
+  shal.sens<-shallowest$sensor.depth                                      #shallowest sensor depth value
+  d<-ifelse(shal.sens == t1 | t1< shal.sens, do.shal, d)                                  #if fish depth is equivalent to shallowest sensor depth, assign that sensor DO
+  
+  fish.2[i,12] <-d
+
+}
+colnames(fish.2)[12] <- "fish.do"
+fish.3 <- fish[fish$fish.depth == "mouth.mixed",]
+fish.3$fish.do <- "NA"
+
+fishes<- rbind(fish.2, fish.3)
+
+# Make some plots to check out fish movement/depth/do ---------------------
+
 
 #'order df by tag id and then by date
 
-fish <- fish[
-  order(fish[,2], fish[,1] ),
+fishes <- fishes[
+  order(fishes[,2], fishes[,1] ),
 ]
 
-fishes<- fish
-fishes <- mutate_at(fishes, vars(receiver.site), as.factor)
-t11<- fishes[fishes$tag.id == 11,]
-t11<-t11[!t11$interp.fish.depth == "mouth.mixed",]
-t11$interp.fish.depth<- as.numeric(t11$interp.fish.depth)
-t11$receiver.site <-fct_rev(t11$receiver.site)
+# pull single tag and look at temp and receiver point plots
 
-s11<-ggplot(t11, aes (date.time, receiver.site, color = temp.strong))+
-  geom_point()+
-  geom_line()+
-  scale_y_reverse()+
-  scale_color_viridis(option = "inferno")
+plot.fish<-fishes[!fishes$fish.depth == "mouth.mixed",]
+plot.fish <-fishes[fishes$tag.id == 12,]
+plot.fish$fish.depth<- as.numeric(plot.fish$fish.depth)
+plot.fish$fish.do <- as.numeric(plot.fish$fish.do)
+plot.fish$receiver.site <- as.factor(plot.fish$receiver.site)
+
+unique.tag <- unique(plot.fish$tag.id)
+
+for(i in unique.tag) {
   
-d11<-ggplot(t11, aes (date.time, interp.fish.depth, color = temp.strong))+
-  geom_point()+
+p <- ggplot()+
+  geom_point(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong,shape = receiver.site), size = 1)+
+  geom_line(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong))+
+  scale_color_viridis(option = "inferno")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  labs(title = i)
+
+ggsave(p, filename = paste("results/figures/radio.tag.figures/tag.", i,"do.temp.receiver.png"), width = 15, height = 8, units = "cm")
+
+
+}
+
+ggplot(plot.fish, aes(date.time, fish.do))+
+  geom_point(aes(color = temp.strong, shape = receiver.site), size = 1)+
   geom_line()+
-  scale_y_reverse()+
-  scale_color_viridis(option = "inferno")
+  scale_color_viridis(option = "inferno")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  facet_wrap(~tag.id)
 
-plot_grid(s11,d11,labels = c("Receiver site", "Fish depth"), ncol = 2, nrow =1)
-
+# s11<-ggplot(t11, aes (date.time, receiver.site, color = temp.strong))+
+#   geom_point()+
+#   geom_line()+
+#   scale_y_reverse()+
+#   scale_color_viridis(option = "inferno")
+#   
+# d11<-ggplot(t11, aes (date.time, fish.depth, color = temp.strong))+
+#   geom_point(aes(shape = receiver.site))+
+#   geom_line(aes(date.time))+
+#   scale_y_reverse()+
+#   scale_color_viridis(option = "inferno")
+# 
+# do11<- ggplot(t11, aes (date.time, fish.do, color = temp.strong))+
+#   geom_point()+
+#   geom_line()+
+#   scale_color_viridis(option = "inferno")
+# 
+# plot_grid(s11, d11, do11,labels = c("Receiver site", "Fish depth", "Fish do"), ncol = 3, nrow =1)
