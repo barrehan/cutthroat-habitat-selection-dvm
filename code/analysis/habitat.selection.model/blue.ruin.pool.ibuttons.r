@@ -43,46 +43,27 @@ br.fish <- br.fish[
 br.fish <- br.fish %>% 
   mutate(stratID = group_indices(.,ibutton.id, date.time))
 
+br.fish$hourID <-hour(br.fish$date.time)
+
 br.fish <- transform(br.fish,                                 
                        timeID = as.numeric(factor(time)))
+
+br.fish$dayID <- ifelse(br.fish$hourID <18 & br.fish$hourID >=6, 0, 1)
+
+br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
+                           ifelse(br.fish$hourID < 12, 2,
+                                  ifelse(br.fish$hourID <18, 3,
+                                         4)))
                                             
-# Separate pooled df into day and night (6am, 6pm) ------------------------
-
-data.night.clogit <- br.fish[br.fish$timeID < 73 | br.fish$timeID >=217,]
-
-data.day.clogit <- br.fish[br.fish$timeID < 217 & br.fish$timeID >=73 ,]
-
 
 # Make time and timeID factors --------------------------------------------
 
-data.night.clogit$time <-as.factor(data.night.clogit$time)
-data.day.clogit$time <-as.factor(data.day.clogit$time)
+br.fish$dayID <-as.factor(br.fish$dayID)
+br.fish$hourID <-as.factor(br.fish$hourID)
+br.fish$quarterID <-as.factor(br.fish$quarterID)
 
-data.night.clogit$timeID <-as.factor(data.night.clogit$timeID)
-data.day.clogit$timeID <-as.factor(data.day.clogit$timeID)
+# write pooled .csv -------------------------------------------------------
+write.csv(br.fish, "data/modif.data/ibutton/hab.select.mod/br.ibutton.pooled.csv", row.names = F)
 
-# Fit the model -----------------------------------------------------------
-
-night.clogit<-clogit(formula = case ~
-                       standardized.do+
-                       standardized.temp+
-                       standardized.do:time+
-                       standardized.temp:time+
-                       standardized.do:standardized.temp+
-                       standardized.do:standardized.temp:time+
-                       strata(stratID),
-                       data=data.night.clogit)
-summary(night.clogit) 
-
-day.clogit<-clogit(formula = case ~
-                       standardized.do+
-                       standardized.temp+
-                       standardized.do:time+
-                       standardized.temp:time+
-                       standardized.do:standardized.temp+
-                       standardized.do:standardized.temp:time+
-                       strata(stratID),
-                     data=data.day.clogit)
-summary(night.clogit) 
 
 
