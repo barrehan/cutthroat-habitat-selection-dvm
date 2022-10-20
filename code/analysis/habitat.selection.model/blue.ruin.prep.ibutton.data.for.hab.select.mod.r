@@ -14,8 +14,8 @@ library(ggplot2)
 #' (selected using runif), D1 and D2 are the known depths of the bounding sensors, 
 #' and t1 and t2 are the known temperatures of those sensors
 
-br.array<- read.csv("data/modif.data/blue.ruin.netpen.array.do.temp.csv")
-br.array$date.time <-ymd_hms(br.array$date.time)
+br.array<- read.csv("data/modif.data/logger.array/blue.ruin.netpen.array.do.temp.csv")
+br.array$date.time <-mdy_hm(br.array$date.time)
 br.array <- br.array %>% force_tz(br.array$date.time, tzone = "America/Los_Angeles")
 
 #'remove temperature NA rows
@@ -124,10 +124,16 @@ merge$ibutton.id <- 31
 merge$netpen <- "blue.ruin.netpen.2"
 ##############################################
 
-new.dater <- transform(merge,                                 # Create ID by group
-                      ID = as.numeric(factor(date.time)))
 
-new.dater<- new.dater %>%arrange(date.time)
+
+new.dater<- merge %>%arrange(date.time)
+new.dater$standardized.do <- scale(new.dater$dissolved.oxygen)
+new.dater$standardized.temp <-scale(new.dater$temperature)
+new.dater<- new.dater[new.dater$date.time >="2021-07-25 12:10:00",]
+
+#'stratum column
+new.dater <- transform(new.dater,                                 # Create ID by group
+                       stratID = as.numeric(factor(date.time)))
 
 write.csv(new.dater, file = "data/modif.data/ibutton/hab.select.mod/button.31.hab.select.mod.csv", row.names = F)
 
