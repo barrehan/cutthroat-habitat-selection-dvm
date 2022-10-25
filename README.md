@@ -6,4 +6,4 @@ $$equation
 
 ### subsection
 
--[ ]checkbox
+[ ]checkbox
