@@ -1,6 +1,10 @@
 # Coldwater alcove habitat selection
 2021 coastal cutthroat trout microhabitat selection in two coldwater alcoves on the Willamette River
 
+
+[![Video](https://user-images.githubusercontent.com/95871302/197848814-f6df3d3a-c45c-4378-899b-a2f3e46fd085.mp4 )
+
+
 ## Depth interpolation equation
 IButton depth calculated using interpolation between bounding sensor temperatures using the slope equation 
 $$y=mx+b$$ 
