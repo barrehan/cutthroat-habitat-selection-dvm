@@ -2,7 +2,7 @@
 2021 coastal cutthroat trout microhabitat selection in two coldwater alcoves on the Willamette River
 
 ## section
-$$equation
+$$y = mx+b
 
 ### subsection
 
