@@ -4,5 +4,10 @@
 ## section
 $$y = mx+b$$
 
-### subsection
-- [ ] Better docs
+### Data analysis to do
+- [ ] Netpen habitat selection model using clogit
+  - [ ]  Prep norwood netpen data
+  - [ ]  Pool all ibuttons across both alcoves
+    - [ ]  Day vs night
+    - [ ]  Quarterly
+    - [ ]  Hourly 
