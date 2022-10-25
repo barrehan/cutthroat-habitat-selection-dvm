@@ -3,11 +3,8 @@
 
 ## Depth interpolation equation
 IButton depth calculated using interpolation between bounding sensor temperatures using the slope equation 
-$$y=mx+b$$ as $$d? = D1 + (D2-D1)/(X2-X1)*(T1-X1)$$
-#' where d? is the depth of the fish that we are trying to determine, D1 and D2 
-#' the known depths of the bounding sensors, X2 and X1 are the known temperatures
-#' of those sensors, and T1 is the temperature of the fish, x is T1-X1 (pretending that
-#' X1 is the y intercept for these two points...)
+$$y=mx+b$$ as $$D? = D1 + (D2-D1)/(X2-X1)*(T1-X1)$$
+Where D? is the depth of the fish that we are trying to determine, D1 and D2 are the known depths of the bounding sensors, X2 and X1 are the known temperatures of those sensors, and T1 is the temperature of the fish
 
 ### Data analysis to do
 - [ ] Netpen habitat selection model using clogit
