@@ -5,5 +5,4 @@
 $$ y = mx+b
 
 ### subsection
-
-[ ] Venus
+- [ ] Better docs
