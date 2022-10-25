@@ -11,7 +11,7 @@ $$y = mx+b$$
     - [ ]  Day vs night
     - [ ]  Quarterly
     - [ ]  Hourly 
-- [ ]  Pool ibuttons from both alcoves
+  - [ ]  Pool ibuttons from both alcoves
     - [ ]  Day vs night
     - [ ]  Quarterly
     - [ ]  Hourly   
