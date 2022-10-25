@@ -7,7 +7,11 @@ $$y = mx+b$$
 ### Data analysis to do
 - [ ] Netpen habitat selection model using clogit
   - [ ]  Prep norwood netpen data
-  - [ ]  Pool all ibuttons across both alcoves
+  - [ ]  Per alcove
     - [ ]  Day vs night
     - [ ]  Quarterly
     - [ ]  Hourly 
+- [ ]  Pool ibuttons from both alcoves
+    - [ ]  Day vs night
+    - [ ]  Quarterly
+    - [ ]  Hourly   
