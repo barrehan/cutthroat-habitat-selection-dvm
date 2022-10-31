@@ -1,5 +1,6 @@
 #'10-19-2022
 #'pool ibuttons for br, create stratum.ID for individual and for pooled data
+rm(list=ls())
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
@@ -8,7 +9,7 @@ library(dplyr)
 library(lubridate)
 library(survival) #'clogit function
 
-rm(list=ls())
+
 
 # Bring in all dfs for blue ruin ibutton fish ------------------------------
 
@@ -33,20 +34,17 @@ br.fish <- do.call("rbind", list(f01, f03, f05, f07, f08, f10, f15, f17, f21, f2
 br.fish$date.time <- ymd_hms(br.fish$date.time) 
 
 # Remove stratID and timeID and create as pooled vectors ------------------
-br.fish <-subset(br.fish, select = -c(7,12))
+br.fish <-subset(br.fish, select = -c(2, 4, 7, 10))
 
-#'order by id and then by date.time
+#'order by fish.id and date.time
 br.fish <- br.fish[
-  order(br.fish[,8], br.fish[,1] ),
+  order(br.fish[,4], br.fish[,1] ),
 ]
 
 br.fish <- br.fish %>% 
   mutate(stratID = group_indices(.,ibutton.id, date.time))
 
 br.fish$hourID <-hour(br.fish$date.time)
-
-br.fish <- transform(br.fish,                                 
-                       timeID = as.numeric(factor(time)))
 
 br.fish$dayID <- ifelse(br.fish$hourID <18 & br.fish$hourID >=6, 0, 1)
 
@@ -55,13 +53,6 @@ br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
                                   ifelse(br.fish$hourID <18, 3,
                                          4)))
                                             
-
-# Make time and timeID factors --------------------------------------------
-
-br.fish$dayID <-as.factor(br.fish$dayID)
-br.fish$hourID <-as.factor(br.fish$hourID)
-br.fish$quarterID <-as.factor(br.fish$quarterID)
-
 # write pooled .csv -------------------------------------------------------
 write.csv(br.fish, "data/modif.data/ibutton/hab.select.mod/br.ibutton.pooled.csv", row.names = F)
 
