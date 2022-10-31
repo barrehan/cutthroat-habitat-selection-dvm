@@ -2,7 +2,7 @@
 2021 coastal cutthroat trout microhabitat selection in two coldwater alcoves on the Willamette River
 
 
-[![Video of cutty on thermocline](/barrehan/cwa.habitat.selection/blob/main/images/cutthroat.thermocline.video.mp4)](https://user-images.githubusercontent.com/95871302/197848814-f6df3d3a-c45c-4378-899b-a2f3e46fd085.mp4 )
+[![Video of cutty on thermocline](/barrehan/cwa.habitat.selection/blob/main/images/cutthroat.thermocline.video.mp4)](https://user-images.githubusercontent.com/95871302/197848814-f6df3d3a-c45c-4378-899b-a2f3e46fd085.mp4)
 
 
 ## Depth interpolation equation
