@@ -7,9 +7,6 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 library(readr)
 library(dplyr)
 library(lubridate)
-library(survival) #'clogit function
-
-
 
 # Bring in all dfs for blue ruin ibutton fish ------------------------------
 
