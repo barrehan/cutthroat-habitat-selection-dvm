@@ -21,7 +21,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 #'pen 1: 01, 03, 07, 10, 11, 23, 30
 #'pen2 05, 08, 15, 17, 21, 22, 31
 
-ib <- read.csv("data/raw.data/ibutton/blue.ruin.netpens/ibutton.31.br.pen2.csv")
+ib <- read.csv("data/raw.data/ibutton/blue.ruin.netpens/ibutton.23.br.pen1.csv")
 ib$date.time <- mdy_hms(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
 #'get rid of temperatures where tag was out of water before/after deploy
@@ -94,7 +94,7 @@ for(i in 1:nrow(time.match)){
   new.dat[cntr,1]<-row$ibutton
   new.dat[cntr,2]<-row$date.time
   new.dat[cntr,3]<-row$ibutton.temp
-  new.dat[cntr,4]<-'blue.ruin.2'
+  new.dat[cntr,4]<-'blue.ruin.1'
   new.dat[cntr,5]<-depth
 }
 colnames(new.dat) <- c("ibutton","date.time","ibutton.temp","site","fish.depth")
@@ -126,6 +126,11 @@ for(i in 1:nrow(new.dat)){
 
 colnames(new.dat)[6] <- "dissolved.oxygen"
 
-write.csv(new.dat,"data/modif.data/ibutton/do.depth.interpolation/br.ibutton.31.depth.do.interpolation.csv", row.names = F)
+#' ibutton 1 and 3 fell off, end of df cut off when continuously assigned to 
+#' full depth
+#' ibutton 23 has two very low temp reads that I removed (<10C)
+
+
+write.csv(new.dat,"data/modif.data/ibutton/do.depth.interpolation/br.ibutton.23.depth.do.interpolation.csv", row.names = F)
 
 
