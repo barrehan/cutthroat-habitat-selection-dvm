@@ -15,10 +15,10 @@ array <- array %>% force_tz(array$date.time, tzone = "America/Los_Angeles")
 #'bring in ibutton data from norwood netpen
 #'02, 04, 06, 13, 14, 16, 18
 
-ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/ibutton.18.depth.do.interpolation.csv")
-ib$date.time <- mdy_hm(ib$date.time)
+ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/norwood.ibutton.18.depth.do.interpolation.csv")
+ib$date.time <- ymd_hms(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
-ib <- subset(ib, select = c(2,5,7:8))
+ib <- subset(ib, select = c(2,3,5,6))
 ib <- rename(ib, temperature = ibutton.temp)
 ib <- rename(ib, depth = fish.depth)
 ib$case <- 1

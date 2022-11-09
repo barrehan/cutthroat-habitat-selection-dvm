@@ -92,7 +92,6 @@ preds.quart1.do$time<-'midnight - 6am'
 
 # Span of do values during quart2 -----------------------------------------
 
-
 min(quart2$standardized.do, na.rm = T)
 max(quart2$standardized.do, na.rm = T)
 
@@ -265,3 +264,5 @@ plot.temp <-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=
 
 ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/norwood.quarterly.do.selection.png"), width = 12, height = 8, units = "cm")
 ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/norwood.quarterly.temp.selection.png"), width = 12, height = 8, units = "cm")
+
+

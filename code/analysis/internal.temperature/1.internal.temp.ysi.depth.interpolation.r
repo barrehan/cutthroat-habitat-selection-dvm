@@ -1,3 +1,7 @@
+#'2022-11-09
+
+# Interpolation to determine fish depth using internal temperatures -------
+
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -6,14 +10,14 @@ library(ggplot2)
 
 #' Here I use the slope equation of y=mx=b as d? = D1 + (D2-D1)/(X2-X1)*(T1-X1)
 #' where d? is the depth of the fish that we are trying to determine, D1 and D2 
-#' the known depths of the bounding sensors, X2 and X1 are the known temperatures
+#' the known depths of the bounding temperatures, X2 and X1 are the known temperatures
 #' of those sensors, and T1 is the temperature of the fish, x is T1-X1 (pretending that
 #' X1 is the y intercept for these two points...)
 
-setwd("C:/Users/barrehan/Box/projects/2021.alcove.DO.project")
-ysi <- read.csv("data/choke.poke/2019.2021.thermocline.fish.internal.temp.cwa.csv")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+ysi <- read.csv("data/raw.data/internal.temperature/2019.2021.thermocline.fish.internal.temp.cwa.csv")
 ysi$date <- mdy(ysi$date)
-fish <- read.csv("data/choke.poke/2019.2021.fish.internal.temp.cwa.csv")
+fish <- read.csv("data/raw.data/internal.temperature/2019.2021.fish.internal.temp.cwa.csv")
 fish$date <- mdy(fish$date)
 
 for(i in 1:nrow(fish)){
@@ -93,7 +97,7 @@ ggplot(NULL, aes(temperature, depth)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))
 
-ggsave("figures/internal.temperature.figures/choke.poke.temp.vs.depth.jpg", width = 14, height = 8)
+ggsave("results/figures/internal.temperature/internal.temp.with.thermocline.jpg", width = 14, height = 8)
 
 #' now using the same equation using the fish depth to determine DO at that location
 #' and time. we were stupid and didn't use the YSI at norwood so we do not have DO 

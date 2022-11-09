@@ -1,8 +1,3 @@
-#'cCHECK FOR CORRELATION
-#cor(day$standardized.do, day$standardized.temp, na.remove = T)
-#'R value >.8 don't include both variables in the model
-
-
 #'10-20-2022
 #'Fit conditional logistic regression to pooled blue ruin ibutton data
 
@@ -11,7 +6,7 @@ library(survival)
 library(ggplot2)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
-br.ib<- read.csv("data/modif.data/ibutton/hab.select.mod/br.ibutton.pooled.csv")
+br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
 # Make time ID columns factors --------------------------------------------
 
 br.ib$dayID <-as.factor(br.ib$dayID)
@@ -163,8 +158,8 @@ plot.temp<-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=t
   theme(legend.title = element_blank()) 
 
 
-ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/day.vs.night.do.selection.png"), width = 12, height = 8, units = "cm")
-ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/day.vs.night.temp.selection.png"), width = 12, height = 8, units = "cm")
+ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/br.day.vs.night.do.selection.png"), width = 12, height = 8, units = "cm")
+ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/br.day.vs.night.temp.selection.png"), width = 12, height = 8, units = "cm")
 
 #'interaction instead of setting to mean of standardized 
 #subtract mean divide by sd, if we are tryiing to get temp value of

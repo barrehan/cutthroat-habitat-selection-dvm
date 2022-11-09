@@ -10,20 +10,20 @@ library(lubridate)
 
 # Bring in all dfs for blue ruin ibutton fish ------------------------------
 
-f01 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.01.hab.select.mod.csv")
-f03 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.03.hab.select.mod.csv")
-f05 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.05.hab.select.mod.csv")
-f07 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.07.hab.select.mod.csv")
-f08 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.08.hab.select.mod.csv")
-f10 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.10.hab.select.mod.csv")
-f11 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.11.hab.select.mod.csv")
-f15 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.15.hab.select.mod.csv")
-f17 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.17.hab.select.mod.csv")
-f21 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.21.hab.select.mod.csv")
-f22 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.22.hab.select.mod.csv")
-f23 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.23.hab.select.mod.csv")
-f30 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.30.hab.select.mod.csv")
-f31 <- read.csv("data/modif.data/ibutton/hab.select.mod/button.31.hab.select.mod.csv")
+f01 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.01.hab.select.mod.csv")
+f03 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.03.hab.select.mod.csv")
+f05 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.05.hab.select.mod.csv")
+f07 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.07.hab.select.mod.csv")
+f08 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.08.hab.select.mod.csv")
+f10 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.10.hab.select.mod.csv")
+f11 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.11.hab.select.mod.csv")
+f15 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.15.hab.select.mod.csv")
+f17 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.17.hab.select.mod.csv")
+f21 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.21.hab.select.mod.csv")
+f22 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.22.hab.select.mod.csv")
+f23 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.23.hab.select.mod.csv")
+f30 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.30.hab.select.mod.csv")
+f31 <- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/button.31.hab.select.mod.csv")
 
 # Pool all dfs into one ---------------------------------------------------
 
@@ -51,7 +51,7 @@ br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
                                          4)))
                                             
 # write pooled .csv -------------------------------------------------------
-write.csv(br.fish, "data/modif.data/ibutton/hab.select.mod/br.ibutton.pooled.csv", row.names = F)
+write.csv(br.fish, "data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv", row.names = F)
 
 
 

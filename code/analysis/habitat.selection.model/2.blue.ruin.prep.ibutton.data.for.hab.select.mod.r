@@ -16,10 +16,10 @@ array <- array %>% force_tz(array$date.time, tzone = "America/Los_Angeles")
 #'br pen 1: 1 3 7 10 11 23 30 ; 
 #'br pen 2: 5 8 15 17 21 22 31   
 
-ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/ibutton.31.depth.do.interpolation.csv")
-ib$date.time <- mdy_hm(ib$date.time)
+ib <- read.csv("data/modif.data/ibutton/do.depth.interpolation/br.ibutton.31.depth.do.interpolation.csv")
+ib$date.time <- ymd_hms(ib$date.time)
 ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
-ib <- subset(ib, select = c(2,5,7:8))
+ib <- subset(ib, select = c(2,3, 5,6))
 ib <- rename(ib, temperature = ibutton.temp)
 ib <- rename(ib, depth = fish.depth)
 ib$case <- 1
@@ -38,8 +38,6 @@ merge$ibutton.id <- 31
 merge$netpen <- "blue.ruin.netpen.2"
 ##############################################
 
-
-
 new.dater<- merge %>%arrange(date.time)
 new.dater$standardized.do <- scale(new.dater$dissolved.oxygen)
 new.dater$standardized.temp <-scale(new.dater$temperature)
@@ -48,5 +46,5 @@ new.dater$standardized.temp <-scale(new.dater$temperature)
 new.dater <- transform(new.dater,                                 # Create ID by group
                        stratID = as.numeric(factor(date.time)))
 
-write.csv(new.dater, file = "data/modif.data/ibutton/hab.select.mod/button.31.hab.select.mod.csv", row.names = F)
+write.csv(new.dater, file = "data/modif.data/hab.select.mod/br.ibutton.data/button.31.hab.select.mod.csv", row.names = F)
 

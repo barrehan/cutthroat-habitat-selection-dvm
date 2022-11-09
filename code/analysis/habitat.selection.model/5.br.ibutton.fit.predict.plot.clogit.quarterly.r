@@ -7,7 +7,7 @@ library(survival)
 library(ggplot2)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
-br.ib<- read.csv("data/modif.data/ibutton/hab.select.mod/br.ibutton.pooled.csv")
+br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
 # Make time ID columns factors --------------------------------------------
 
 br.ib$dayID <-as.factor(br.ib$dayID)
@@ -264,5 +264,5 @@ plot.temp <-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=
   theme(legend.title = element_blank()) 
 
 
-ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/quarterly.do.selection.png"), width = 12, height = 8, units = "cm")
-ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/quarterly.temp.selection.png"), width = 12, height = 8, units = "cm")
+ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/br.quarterly.do.selection.png"), width = 12, height = 8, units = "cm")
+ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/br.quarterly.temp.selection.png"), width = 12, height = 8, units = "cm")
