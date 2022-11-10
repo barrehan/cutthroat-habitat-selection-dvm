@@ -55,7 +55,6 @@ quart3.clogit<-clogit(formula = case ~
                       data=quart3)
 summary(quart3.clogit)
 
-
 # Logistic regression quarter 4, 6pm - midnight ---------------------------
 
 quart4.clogit<-clogit(formula = case ~
@@ -72,14 +71,12 @@ summary(quart4.clogit)
 
 # Span of do values during quart1 -----------------------------------------
 
-
-min(quart1$standardized.do, na.rm = T)
-max(quart1$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart1.vary.do <- data.frame(standardized.temp = 0,
-                                    standardized.do = seq(-1.4, 1.6, 0.2),
+                                    standardized.do = seq(min(quart1$standardized.do, na.rm = T),
+                                                          max(quart1$standardized.do, na.rm = T), 
+                                                          0.1),
                                     stratID = 60)
 
 # get predictions from model using the values just created above
@@ -92,14 +89,12 @@ preds.quart1.do$time<-'midnight - 6am'
 
 # Span of do values during quart2 -----------------------------------------
 
-
-min(quart2$standardized.do, na.rm = T)
-max(quart2$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart2.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-1.4, 3.4, 0.2),
+                                       standardized.do = seq(min(quart2$standardized.do, na.rm = T),
+                                                             max(quart2$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 90)
 
 # get predictions from model using the values just created above
@@ -112,14 +107,12 @@ preds.quart2.do$time<-'6am - noon'
 
 # Span of do values during quart3 -----------------------------------------
 
-
-min(quart3$standardized.do, na.rm = T)
-max(quart3$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart3.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-1.2, 4.0, 0.2),
+                                       standardized.do = seq(min(quart3$standardized.do, na.rm = T),
+                                                             max(quart3$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 1)
 
 # get predictions from model using the values just created above
@@ -132,14 +125,12 @@ preds.quart3.do$time <-'noon - 6pm'
 
 # Span of do values during quart4 -----------------------------------------
 
-
-min(quart4$standardized.do, na.rm = T)
-max(quart4$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart4.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-1.4, 3.6, 0.2),
+                                       standardized.do = seq(min(quart4$standardized.do, na.rm = T),
+                                                             max(quart4$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 30)
 
 # get predictions from model using the values just created above
@@ -161,7 +152,7 @@ plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time,
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
   theme_classic()+
-  ggtitle("Fish dissolved oxygen selection")+
+  ggtitle("Blue Ruin fish dissolved oxygen selection")+
   xlab("Standardized dissolved oxygen (mg/L)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
@@ -171,14 +162,13 @@ plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time,
 
 # Span of temp values during quart1 -----------------------------------------
 
-min(quart1$standardized.temp, na.rm = T)
-max(quart1$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart1.vary.temp <- data.frame(standardized.temp = seq(-1.6, 1.8, 0.2),
-                                       standardized.do = 0,
-                                       stratID = 60)
+pred.vals.quart1.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart1$standardized.temp, na.rm = T),
+                                                                 max(quart1$standardized.temp, na.rm = T), 
+                                                                 0.1),
+                                         stratID = 60)
 
 # get predictions from model using the values just created above
 predictions.quart1.vary.temp<-predict(quart1.clogit, newdata=pred.vals.quart1.vary.temp, type='risk', se.fit=T)
@@ -190,14 +180,12 @@ preds.quart1.temp$time<-'midnight - 6am'
 
 # Span of do values during quart2 -----------------------------------------
 
-
-min(quart2$standardized.temp, na.rm = T)
-max(quart2$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart2.vary.temp <- data.frame(standardized.temp = seq(-1.6, 2.4, 0.2),
-                                       standardized.do = 0,
+pred.vals.quart2.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart2$standardized.temp, na.rm = T),
+                                                                 max(quart2$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                        stratID = 90)
 
 # get predictions from model using the values just created above
@@ -210,14 +198,12 @@ preds.quart2.temp$time<-'6am - noon'
 
 # Span of do values during quart3 -----------------------------------------
 
-
-min(quart3$standardized.temp, na.rm = T)
-max(quart3$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart3.vary.temp <- data.frame(standardized.temp = seq(-1.6, 3.4, 0.2),
-                                       standardized.do = 0,
+pred.vals.quart3.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart3$standardized.temp, na.rm = T),
+                                                                 max(quart3$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                        stratID = 1)
 
 # get predictions from model using the values just created above
@@ -230,14 +216,12 @@ preds.quart3.temp$time <-'noon - 6pm'
 
 # Span of do values during quart4 -----------------------------------------
 
-
-min(quart4$standardized.temp, na.rm = T)
-max(quart4$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart4.vary.temp <- data.frame(standardized.temp = seq(-1.6, 3.4, 0.2),
-                                       standardized.do = 0,
+pred.vals.quart4.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart4$standardized.temp, na.rm = T),
+                                                                 max(quart4$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                        stratID = 30)
 
 # get predictions from model using the values just created above
@@ -259,7 +243,7 @@ plot.temp <-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
   theme_classic()+
-  ggtitle("Fish temperature selection")+
+  ggtitle("Blue Ruin fish temperature selection")+
   xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 

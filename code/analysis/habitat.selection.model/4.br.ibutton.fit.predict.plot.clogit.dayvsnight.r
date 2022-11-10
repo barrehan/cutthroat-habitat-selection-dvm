@@ -48,15 +48,13 @@ summary(night.clogit)
 
 # Span of do values during day --------------------------------------------
 
-
-min(day$standardized.do, na.rm = T)
-max(day$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.day.vary.do <- data.frame(standardized.temp = 0,
-                             standardized.do = seq(-1.4, 3.8, 0.2),
-                            stratID = 1)
+                                    standardized.do = seq(min(day$standardized.do, na.rm = T), 
+                                                          max(day$standardized.do, na.rm = T), 
+                                                          0.1), 
+                                    stratID = 1)
 
 # get predictions from model using the values just created above
 predictions.day.vary.do<-predict(day.clogit, newdata=pred.vals.day.vary.do, type='risk', se.fit=T)
@@ -68,13 +66,12 @@ preds.day.do$time<-'Day'
 
 # Span of do values during night ------------------------------------------
 
-min(night$standardized.do, na.rm = T)
-max(night$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.night.vary.do <- data.frame(standardized.temp = 0,
-                                      standardized.do = seq(-1.4, 3.8, 0.2),
+                                      standardized.do = seq(min(night$standardized.do, na.rm = T),
+                                                            max(night$standardized.do, na.rm = T), 
+                                                            0.2), 
                                       stratID = 30)
 
 # get predictions from model using the values just created above
@@ -96,24 +93,21 @@ plot.do<-ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, g
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4"))+
   theme_classic()+
-  ggtitle("Fish dissolved oxygen selection")+
+  ggtitle("Blue Ruin fish dissolved oxygen selection")+
   xlab("Standardized dissolved oxygen (mg/L)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
  
 
-# Prediction data frame vary temp hold do constant ------------------------
+# Prediction data frame vary temp hold do constant --------------------------
 
 # Span of temp values during day --------------------------------------------
-
-min(day$standardized.temp, na.rm = T)
-max(day$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.day.vary.temp <- data.frame(standardized.temp = seq(-1.6, 3.4, 0.2),
-                                    standardized.do = 0,
-                                    stratID = 1)
+pred.vals.day.vary.temp <- data.frame(standardized.do = 0, 
+                                      standardized.temp = seq(min(day$standardized.temp, na.rm = T),
+                                                              max(day$standardized.temp, na.rm = T), 
+                                                              0.1), stratID = 1)
 
 # get predictions from model using the values just created above
 predictions.day.vary.temp<-predict(day.clogit, newdata=pred.vals.day.vary.temp, type='risk', se.fit=T)
@@ -125,14 +119,12 @@ preds.day.temp$time<-'Day'
 
 # Span of do values during night ------------------------------------------
 
-min(night$standardized.temp, na.rm = T)
-max(night$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.night.vary.temp <- data.frame(standardized.temp = seq(-1.6, 3.4, 0.2),
-                                      standardized.do = 0,
-                                      stratID = 30)
+pred.vals.night.vary.temp <- data.frame(standardized.do = 0,
+                                        standardized.temp = seq(min(night$standardized.temp, na.rm = T),
+                                                                max(night$standardized.temp, na.rm = T), 
+                                                                0.1), stratID = 30)
 
 # get predictions from model using the values just created above
 predictions.night.vary.temp<-predict(night.clogit, newdata=pred.vals.night.vary.temp, type='risk', se.fit=T)
@@ -153,7 +145,7 @@ plot.temp<-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=t
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4"))+
   theme_classic()+
-  ggtitle("Fish temperature selection")+
+  ggtitle("Blue Ruin fish temperature selection")+
   xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 

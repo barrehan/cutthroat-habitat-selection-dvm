@@ -5,6 +5,7 @@
 rm(list=ls())
 library(survival)
 library(ggplot2)
+library(ggforce)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
@@ -21,9 +22,7 @@ quart2 <- nor.ib[nor.ib$quarterID == 2,]
 quart3 <- nor.ib[nor.ib$quarterID == 3,]
 quart4 <- nor.ib[nor.ib$quarterID == 4,]
 
-
 # Logistic regression quarter 1, midnight - 6am ---------------------------
-
 
 quart1.clogit<-clogit(formula = case ~
                         standardized.do+
@@ -35,7 +34,6 @@ summary(quart1.clogit)
 
 # Logistic regression quarter 2, 6am - noon -------------------------------
 
-
 quart2.clogit<-clogit(formula = case ~
                         standardized.do+
                         standardized.temp+
@@ -43,7 +41,6 @@ quart2.clogit<-clogit(formula = case ~
                         strata(stratID),
                       data=quart2)
 summary(quart2.clogit) 
-
 
 # Logistic regression quarter 3, noon - 6pm -------------------------------
 
@@ -54,7 +51,6 @@ quart3.clogit<-clogit(formula = case ~
                         strata(stratID),
                       data=quart3)
 summary(quart3.clogit)
-
 
 # Logistic regression quarter 4, 6pm - midnight ---------------------------
 
@@ -72,14 +68,12 @@ summary(quart4.clogit)
 
 # Span of do values during quart1 -----------------------------------------
 
-
-min(quart1$standardized.do, na.rm = T)
-max(quart1$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart1.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-2.0, 1.4, 0.2),
+                                       standardized.do = seq(min(quart1$standardized.do, na.rm = T),
+                                                             max(quart1$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 1)
 
 # get predictions from model using the values just created above
@@ -92,13 +86,12 @@ preds.quart1.do$time<-'midnight - 6am'
 
 # Span of do values during quart2 -----------------------------------------
 
-min(quart2$standardized.do, na.rm = T)
-max(quart2$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart2.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-2.0, 1.2, 0.2),
+                                       standardized.do = seq(min(quart2$standardized.do, na.rm = T),
+                                                             max(quart2$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 31)
 
 # get predictions from model using the values just created above
@@ -111,13 +104,18 @@ preds.quart2.do$time<-'6am - noon'
 
 # Span of do values during quart3 -----------------------------------------
 
-min(quart3$standardized.do, na.rm = T)
-max(quart3$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
+#' NOTE: probability of selection is massive for high do - making graph look super
+#' skewed (cannot see other lines), changed max to 1.5 rather than actual range max 
+#' of 2.2
+
+max(quart3$standardized.do, na.rm = T)
+
 pred.vals.quart3.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-1.4, 2.4, 0.2),
+                                       standardized.do = seq(min(quart3$standardized.do, na.rm = T),
+                                                             max(quart3$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 61)
 
 # get predictions from model using the values just created above
@@ -130,14 +128,12 @@ preds.quart3.do$time <-'noon - 6pm'
 
 # Span of do values during quart4 -----------------------------------------
 
-
-min(quart4$standardized.do, na.rm = T)
-max(quart4$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.quart4.vary.do <- data.frame(standardized.temp = 0,
-                                       standardized.do = seq(-1.2, 2.4, 0.2),
+                                       standardized.do = seq(min(quart4$standardized.do, na.rm = T),
+                                                             max(quart4$standardized.do, na.rm = T), 
+                                                             0.1),
                                        stratID = 91)
 
 # get predictions from model using the values just created above
@@ -155,11 +151,12 @@ preds.do <-do.call("rbind", list(preds.quart1.do, preds.quart2.do, preds.quart3.
 plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, group=time)) +
   #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
   geom_line(aes(y = fit), size = 2)+
+  facet_zoom(ylim = c(0, 3000))+
   scale_colour_manual(values=c("wheat3","skyblue4", "red", "black"))+
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
   theme_classic()+
-  ggtitle("Fish dissolved oxygen selection")+
+  ggtitle("Norwood fish dissolved oxygen selection")+
   xlab("Standardized dissolved oxygen (mg/L)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
@@ -169,13 +166,12 @@ plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time,
 
 # Span of temp values during quart1 -----------------------------------------
 
-min(quart1$standardized.temp, na.rm = T)
-max(quart1$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart1.vary.temp <- data.frame(standardized.temp = seq(-1.6, 1.8, 0.2),
-                                         standardized.do = 0,
+pred.vals.quart1.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart1$standardized.temp, na.rm = T),
+                                                                 max(quart1$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                          stratID = 1)
 
 # get predictions from model using the values just created above
@@ -188,14 +184,12 @@ preds.quart1.temp$time<-'midnight - 6am'
 
 # Span of do values during quart2 -----------------------------------------
 
-
-min(quart2$standardized.temp, na.rm = T)
-max(quart2$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart2.vary.temp <- data.frame(standardized.temp = seq(-1.6, 1.6, 0.2),
-                                         standardized.do = 0,
+pred.vals.quart2.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart2$standardized.temp, na.rm = T),
+                                                                 max(quart2$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                          stratID = 31)
 
 # get predictions from model using the values just created above
@@ -208,14 +202,12 @@ preds.quart2.temp$time<-'6am - noon'
 
 # Span of do values during quart3 -----------------------------------------
 
-
-min(quart3$standardized.temp, na.rm = T)
-max(quart3$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart3.vary.temp <- data.frame(standardized.temp = seq(-1.6, 2.6, 0.2),
-                                         standardized.do = 0,
+pred.vals.quart3.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart3$standardized.temp, na.rm = T),
+                                                                 max(quart3$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                          stratID = 61)
 
 # get predictions from model using the values just created above
@@ -229,13 +221,12 @@ preds.quart3.temp$time <-'noon - 6pm'
 # Span of do values during quart4 -----------------------------------------
 
 
-min(quart4$standardized.temp, na.rm = T)
-max(quart4$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart4.vary.temp <- data.frame(standardized.temp = seq(-1.6, 2.8, 0.2),
-                                         standardized.do = 0,
+pred.vals.quart4.vary.temp <- data.frame(standardized.do = 0,
+                                         standardized.temp = seq(min(quart4$standardized.temp, na.rm = T),
+                                                                 max(quart4$standardized.temp, na.rm = T), 
+                                                                 0.1),
                                          stratID = 91)
 
 # get predictions from model using the values just created above
@@ -257,12 +248,12 @@ plot.temp <-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
   theme_classic()+
-  ggtitle("Fish temperature selection")+
+  ggtitle("Norwood fish temperature selection")+
   xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
 
-ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/norwood.quarterly.do.selection.png"), width = 12, height = 8, units = "cm")
+ggsave(plot.do, filename = paste("results/figures/hab.select.mod.figures/norwood.quarterly.do.selection.png"), width = 16, height = 8, units = "cm")
 ggsave(plot.temp, filename = paste("results/figures/hab.select.mod.figures/norwood.quarterly.temp.selection.png"), width = 12, height = 8, units = "cm")
 
 

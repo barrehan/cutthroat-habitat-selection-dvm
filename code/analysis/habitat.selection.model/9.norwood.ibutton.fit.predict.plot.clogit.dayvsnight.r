@@ -48,14 +48,12 @@ summary(night.clogit)
 
 # Span of do values during day --------------------------------------------
 
-
-min(day$standardized.do, na.rm = T)
-max(day$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.day.vary.do <- data.frame(standardized.temp = 0,
-                                    standardized.do = seq(-2.0, 2.4, 0.2),
+                                    standardized.do = seq(min(day$standardized.do, na.rm = T),
+                                                          max(day$standardized.do, na.rm = T), 
+                                                          0.1),
                                     stratID = 31)
 
 # get predictions from model using the values just created above
@@ -68,13 +66,12 @@ preds.day.do$time<-'Day'
 
 # Span of do values during night ------------------------------------------
 
-min(night$standardized.do, na.rm = T)
-max(night$standardized.do, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
 pred.vals.night.vary.do <- data.frame(standardized.temp = 0,
-                                      standardized.do = seq(-2.0, 2.4, 0.2),
+                                      standardized.do = seq(min(night$standardized.do, na.rm = T),
+                                                            max(night$standardized.do, na.rm = T), 
+                                                            0.1),
                                       stratID = 30)
 
 # get predictions from model using the values just created above
@@ -96,7 +93,7 @@ plot.do<-ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, g
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4"))+
   theme_classic()+
-  ggtitle("Fish dissolved oxygen selection")+
+  ggtitle("Norwood fish dissolved oxygen selection")+
   xlab("Standardized dissolved oxygen (mg/L)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
@@ -106,13 +103,12 @@ plot.do<-ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, g
 
 # Span of temp values during day --------------------------------------------
 
-min(day$standardized.temp, na.rm = T)
-max(day$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.day.vary.temp <- data.frame(standardized.temp = seq(-1.6, 2.6, 0.2),
-                                      standardized.do = 0,
+pred.vals.day.vary.temp <- data.frame(standardized.do = 0,
+                                      standardized.temp = seq(min(day$standardized.temp, na.rm = T),
+                                                              max(day$standardized.temp, na.rm = T), 
+                                                              0.1),
                                       stratID = 31)
 
 # get predictions from model using the values just created above
@@ -125,13 +121,12 @@ preds.day.temp$time<-'Day'
 
 # Span of do values during night ------------------------------------------
 
-min(night$standardized.temp, na.rm = T)
-max(night$standardized.temp, na.rm = T)
-
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.night.vary.temp <- data.frame(standardized.temp = seq(-1.6, 2.8, 0.2),
-                                        standardized.do = 0,
+pred.vals.night.vary.temp <- data.frame(standardized.do = 0,
+                                        standardized.temp = seq(min(night$standardized.temp, na.rm = T),
+                                                                max(night$standardized.temp, na.rm = T), 
+                                                                0.1),
                                         stratID = 30)
 
 # get predictions from model using the values just created above
@@ -153,7 +148,7 @@ plot.temp<-ggplot(preds.temp, aes(x=standardized.temp, y=fit, color=time, fill=t
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4"))+
   theme_classic()+
-  ggtitle("Fish temperature selection")+
+  ggtitle("Norwood fish temperature selection")+
   xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 

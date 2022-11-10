@@ -29,6 +29,20 @@ cor(br.ib$standardized.do, br.ib$standardized.temp)
 cor(day.br$standardized.do, day.br$standardized.temp)
 cor(night.br$standardized.do, night.br$standardized.temp)
 
+
+# Data frames by quarter --------------------------------------------------
+
+quart1.br <- br.ib[br.ib$quarterID == 1,]
+quart2.br <- br.ib[br.ib$quarterID == 2,]
+quart3.br <- br.ib[br.ib$quarterID == 3,]
+quart4.br <- br.ib[br.ib$quarterID == 4,]
+
+cor(quart1.br$standardized.do, quart1.br$standardized.temp) #midnight - 6am
+cor(quart2.br$standardized.do, quart2.br$standardized.temp) #6am - noon
+cor(quart3.br$standardized.do, quart3.br$standardized.temp) #noon - 6pm
+cor(quart4.br$standardized.do, quart4.br$standardized.temp) #6pm - midnight
+#quart3 and quart 4 have correlation value > .8
+
 nor.ib<-read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")  
 
 nor.ib$dayID <-as.factor(nor.ib$dayID)
@@ -44,3 +58,15 @@ cor(nor.ib$standardized.do, nor.ib$standardized.temp)
 cor(day.nor$standardized.do, day.nor$standardized.temp)
 cor(night.nor$standardized.do, night.nor$standardized.temp)
 
+# Data frames by quarter --------------------------------------------------
+
+quart1.nor <- nor.ib[nor.ib$quarterID == 1,]
+quart2.nor <- nor.ib[nor.ib$quarterID == 2,]
+quart3.nor <- nor.ib[nor.ib$quarterID == 3,]
+quart4.nor <- nor.ib[nor.ib$quarterID == 4,]
+
+cor(quart1.nor$standardized.do, quart1.nor$standardized.temp) #midnight - 6am
+cor(quart2.nor$standardized.do, quart2.nor$standardized.temp) #6am - noon
+cor(quart3.nor$standardized.do, quart3.nor$standardized.temp) #noon - 6pm
+cor(quart4.nor$standardized.do, quart4.nor$standardized.temp) #6pm - midnight
+#all are correlated (>.8) except quarter 4 (6pm-midnight)
