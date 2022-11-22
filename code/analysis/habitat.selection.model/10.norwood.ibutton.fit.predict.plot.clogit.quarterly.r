@@ -70,7 +70,7 @@ summary(quart4.clogit)
 
 #creating prediction data frame varying do, keeping temp constant at mean (0)
 
-pred.vals.quart1.vary.do <- data.frame(standardized.temp = 0,
+pred.vals.quart1.vary.do <- data.frame(standardized.temp = 0, 
                                        standardized.do = seq(min(quart1$standardized.do, na.rm = T),
                                                              max(quart1$standardized.do, na.rm = T), 
                                                              0.1),

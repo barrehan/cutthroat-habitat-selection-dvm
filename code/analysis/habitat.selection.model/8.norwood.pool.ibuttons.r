@@ -25,11 +25,11 @@ nor.fish <- do.call("rbind", list(f02, f04, f06, f13, f14, f16, f18))
 nor.fish$date.time <- ymd_hms(nor.fish$date.time) 
 
 # Remove stratID and timeID and create as pooled vectors ------------------
-nor.fish <-subset(nor.fish, select = -c(2, 4, 7, 10))
+nor.fish <-subset(nor.fish, select = -c(7, 10))
 
 #'order by fish.id and date.time
 nor.fish <- nor.fish[
-  order(nor.fish[,4], nor.fish[,1] ),
+  order(nor.fish[,6], nor.fish[,1] ),
 ]
 
 nor.fish <- nor.fish %>% 
