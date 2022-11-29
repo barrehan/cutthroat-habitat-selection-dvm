@@ -3,12 +3,10 @@
 #'
 #'october 11, 2022
 #'
-#'this script first creates a figure of the blue ruin polygon with points 
-#'representing receiver/array locations. receivers/antennas are then assigned to
-#'logger arrays in an if else statement. logger array data is imported, cleaned, 
-#'and combined into a single df, and a for loop determines fish closest array, and 
-#'depth using linear interpolation. this new file is saved as a .csv to the modif
-#'data folder
+#'receivers/antennas are assigned to logger arrays in an if else statement. 
+#'logger array data is imported, cleaned, and combined into a single df, and a 
+#'for loop determines fish closest array, and depth using linear interpolation. 
+#'this new file is saved as a .csv to the modif data folder
 
 #'packages used
 library(readr)
@@ -27,67 +25,10 @@ graphics.off()
 #'working directory
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
-# Create Blue Ruin polygon with points for arrays/receivers ---------------
-#'import all fish tag data corrected to all occur at ten minute intervals
+# Import fish tag data and array data, clean dates and timestamps ---------
 fish.dat <- read.csv('data/modif.data/radio.tag/tag.reads.10.min.interval.csv')
 fish.dat$date.time = mdy_hm(fish.dat$date.time)
 fish.dat <- fish.dat %>% force_tz(fish.dat$date.time, tzone = "America/Los_Angeles")
-#'import array and receiver location data
-receiver.dat <- unique(fish.dat[c("receiver.site", "antenna.number", "lat", 'long')])
-receiver.dat<- receiver.dat %>%arrange(receiver.site, antenna.number)
-receiver.dat$ID <- 1:nrow(receiver.dat)
-
-logger.dat<- read.csv('data/raw.data/logger.array/logger.array.setup.csv')
-logger.dat<- logger.dat[!(logger.dat$site == "telemetry.slough"),]
-logger.dat <- logger.dat[-c(1,3:7,10:12)]
-logger.dat<-unique(logger.dat[c(1:3)])
-
-#plot all points on map
-br.poly <- readOGR("data/modif.data/blue.ruin.polygon/brpolygon.shp")
-
-##figure out what the projection is so I can use it for my radio tag data below
-br.poly@proj4string
-
-plot(br.poly, axes = TRUE)
-
-plot(br.poly, height = 700, width = 900) 
-
-
-##you have to fortify your shapefile to make it work with ggplot2
-br.poly <- fortify(br.poly)
-
-# Now the shape file can be plotted as either a geom_path or a geom_polygon.
-# Paths handle clipping better. Polygons can be filled.
-# You need the aesthetics long, lat, and group.
-receiver.dat$ID<-as.factor(receiver.dat$ID)
-
-ggplot() +
-  geom_polygon(data = br.poly, 
-               aes(x = long, y = lat, group = group), fill = "light grey")
-colors <- c("#D8B70A", "#D67236", "#02401B", "#A2A475", "#81A88D", "#972D15")
-
-map.points <- ggplot() +
-  geom_polygon(data =br.poly, 
-               aes(x = long, y = lat, group = group), fill = "light grey") +
-  geom_jitter(data = receiver.dat, 
-             aes(x=long, y = lat, colour = ID), width = 0.00001, size = 2, shape = 16)+
-  scale_color_manual(values = colors)+
-  geom_point(data = logger.dat, 
-             aes(x = lon, y = lat), size = 2, shape = 6)+
-  theme_bw() + theme(panel.border = element_blank(), panel.grid.major = element_blank(),
-                              panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))+
-  labs(color = "Antenna")
-  
-#ggsave("results/figures/radio.tag.figures/blue.ruin.arrays.receivers.png", 
-#width = 15, height = 10, units = "cm")
-
-
-# Import fish tag data and array data, clean dates and timestamps ---------
-
-#' take fish radio tag data and array data to interpolate fish depth/do using 
-#' fish temp and nearest array
-
-
 
 #'assign closest logger array id
 fish.dat$logger.site<- ifelse(fish.dat$receiver.site == 1 & fish.dat$antenna.number ==1, "site.0.mouth",
@@ -117,6 +58,7 @@ s4$logger.site[s4$logger.site %in% c("site.5.head")] = "site.4.netpen"
 arrays<- do.call("rbind", list(s0, s1, s2, s3, s4))
 arrays <- arrays %>% force_tz(arrays$date.time, tzone = "America/Los_Angeles")
 
+#'write.csv(arrays, "data/modif.data/logger.array/all.arrays.5min.interval.csv", row.names= F)
 #'curtail fish dat to narrowest array timeframe 7/26 - 8/15
 fish <- fish.dat[fish.dat$date.time >= "2021-07-26 00:00:00" & fish.dat$date.time < "2021-08-15 07:50:00",]
 
@@ -165,34 +107,24 @@ for(i in 1:nrow(fish.2)){
   row <- fish.2[i,]
   match <-do.array[do.array$date.time == row$date.time,]
   a.match <- match[match$logger.site == row$logger.site,]
-  t1 <- row$fish.depth
-  x1<-max(a.match$sensor.depth[which(a.match$sensor.depth < t1)])
-  x2<-min(a.match$sensor.depth[which(a.match$sensor.depth > t1)])
+  depth.est <- row$fish.depth
+  closest <-match[which.min(abs(depth.est-match$sensor.depth)),]
+  closest.do<-closest$dissolved.oxygen
+  x1<-max(a.match$sensor.depth[which(a.match$sensor.depth < depth.est)])
+  x2<-min(a.match$sensor.depth[which(a.match$sensor.depth > depth.est)])
   d1 <- a.match$dissolved.oxygen[a.match$sensor.depth == x1]
   d2 <- a.match$dissolved.oxygen[a.match$sensor.depth == x2]
-  d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
+  do <- (d2-d1)/(x2-x1)*(depth.est - x1) + d1
+  do<-ifelse(is_empty(do), closest.do, do)                                 
   
-  deepest <- a.match[which.max(a.match$sensor.depth),]                    #reference line with deepest sensor
-  do.dep <- deepest$dissolved.oxygen                                      #do at deepest sensor
-  dep.sens<- deepest$sensor.depth                                         #deepest sensor depth value
-  d<- ifelse(dep.sens == t1 | t1> dep.sens, do.dep,d)                                    #if fish depth is equivalent to deepest sensor depth, assign that sensor DO
-  
-  shallowest <-a.match[which.min(a.match$sensor.depth),]                  #reference line with shallowest sensor
-  do.shal<-shallowest$dissolved.oxygen                                    #do at shallowest sensor
-  shal.sens<-shallowest$sensor.depth                                      #shallowest sensor depth value
-  d<-ifelse(shal.sens == t1 | t1< shal.sens, do.shal, d)                                  #if fish depth is equivalent to shallowest sensor depth, assign that sensor DO
-  
-  fish.2[i,12] <-d
-
+  fish.2[i,12] <-do
 }
+
 colnames(fish.2)[12] <- "fish.do"
 fish.3 <- fish[fish$fish.depth == "mouth.mixed",]
 fish.3$fish.do <- "NA"
 
 fishes<- rbind(fish.2, fish.3)
-
-# Make some plots to check out fish movement/depth/do ---------------------
-
 
 #'order df by tag id and then by date
 
@@ -200,10 +132,14 @@ fishes <- fishes[
   order(fishes[,2], fishes[,1] ),
 ]
 
+#write .csv with do/depth interpolation data
+write.csv(fishes, 'data/modif.data/radio.tag/all.rt.depth.do.interpolated.csv', row.names = F)
+
+# Make some plots to check out fish movement/depth/do ---------------------
+
 # pull single tag and look at temp and receiver point plots
 
 plot.fish<-fishes[!fishes$fish.depth == "mouth.mixed",]
-plot.fish <-fishes[fishes$tag.id == 12,]
 plot.fish$fish.depth<- as.numeric(plot.fish$fish.depth)
 plot.fish$fish.do <- as.numeric(plot.fish$fish.do)
 plot.fish$receiver.site <- as.factor(plot.fish$receiver.site)
@@ -211,7 +147,6 @@ plot.fish$receiver.site <- as.factor(plot.fish$receiver.site)
 unique.tag <- unique(plot.fish$tag.id)
 
 for(i in unique.tag) {
-  
 p <- ggplot()+
   geom_point(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong,shape = receiver.site), size = 1)+
   geom_line(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong))+
@@ -221,7 +156,6 @@ p <- ggplot()+
   labs(title = i)
 
 ggsave(p, filename = paste("results/figures/radio.tag.figures/tag.", i,"do.temp.receiver.png"), width = 15, height = 8, units = "cm")
-
 
 }
 
