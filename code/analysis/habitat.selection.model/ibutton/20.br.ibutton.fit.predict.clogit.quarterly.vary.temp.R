@@ -1,6 +1,7 @@
 rm(list=ls())
 library(survival)
 library(ggplot2)
+library(ggforce)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
@@ -144,7 +145,7 @@ preds.do <-do.call("rbind", list(preds.quart1.do, preds.quart2.do, preds.quart3.
 plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, group=time)) +
   #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
   geom_line(aes(y = fit), size = 2)+
-  facet_zoom(ylim = c(0, 50))+
+  #facet_zoom(ylim = c(0, 50))+
   scale_colour_manual(values=c("wheat3","skyblue4", "red", "black"))+
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
@@ -334,7 +335,7 @@ preds.do <-do.call("rbind", list(preds.quart1.do, preds.quart2.do, preds.quart3.
 plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit, color=time, fill=time, group=time)) +
   #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
   geom_line(aes(y = fit), size = 2)+
-  facet_zoom(ylim = c(0, 50))+
+  #facet_zoom(ylim = c(0, 50))+
   scale_colour_manual(values=c("wheat3","skyblue4", "red", "black"))+
   geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
   scale_fill_manual(values=c("lightseagreen","skyblue4", "pink", "grey"))+
