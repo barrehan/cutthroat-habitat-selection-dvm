@@ -43,12 +43,22 @@ br.fish <- br.fish %>%
 
 br.fish$hourID <-hour(br.fish$date.time)
 
+br.fish$threehrID <- ifelse(br.fish$hourID < 3, 1, 
+                            ifelse(br.fish$hourID < 6, 2,
+                                    ifelse(br.fish$hourID < 9, 3,
+                                           ifelse(br.fish$hourID < 12, 4,
+                                                  ifelse(br.fish$hourID < 15, 5,
+                                                         ifelse(br.fish$hourID < 18, 6,
+                                                                ifelse(br.fish$hourID < 21, 7, 8 )))))))
+                                                                       
+                                                                        
 br.fish$dayID <- ifelse(br.fish$hourID <18 & br.fish$hourID >=6, 0, 1)
 
 br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
                            ifelse(br.fish$hourID < 12, 2,
                                   ifelse(br.fish$hourID <18, 3,
                                          4)))
+
                                             
 # write pooled .csv -------------------------------------------------------
 write.csv(br.fish, "data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv", row.names = F)
