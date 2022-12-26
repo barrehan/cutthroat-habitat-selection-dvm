@@ -143,7 +143,7 @@ fig1.2 <- plot_ly(
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
 
-f1<-subplot(fig1.1, fig1.2,
+fig1<-subplot(fig1.1, fig1.2,
             nrows = 1,
             shareY = T,
             shareX = T)
@@ -263,3 +263,13 @@ low.temp.thresh.std <- (-(low.coef.do/low.coef.int))
 # (st.T*sd) + mean = T*
 
 low.temp.thresh <-  (low.temp.thresh.std * br.sd) + br.mean
+
+# save figure widgets of contour plots ------------------------------------
+
+# saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.peak.do.html", selfcontained = T)
+# 
+# saveWidget(fig2, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.low.do.html", selfcontained = T)
+#  
+# 
+
+

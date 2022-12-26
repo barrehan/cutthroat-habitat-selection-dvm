@@ -26,6 +26,9 @@ dt<-fish[fish$hour >= 10 & fish$hour <=18,]
 #'temperatures at a logger site, what is the fish selecting - 
 #' group by stratID, standardize temp
 
+case <- dt[dt$stratID == 8,]
+case$stnd<-scale(case$temperature)
+
 dt<- dt %>%
   group_by(stratID)%>%
   mutate(standardized.temp = scale(temperature))

@@ -258,3 +258,10 @@ low.temp.thresh.std <- (-(low.coef.do/low.coef.int))
 # (st.T*sd) + mean = T*
 
 low.temp.thresh <- (low.temp.thresh.std * nor.sd) + nor.mean
+
+# Save contour widgets ----------------------------------------------------
+
+saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/nor.peak.do.html", selfcontained = T)
+
+saveWidget(fig2, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/nor.low.do.html", selfcontained = T)
+
