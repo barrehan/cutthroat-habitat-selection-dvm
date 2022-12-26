@@ -7,6 +7,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 library(readr)
 library(dplyr)
 library(lubridate)
+library(TeachingDemos)
 
 
 # Bring in all dfs for norwood ibutton fish -------------------------------
@@ -43,6 +44,12 @@ nor.fish$quarterID<- ifelse(nor.fish$hourID < 6, 1,
                            ifelse(nor.fish$hourID < 12, 2,
                                   ifelse(nor.fish$hourID <18, 3,
                                          4)))
+
+# highest environmental DO between 4pm-8pm, lowest between ~4am-8am
+
+nor.fish$highlowenvDO <-ifelse(15 %<% nor.fish$hourID %<% 20, "high",
+                              ifelse(3 %<% nor.fish$hourID %<% 8, "low", "NA"))
+
 
 # write pooled .csv -------------------------------------------------------
 write.csv(nor.fish, "data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv", row.names = F)

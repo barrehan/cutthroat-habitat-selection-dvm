@@ -7,6 +7,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 library(readr)
 library(dplyr)
 library(lubridate)
+library(TeachingDemos)
 
 # Bring in all dfs for blue ruin ibutton fish ------------------------------
 
@@ -50,9 +51,12 @@ br.fish$threehrID <- ifelse(br.fish$hourID < 3, 1,
                                                   ifelse(br.fish$hourID < 15, 5,
                                                          ifelse(br.fish$hourID < 18, 6,
                                                                 ifelse(br.fish$hourID < 21, 7, 8 )))))))
-                                                                       
-                                                                        
-br.fish$dayID <- ifelse(br.fish$hourID <18 & br.fish$hourID >=6, 0, 1)
+
+# blue ruin environmental DO high 14:00-18:00, low 2:00-6:00
+
+br.fish$highlowfishDO <- ifelse(11 %<% br.fish$hourID %<% 18, "high", 
+                          ifelse(1%<% br.fish$hourID %<% 6, "low", "NA"))
+
 
 br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
                            ifelse(br.fish$hourID < 12, 2,
