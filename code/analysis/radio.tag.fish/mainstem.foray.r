@@ -5,97 +5,125 @@ library(lubridate)
 library(ggplot2)
 library(plyr)
 library(data.table) #shift/lag function
+library(readr)
+library(purrr)
 
-ib<- read.csv("data/modif.data/radio.tag/individual.radio.tags/tag.11.csv")
-ib$date.time <- mdy_hm(ib$date.time)
-ib <- ib %>% force_tz(ib$date.time, tzone = "America/Los_Angeles")
-ib<-ib[order(ib$date.time),]
+all.rt<- read.csv("data/modif.data/radio.tag/tag.reads.10.min.interval.csv")
+all.rt$date.time <- mdy_hm(all.rt$date.time)
+all.rt <- all.rt %>% force_tz(all.rt$date.time, tzone = "America/Los_Angeles")
+all.rt <-all.rt[all.rt$date.time >= "2021-07-25 00:00:00",]
 
-#'decide on protocol for determining if fish appears to have made forray into 
-#'mainstem river
-#'OPTION: last read is at receiver 1, antenna 1 (mouth), fish is gone for 60min
-#'or greater, difference in fish temperature at last read and temperature at return
-#'read is 2C or greater?
-# Take date.time rows 1 to n-1 and subtract rows 2 to n:
-ib$gap <- c(NA, with(ib, date.time[-1] - date.time[-nrow(ib)]))
-
-#'df just when fish reads skip hour or greater
-ib.mod<- ib[ib$gap >= 60 | shift(ib$gap >= 60, n=1L, type = "lag"),]
-ib.mod<- ib.mod %>%
-  filter(!is.na(date.time))
-
-#'order by date, calculate temperature difference for before/after reads
-ib.mod<-ib.mod[order(ib.mod$date.time),]
-temp.diff <- diff(ib.mod$temp.strong)
-diff<-as.data.frame(temp.diff)
-diff<- diff %>% add_row(temp.diff = 0, .before = 1)
-ib.temps<- cbind(ib.mod, diff)
+#'order by tag id then date.time
+all.rt<-all.rt[with(all.rt, order(tag.id, date.time)),]
 
 river.temp<-read.csv("data/raw.data/logger.array/blue.ruin.site.0.river.temp.csv")
 river.temp<- river.temp[, c('date.time', 'temperature')]
 river.temp$date.time <- mdy_hm(river.temp$date.time)
 river.temp <- river.temp %>% force_tz(river.temp$date.time, tzone = "America/Los_Angeles")
 
-ib.ms.temp<-merge(ib.temps,river.temp, "date.time")
+#'protocol for determining if fish appears to have made foray into 
+#'mainstem river
+#'OPTION: last read is at receiver 1, antenna 1 (mouth), fish is gone for 60min
+#'or greater, difference in fish temperature at last read and temperature at return
+#'read is 2C or greater?
 
-ib.ms.temp$foray <- ifelse(ib.ms.temp$gap >= 60 & ib.ms.temp$temp.diff >= 1.5 & ib.ms.temp$receiver.site %in% c(1,2), 1, 0)
+tags <-unique(all.rt$tag.id)
+
+for(i in tags){
+  t0<-all.rt[all.rt$tag.id == i,] # df for ith tag
+  
+  #Take date.time rows 1 to n-1 and subtract rows 2 to n
+  t0$gap <- c(NA, with(t0, date.time[-1] - date.time[-nrow(t0)]))
+  
+  #new column for different gap time intervals starting at 30 minutes
+  #and up to 120 minutes by 10 minute intervals
+  
+  t0$gap.30 <-ifelse(t0$gap >=30, 1, 0)
+  t0$gap.40 <-ifelse(t0$gap >=40, 1, 0)
+  t0$gap.50 <-ifelse(t0$gap >=50, 1, 0)
+  t0$gap.60 <-ifelse(t0$gap >=60, 1, 0)
+  t0$gap.70 <-ifelse(t0$gap >=70, 1, 0)
+  t0$gap.80 <-ifelse(t0$gap >=80, 1, 0)
+  t0$gap.90 <-ifelse(t0$gap >=90, 1, 0)
+  t0$gap.100 <-ifelse(t0$gap >=100, 1, 0)
+  t0$gap.110 <-ifelse(t0$gap >=110, 1, 0)
+  t0$gap.120 <-ifelse(t0$gap >=120, 1, 0)
+  
+  #order by date, calculate temperature difference for before/after reads
+  
+  t0<-t0[order(t0$date.time),]
+  temp.diff <- diff(t0$temp.strong)
+  diff<-as.data.frame(temp.diff)
+  diff<- diff %>% add_row(temp.diff = 0, .before = 1)
+  rt.temps<- cbind(t0, diff)
+  rt.ms.temp<-merge(rt.temps,river.temp, "date.time")
+  names(rt.ms.temp)[22]<- 'mainstem.temp'
+  
+  #'calculate number of forays for each time gap (temp diff must be >=1.5C)
+  #'must be re-registered at receiver site 1 or 2
+  
+  rt.ms.temp$foray.30 <- ifelse(rt.ms.temp$gap.30 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.40 <- ifelse(rt.ms.temp$gap.40 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.50 <- ifelse(rt.ms.temp$gap.50 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.60 <- ifelse(rt.ms.temp$gap.60 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.70 <- ifelse(rt.ms.temp$gap.70 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.80 <- ifelse(rt.ms.temp$gap.80 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.90 <- ifelse(rt.ms.temp$gap.90 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.100 <- ifelse(rt.ms.temp$gap.100 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.110 <- ifelse(rt.ms.temp$gap.110 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  rt.ms.temp$foray.120 <- ifelse(rt.ms.temp$gap.120 == 1 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+  
+  # df just when a foray (1) is present in at least one of the columns
+  # pull event and read before (last read before exit, first read upon
+  # return)
+  
+  t0.mod<- rt.ms.temp[rt.ms.temp$foray.30 ==1 | shift(rt.ms.temp$foray.30, n=1L, type = "lag"),] 
+  t0.mod<- t0.mod %>%
+    filter(!is.na(date.time))
+  
+  forays <-t0.mod[,c(23:32)]
+  forays <- forays %>% summarize_all(funs(sum))
+  forays$tag.id <-i
+  
+  write.csv(t0.mod, paste0('data/modif.data/radio.tag/mainstem.foray/foray.deets/tag.', i,'.mainstem.movement.csv'), row.names=F)
+  write.csv(forays, paste0('data/modif.data/radio.tag/mainstem.foray/foray.sums/tag.', i, '.foray.sum.csv'), row.names = F)
+}
+
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection/data/modif.data/radio.tag/mainstem.foray/foray.sums")
+
+data_all <- list.files(path = "C:/Users/barrehan/GitHub/projects/cwa.habitat.selection/data/modif.data/radio.tag/mainstem.foray/foray.sums", pattern = "*.csv", full.names = TRUE) 
+csv<-lapply(data_all, read.csv)  
+results<-do.call(rbind,csv)
+
+write.csv(results, "pooled.tags.foray.sums.csv", row.names = F)
 
 
-##################Detection efficiency#############################
-#' create column that counts detection patterns to determine detection efficiency
-#' 1 means zero misses 0 means missed  (skipped a receiver)
-#' good (sequential antenna) reads == 11, 12, 21, 22, 23, 32, 33, 34, 43, 44
-#' all others will be given 0
+#'old for loop just for 60 minute gap interval
+#'
+#' for(i in tags){
+#'   t0<-all.rt[all.rt$tag.id == i,] # df for ith tag
+#'   
+#'   #Take date.time rows 1 to n-1 and subtract rows 2 to n
+#'   t0$gap <- c(NA, with(t0, date.time[-1] - date.time[-nrow(t0)])) 
+#'   
+#'   # df just when fish reads skip hour or greater
+#'   t0.mod<- t0[t0$gap >= 60 | shift(t0$gap >= 60, n=1L, type = "lag"),] 
+#'   t0.mod<- t0.mod %>%
+#'     filter(!is.na(date.time))
+#'   
+#'   #'order by date, calculate temperature difference for before/after reads
+#'   t0.mod<-t0.mod[order(t0.mod$date.time),]
+#'   temp.diff <- diff(t0.mod$temp.strong)
+#'   diff<-as.data.frame(temp.diff)
+#'   diff<- diff %>% add_row(temp.diff = 0, .before = 1)
+#'   rt.temps<- cbind(t0.mod, diff)
+#'   rt.ms.temp<-merge(rt.temps,river.temp, "date.time")
+#'   
+#'   rt.ms.temp$foray <- ifelse(rt.ms.temp$gap >= 60 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), 1, 0)
+#'   
+#'   names(rt.ms.temp)[12]<- 'mainstem.temp'
+#'   
+#'   write.csv(rt.ms.temp, paste0('data/modif.data/radio.tag/mainstem.foray/tag.', i,'.mainstem.movement.csv'), row.names=F)
+#' }
 
-all.ib <- read.csv("data/modif.data/radio.tag/tag.reads.10.min.interval.csv")
-all.ib$date.time <- mdy_hm(all.ib$date.time)
-all.ib <- all.ib %>% force_tz(all.ib$date.time, tzone = "America/Los_Angeles")
-all.ib<-all.ib[order(all.ib$tag.id, all.ib$date.time),]
-all.ib<-all.ib[all.ib$date.time >="2021-07-26 00:00:00",]
-
-all.ib$detection.id<-ifelse(all.ib$receiver.site == 1 & shift(all.ib$receiver.site == 1, n = 1L, type = "lag"), 1, 
-                         ifelse(all.ib$receiver.site ==1 & shift(all.ib$receiver.site ==2, n = 1L, type = "lag"), 1,
-                                ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site == 1, n = 1L, type = "lag"), 1,
-                                       ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site ==2, n = 1L, type = "lag"), 1,
-                                              ifelse(all.ib$receiver.site == 2 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
-                                                     ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 2, n = 1L, type = "lag"), 1,
-                                                            ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
-                                                                   ifelse(all.ib$receiver.site == 3 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1,
-                                                                          ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 3, n = 1L, type = "lag"), 1,
-                                                                                 ifelse(all.ib$receiver.site == 4 & shift(all.ib$receiver.site == 4, n = 1L, type = "lag"), 1, 0))))))))))
-all.ib<-rowid_to_column(all.ib, "unique.id")
-
-
-first.read<-all.ib %>% 
-  group_by(tag.id) %>%
-  filter(date.time == min(date.time))
-v<- first.read$unique.id
-#'if unique id value matches vector of unique ids from first tag read replace detection.id with NA
-
-all.ib$detection.id[all.ib$unique.id %in% v] <- NA
-
-#'detection efficiency as a group and per individual
-
-detects<-na.exclude(count(all.ib$detection.id[all.ib$detection.id ==1],))
-miss<- na.exclude(count(all.ib$detection.id[all.ib$detection.id == 0],))
-
-efficiency <-detects$freq/(detects$freq+miss$freq)
-
-#make gap time a variable then for loop through different time options
-#add up # of forays? 
-#' time off alcove (what is the gap of time the fish is out)
-#' previous vs current antenna
-#' detection efficiency count sum of all detect codes (unique) vs non-detect
-#' 14 stands for detected previously site 1 next site 4 this becomes a missed detection
-#' 12 for detected previously site 1 next site 2, this is a good detection
-#' code so only manual at last step
-
-names(ib.ms.temp)[12]<- 'mainstem.temp'
-
-write.csv(ib.ms.temp, "data/modif.data/radio.tag/mainstem.foray/tag.11.mainstem.movement.csv", row.names=F)
-
-
-#'visual assessment now? if fish is gone for >= 60min, is registered at
-#'antenna 1 or 2 on return, and temperature is warmer than previous by 1.5C, mark 
-#'as T for potential MS foray 
 
