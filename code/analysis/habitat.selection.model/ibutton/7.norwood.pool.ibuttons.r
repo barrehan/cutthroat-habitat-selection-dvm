@@ -45,10 +45,17 @@ nor.fish$quarterID<- ifelse(nor.fish$hourID < 6, 1,
                                   ifelse(nor.fish$hourID <18, 3,
                                          4)))
 
+# 4 hour high/low DO
 # highest environmental DO between 4pm-8pm, lowest between ~4am-8am
 
-nor.fish$highlowenvDO <-ifelse(15 %<% nor.fish$hourID %<% 20, "high",
+nor.fish$highlowDO.4hours <-ifelse(15 %<% nor.fish$hourID %<% 20, "high",
                               ifelse(3 %<% nor.fish$hourID %<% 8, "low", "NA"))
+
+#2 hour high/low DO
+#highest environmental DO 18:00 & 19:00, lowest DO 6:00 and 7:00
+
+nor.fish$highlowDO.2hours <-ifelse(17 %<% nor.fish$hourID %<% 20, "high",
+                                   ifelse(5 %<% nor.fish$hourID %<% 8, "low", "NA"))
 
 
 # write pooled .csv -------------------------------------------------------

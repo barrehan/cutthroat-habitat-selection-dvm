@@ -12,13 +12,13 @@ nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.i
 
 # DFs for fish do/temp use at each interval -------------------------------
 
-high.ib <- nor.ib[nor.ib$case == 1 & nor.ib$highlowenvDO == "high",]
-low.ib <- nor.ib[nor.ib$case == 1 & nor.ib$highlowenvDO == "low",]
+high.ib <- nor.ib[nor.ib$case == 1 & nor.ib$highlowDO.2hours == "high",]
+low.ib <- nor.ib[nor.ib$case == 1 & nor.ib$highlowDO.2hours == "low",]
 
 # Data frames by high/low interval ----------------------------------------
 
-high.int <- nor.ib[nor.ib$highlowenvDO == "high",]
-low.int <- nor.ib[nor.ib$highlowenvDO == "low",]
+high.int <- nor.ib[nor.ib$highlowDO.2hours == "high",]
+low.int <- nor.ib[nor.ib$highlowDO.2hours == "low",]
 
 # Logistic regression high DO, 16:00-20:00 --------------------------------
 
@@ -51,7 +51,7 @@ summary(high.clogit)
 
 for(i in 1:length(high.do)){
   for(j in 1:length(high.temp)){
-    high[i,j]<-(3.93993 *high.do[i] -3.70936*high.temp[j] +0.09783*(high.do[i]*high.temp[j]))
+    high[i,j]<-(3.43612 *high.do[i] -2.67138*high.temp[j] -0.63660*(high.do[i]*high.temp[j]))
   }
 }
 
@@ -71,7 +71,7 @@ summary(low.clogit)
 
 for(i in 1:length(low.do)){
   for(j in 1:length(low.temp)){
-    low[i,j]<-(-3.08375*low.do[i] -2.53788*low.temp[j] -4.00865*(low.do[i]*low.temp[j]))
+    low[i,j]<-(-6.257252*low.do[i] +0.783814*low.temp[j] -3.681803*(low.do[i]*low.temp[j]))
   }
 }
 
@@ -95,11 +95,11 @@ fig1.1 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 13.75,
-    end = -10.5,
-    size = .75,
+    start = 13.5,
+    end = -7,
+    size = .5,
     showlabels = T))%>%
-  layout(title = 'Norwood peak DO 16:00-20:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+  layout(title = 'Norwood peak DO 18:00-20:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = high.int$standardized.do,
@@ -121,9 +121,9 @@ fig1.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 13.75,
-    end = -10.5,
-    size = .75,
+    start = 13.5,
+    end = -7,
+    size = .5,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
   add_trace(x = high.ib$standardized.do,
@@ -135,7 +135,7 @@ fig1.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
-  layout(title = 'Norwood peak DO 16:00-20:00', 
+  layout(title = 'Norwood peak DO 18:00-20:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
@@ -160,11 +160,11 @@ fig2.1 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 13,
-    end = -10,
+    start = 22,
+    end = -6.25,
     size = .75,
     showlabels = T))%>%
-  layout(title = 'Norwood low DO 4:00-8:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+  layout(title = 'Norwood low DO 6:00-8:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = low.int$standardized.do,
@@ -186,9 +186,9 @@ fig2.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 5,
-    end = -8,
-    size = .5,
+    start = 22,
+    end = -6.25,
+    size = .75,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
   add_trace(x = low.ib$standardized.do,
@@ -200,7 +200,7 @@ fig2.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
-  layout(title = 'Norwood low DO 4:00-8:00', 
+  layout(title = 'Norwood low DO 6:00-8:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 

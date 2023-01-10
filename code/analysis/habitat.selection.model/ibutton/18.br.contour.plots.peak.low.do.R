@@ -12,13 +12,13 @@ br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pool
 
 # DFs for fish do/temp use at each interval -------------------------------
 
-high.ib <- br.ib[br.ib$case == 1 & br.ib$highlowfishDO == "high",]
-low.ib <- br.ib[br.ib$case == 1 & br.ib$highlowfishDO == "low",]
+high.ib <- br.ib[br.ib$case == 1 & br.ib$highlowDO.2hr == "high",]
+low.ib <- br.ib[br.ib$case == 1 & br.ib$highlowDO.2hr == "low",]
 
 # Data frames by high/low interval ----------------------------------------
 
-high.int <- br.ib[br.ib$highlowfishDO == "high",]
-low.int <- br.ib[br.ib$highlowfishDO == "low",]
+high.int <- br.ib[br.ib$highlowDO.2hr == "high",]
+low.int <- br.ib[br.ib$highlowDO.2hr == "low",]
 
 # Logistic regression high DO, 14:00-16:00 --------------------------------
 
@@ -51,7 +51,7 @@ summary(high.clogit)
 
 for(i in 1:length(high.do)){
   for(j in 1:length(high.temp)){
-    high[i,j]<-(2.32899 *high.do[i] -1.73230*high.temp[j] -0.84884*(high.do[i]*high.temp[j]))
+    high[i,j]<-(1.87194 *high.do[i] -1.44111*high.temp[j] -1.06082*(high.do[i]*high.temp[j]))
   }
 }
 
@@ -71,7 +71,7 @@ summary(low.clogit)
 
 for(i in 1:length(low.do)){
   for(j in 1:length(low.temp)){
-    low[i,j]<-(-3.54283*low.do[i] +1.19717*low.temp[j] +1.00079 *(low.do[i]*low.temp[j]))
+    low[i,j]<-(-4.48076*low.do[i] +2.63744*low.temp[j] +2.56639 *(low.do[i]*low.temp[j]))
   }
 }
 
@@ -98,11 +98,11 @@ fig1.1 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 15.5,
-    end = -8,
+    start = 14.5,
+    end = -11,
     size = .5,
     showlabels = T))%>%
-  layout(title = 'Blue Ruin peak temp 14:00-16:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+  layout(title = 'Blue Ruin peak DO 17:00-19:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = high.int$standardized.do,
@@ -124,8 +124,8 @@ fig1.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 15,
-    end = -8,
+    start = 14.5,
+    end = -11,
     size = .5,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
@@ -138,7 +138,7 @@ fig1.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
-  layout(title = 'Blue Ruin peak DO 14:00-16:00', 
+  layout(title = 'Blue Ruin peak DO 17:00-19:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
@@ -162,11 +162,11 @@ fig2.1 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 5,
-    end = -8,
+    start = 7,
+    end = -12,
     size = .5,
     showlabels = T))%>%
-  layout(title = 'Blue Ruin low DO 2:00-6:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+  layout(title = 'Blue Ruin low DO 5:00-7:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = low.int$standardized.do,
@@ -188,8 +188,8 @@ fig2.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 5,
-    end = -8,
+    start = 7,
+    end = -12,
     size = .5,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
@@ -202,7 +202,7 @@ fig2.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
-  layout(title = 'Blue Ruin low DO 2:00-6:00', 
+  layout(title = 'Blue Ruin low DO 5:00-7:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
@@ -266,9 +266,9 @@ low.temp.thresh <-  (low.temp.thresh.std * br.sd) + br.mean
 
 # save figure widgets of contour plots ------------------------------------
 
-# saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.peak.do.html", selfcontained = T)
+#saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.peak.do.html", selfcontained = T)
 # 
-# saveWidget(fig2, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.low.do.html", selfcontained = T)
+#saveWidget(fig2, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/br.low.do.html", selfcontained = T)
 #  
 # 
 

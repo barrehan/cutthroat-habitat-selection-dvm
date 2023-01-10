@@ -52,10 +52,14 @@ br.fish$threehrID <- ifelse(br.fish$hourID < 3, 1,
                                                          ifelse(br.fish$hourID < 18, 6,
                                                                 ifelse(br.fish$hourID < 21, 7, 8 )))))))
 
-# blue ruin environmental DO high 14:00-18:00, low 2:00-6:00
+# blue ruin environmental DO 4-hr period high 14:00-18:00, low 2:00-6:00
 
-br.fish$highlowfishDO <- ifelse(11 %<% br.fish$hourID %<% 18, "high", 
+br.fish$highlowDO.4hr <- ifelse(13 %<% br.fish$hourID %<% 18, "high", 
                           ifelse(1%<% br.fish$hourID %<% 6, "low", "NA"))
+
+# blue ruin environmental DO 2-hr period high 17:00 & 18:00, low 05:00 & 06:00
+br.fish$highlowDO.2hr <- ifelse(16 %<% br.fish$hourID %<% 19, "high",
+                                ifelse(4%<% br.fish$hourID %<% 7, "low", "NA"))
 
 
 br.fish$quarterID<- ifelse(br.fish$hourID < 6, 1,
