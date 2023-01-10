@@ -63,8 +63,6 @@ close(pb)
 
 new.dat<- drop_na(new.dat)
 
-new.dat<- drop_na(new.dat)
-
 #'order by fish.id and date.time
 br.fish <- new.dat[
   order(new.dat[,2], new.dat[,1] ),
@@ -73,4 +71,4 @@ br.fish <- new.dat[
 final <- br.fish %>% 
   mutate(stratID = group_indices(.,tag.id, date.time))
 
-write.csv(final, "data/modif.data/rado.tag.fish/tags.array.temps.daytime.temp.select.csv", row.names = F)
+write.csv(final, "data/modif.data/radio.tag/tags.all.arrays.daytime.temp.select.csv", row.names = F)
