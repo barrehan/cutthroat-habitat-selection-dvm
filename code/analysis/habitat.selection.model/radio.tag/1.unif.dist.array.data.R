@@ -13,7 +13,8 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
 #'logger array data
 arrays <- read.csv("data/modif.data/logger.array/all.arrays.5min.interval.csv")
-arrays$date.time <- ymd_hms(arrays$date.time)
+unique(arrays$logger.site)
+arrays$date.time <- mdy_hm(arrays$date.time)
 arrays <- arrays %>% force_tz(arrays$date.time, tzone = "America/Los_Angeles")
 
 #restrict to when date.times exist for all arrays
@@ -41,8 +42,8 @@ sites<- as.data.frame(unique(temp.array$logger.site))
 
 #'create data frame of max depths at each site
 unique(temp.array$site.total.depth)
-max.depth <- c(2.9, 3.8, 2.4, 1.7)
-logger.site <- c("site.1", "site.2", "site.3", "site.4.netpen")
+max.depth <- c(2.9, 3.8, 2.4, 1.7, 1.6)
+logger.site <- c("site.1", "site.2", "site.3", "site.4.netpen", "site.5.head")
 depths <- data.frame(logger.site, max.depth)
 
 #progress bar
@@ -137,12 +138,14 @@ colnames(dater)[6] <- "case"
 dater$latitude <-ifelse(dater$logger.site == "site.1", 44.23229,
                         ifelse(dater$logger.site == "site.2", 44.23156,
                                ifelse(dater$logger.site == "site.3", 44.23052,
-                                      ifelse(dater$logger.site == "site.4.netpen", 44.23019, 9999))))
+                                      ifelse(dater$logger.site == "site.4.netpen", 44.23019, 
+                                             ifelse(dater$logger.site == "site.5.head", 44.23003, 9999)))))
 
 dater$longitude <-ifelse(dater$logger.site == "site.1", -123.163,
                         ifelse(dater$logger.site == "site.2", -123.1628,
                                ifelse(dater$logger.site == "site.3", -123.1626,
-                                      ifelse(dater$logger.site == "site.4.netpen", -123.1624, 9999))))
+                                      ifelse(dater$logger.site == "site.4.netpen", -123.1624, 
+                                             ifelse(dater$logger.site == "site.5.head", -123.1623, 9999)))))
      
 
 write.csv(dater, "data/modif.data/hab.select.mod/br.radio.tag.data/br.array.temp.do.unif.dist.csv", row.names = F)

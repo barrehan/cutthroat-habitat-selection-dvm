@@ -12,7 +12,6 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 arrays<- read.csv("data/modif.data/hab.select.mod/br.radio.tag.data/br.array.temp.do.unif.dist.csv")
 rt.fish<-read.csv("data/modif.data/radio.tag/all.rt.depth.do.interpolated.csv")
 
-
 arrays$date.time <- mdy_hm(arrays$date.time)
 arrays <- arrays %>% force_tz(arrays$date.time, tzone = "America/Los_Angeles")
 arrays$tag.id <-NA
@@ -46,15 +45,19 @@ colnames(new.dat) <- c("date.time", "tag.id", "logger.site", "depth", "dissolved
 total <- nrow(fish)
 pb <- txtProgressBar(min = 0, max = total, style = 3)
 
+#' dont assign fish to specific logger site for final data frame, show all
+#' available temp/do across habitat compared to what fish selected
+
 for(i in 1:nrow(fish)){
   f<-fish[i,]
   t<-f$tag.id
   f.dt<-f$date.time
-  f.loc<-f$logger.site
+  #f.loc<-f$logger.site
   dt<-arrays[arrays$date.time == f.dt,]
-  loc<-dt[dt$logger.site == f.loc,]
-  loc$tag.id = t
-  m<- rbind(f, loc)
+  #loc<-dt[dt$logger.site == f.loc,]
+  #loc$tag.id = t
+  dt$tag.id = t
+  m<- rbind(f, dt)
   new.dat<-rbind(m,new.dat)
   
   setTxtProgressBar(pb, i)
