@@ -12,7 +12,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 arrays<- read.csv("data/modif.data/hab.select.mod/br.radio.tag.data/br.array.temp.do.unif.dist.csv")
 rt.fish<-read.csv("data/modif.data/radio.tag/all.rt.depth.do.interpolated.csv")
 
-arrays$date.time <- mdy_hm(arrays$date.time)
+arrays$date.time <- ymd_hms(arrays$date.time)
 arrays <- arrays %>% force_tz(arrays$date.time, tzone = "America/Los_Angeles")
 arrays$tag.id <-NA
 
@@ -70,7 +70,6 @@ new.dat<- drop_na(new.dat)
 br.fish <- new.dat[
   order(new.dat[,2], new.dat[,1] ),
 ]
-
 
 final <- br.fish %>% 
   mutate(stratID = group_indices(.,tag.id, date.time))

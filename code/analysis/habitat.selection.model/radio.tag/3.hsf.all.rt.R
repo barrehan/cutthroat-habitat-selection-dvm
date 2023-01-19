@@ -12,46 +12,63 @@ rt<- read.csv("data/modif.data/hab.select.mod/br.radio.tag.data/br.rt.with.inter
 
 # Standardize temp and DO -------------------------------------------------
 
-rt$standardized.do <- scale(rt$dissolved.oxygen)
-rt$standardized.temp <-scale(rt$temperature)
+rt$standardized.do <- as.numeric(scale(rt$dissolved.oxygen))
+rt$standardized.temp <-as.numeric(scale(rt$temperature))
+
+# Data frames for high and low DO periods ---------------------------------
+# BR high DO 17:00 & 18:00
+# BR low DO 05:00 & 06:00
+rt$time <- hour(rt$date.time) #create time column
+
+highDO <- rt[rt$time >= 17 & rt$time <19,] #pull times for high do period
+lowDO <- rt[rt$time >= 5 & rt$time < 7,] #pull times for low do period
 
 # Logistic regression -----------------------------------------------------
 
+highDO.clogit<-clogit(formula = case ~
+                       standardized.do+
+                       standardized.temp+
+                       standardized.do:standardized.temp+
+                       strata(stratID),
+                     data=highDO)
+summary(highDO.clogit)
 
-mvmt.clogit<-clogit(formula = case ~
+lowDO.clogit<-clogit(formula = case ~
                       standardized.do+
                       standardized.temp+
                       standardized.do:standardized.temp+
                       strata(stratID),
-                    data=rt)
-summary(mvmt.clogit) 
+                    data=lowDO)
+summary(lowDO.clogit) 
 
+# Used versus available habitat for contour plot scatter points -----------
 
-# DF of case = 1 (used habitat) -------------------------------------------
+highDO.used <- highDO[highDO$case == 1, ]
+highDO.avail <- highDO[highDO$case == 0 ,]
 
-used <- rt[rt$case == 1, ]
+lowDO.used <-lowDO[lowDO$case ==1,]
+lowDO.avail <- lowDO[lowDO$case == 0,]
 
-avail <- rt[rt$case == 0 ,]
-
+###### HIGH DO TIME PERIOD ######
 # Span of temp/DO values during study ---------------------------------------
 
-do.val <- seq(min(rt$standardized.do, na.rm = T), max(rt$standardized.do, na.rm = T), length.out = 100)
-temp.val <- seq(min(rt$standardized.temp, na.rm = T), max(rt$standardized.temp, na.rm = T), length.out = 100)
+highDO.do.val <- seq(min(highDO$standardized.do, na.rm = T), max(highDO$standardized.do, na.rm = T), length.out = 100)
+highDO.temp.val <- seq(min(highDO$standardized.temp, na.rm = T), max(highDO$standardized.temp, na.rm = T), length.out = 100)
 
-vals<- matrix(NA, 100, 100)
+high.vals<- matrix(NA, 100, 100)
 
-summary(mvmt.clogit) 
+summary(highDO.clogit) 
 
-for(i in 1:length(do.val)){
-  for(j in 1:length(temp.val)){
-    vals[i,j]<-(0.80409 *do.val[i] -2.10089*temp.val[j] + 0.86593*(do.val[i]*temp.val[j]))
+for(i in 1:length(highDO.do.val)){
+  for(j in 1:length(highDO.temp.val)){
+    high.vals[i,j]<-(0.49815 *highDO.do.val[i] -1.80089*highDO.temp.val[j] +  0.33639*(highDO.do.val[i]*highDO.temp.val[j]))
   }
 }
 
 # find min/max prediction values for the z aspect of contour plot 
 
-h1 <- max(vals)
-l1 <- min(vals)
+h1 <- max(high.vals)
+l1 <- min(high.vals)
 
 # Contour plots -----------------------------------------------------------
 
@@ -59,23 +76,23 @@ h1
 l1
 
 fig1.1 <- plot_ly(
-  x = do.val,
-  y = temp.val,
-  z = t(vals),
+  x = highDO.do.val,
+  y = highDO.temp.val,
+  z = t(high.vals),
   type = "contour",
   colorscale = 'YlOrRd',
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 16.75,
-    end = -18.5,
-    size = 1,
+    start = 3.5,
+    end = -10.75,
+    size = .5,
     showlabels = T))%>%
-  layout(title = 'Blue Ruin radio tag habitat selection', xaxis = list(title = 'Standardized dissolved oxygen'), 
+  layout(title = 'Blue Ruin radio tag habitat selection, 17:00 & 18:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
-  add_trace(x = rt$standardized.do,
-            y = rt$standardized.temp,
+  add_trace(x = highDO.avail$standardized.do,
+            y = highDO.avail$standardized.temp,
             type = 'scatter',
             mode = 'markers',
             color = I("gray6"),
@@ -85,9 +102,9 @@ fig1.1 <- plot_ly(
             showlegend = TRUE)
 
 fig1.2 <- plot_ly(
-  x = do.val,
-  y = temp.val,
-  z = t(vals),
+  x = highDO.do.val,
+  y = highDO.temp.val,
+  z = t(high.vals),
   type = "contour",
   colorscale = 'YlOrRd',
   reversescale = T,
@@ -98,8 +115,8 @@ fig1.2 <- plot_ly(
     size = .5,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
-  add_trace(x = used$standardized.do,
-            y = used$standardized.temp,
+  add_trace(x = highDO.used$standardized.do,
+            y = highDO.used$standardized.temp,
             type = 'scatter',
             mode = "markers",
             color = I("chartreuse4"),
@@ -107,7 +124,7 @@ fig1.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
-  layout(title = 'Blue Ruin radio tag habitat selection', 
+  layout(title = 'Blue Ruin radio tag habitat selection, 17:00 & 18:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
@@ -118,32 +135,92 @@ fig1<-subplot(fig1.1,
               shareY = T,
               shareX = T)
 
-#creating prediction data frame varying do, keeping temp constant at mean (0)
+###### LOW DO TIME PERIOD ######
+# Span of temp/DO values during study ---------------------------------------
 
-pred.vals <- data.frame(standardized.temp = 0, 
-                                       standardized.do = seq(min(rt$standardized.do, na.rm = T),
-                                                             max(rt$standardized.do, na.rm = T), 
-                                                             0.1),
-                                       stratID = 1)
+lowDO.do.val <- seq(min(lowDO$standardized.do, na.rm = T), max(lowDO$standardized.do, na.rm = T), length.out = 100)
+lowDO.temp.val <- seq(min(lowDO$standardized.temp, na.rm = T), max(lowDO$standardized.temp, na.rm = T), length.out = 100)
 
-# get predictions from model using the values just created above
-predictions<-predict(mvmt.clogit, newdata=pred.vals, type='risk', se.fit=T)
+low.vals<- matrix(NA, 100, 100)
 
-preds.do<-cbind(pred.vals, predictions)
-preds.do$lcl<-preds.do$fit - (1.96*preds.do$se.fit)
-preds.do$ucl<-preds.do$fit + (1.96*preds.do$se.fit)
+summary(lowDO.clogit) 
 
-#Plot
+for(i in 1:length(lowDO.do.val)){
+  for(j in 1:length(lowDO.temp.val)){
+    low.vals[i,j]<-(2.54592 *lowDO.do.val[i] -1.85772*lowDO.temp.val[j] +2.41270*(lowDO.do.val[i]*lowDO.temp.val[j]))
+  }
+}
 
-plot.do <- ggplot(preds.do, aes(x=standardized.do, y=fit)) +
-  geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
-  geom_line(aes(y = fit), size = 2)
-  #facet_zoom(ylim = c(0, 3000))+
-  scale_colour_manual(values= "wheat3")+
-  geom_ribbon(aes(ymin=lcl, ymax=ucl, fill=time),alpha=0.4, color=NA)+
-  scale_fill_manual(values=c("lightseagreen"))+
-  theme_classic()+
-  ggtitle("Blue ruin radio tag fish DO selection")+
-  xlab("Standardized dissolved oxygen (mg/L)") + ylab("Relative Probability of Selection")+
-  theme(legend.title = element_blank()) 
+# find min/max prediction values for the z aspect of contour plot 
 
+h2 <- max(low.vals)
+l2 <- min(low.vals)
+
+# Contour plots -----------------------------------------------------------
+
+h2
+l2
+
+fig2.1 <- plot_ly(
+  x = lowDO.do.val,
+  y =lowDO.temp.val,
+  z = t(low.vals),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 7.25,
+    end = -30.5,
+    size = 1,
+    showlabels = T))%>%
+  layout(title = 'Blue Ruin radio tag habitat selection, 05:00 & 06:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'))%>%
+  colorbar(title = "Selection probability") %>%
+  add_trace(x = lowDO.avail$standardized.do,
+            y = lowDO.avail$standardized.temp,
+            type = 'scatter',
+            mode = 'markers',
+            color = I("gray6"),
+            opacity = 0.75,
+            marker = list(size = 3),
+            name = 'Available habitat',
+            showlegend = TRUE)
+
+fig2.2 <- plot_ly(
+  x = lowDO.do.val,
+  y = lowDO.temp.val,
+  z = t(low.vals),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 7.25,
+    end = -30.5,
+    size = 1,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability")%>%
+  add_trace(x = lowDO.used$standardized.do,
+            y = lowDO.used$standardized.temp,
+            type = 'scatter',
+            mode = "markers",
+            color = I("chartreuse4"),
+            opacity = .85,
+            marker = list(size = 3),
+            symbol = I('o'),
+            name = "Selected habitat")%>%
+  layout(title = 'Blue Ruin radio tag habitat selection, 05:00 & 06:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T) 
+
+fig2<-subplot(fig2.1, 
+              fig2.2,
+              nrows = 1,
+              shareY = T,
+              shareX = T)
+
+saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/rt.br.peak.do.html", selfcontained = T)
+
+saveWidget(fig2, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/rt.br.low.do.html", selfcontained = T)
