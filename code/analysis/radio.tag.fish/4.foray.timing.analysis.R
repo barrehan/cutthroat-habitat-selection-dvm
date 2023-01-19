@@ -34,11 +34,14 @@ min.120$exit <- NA
 min.120$tag.id <- as.factor(min.120$tag.id)
 min.120$date <- as.Date(min.120$date.time)
 
-ggplot(data = min.120, aes(date, fill = tag.id)) +
+p<-ggplot(data = min.120, aes(date, fill = tag.id)) +
   geom_histogram(position = "stack")+
   scale_fill_manual(values = as.vector(glasbey(28)))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  ggtitle("Mainstem foray", subtitle = "read gap >= 120 minutes, last & return reads at mouth receiver station, 
+returning fish temp >=1.5°C warmer than exit temp")
+  
 
 ex <- read.csv("data/modif.data/radio.tag/mainstem.foray/all.tags.last.read.csv")
 ex$date.time <- mdy_hm(ex$date.time)
@@ -46,11 +49,19 @@ ex <- ex %>% force_tz(ex$date.time, tzone = "America/Los_Angeles")
 ex<- ex[,c(1,2,8)]
 ex$tag.id <- as.factor(ex$tag.id)
 ex$date <- as.Date(ex$date.time)
-  
-ggplot(data = ex, aes(date, fill = tag.id, color = exit))+
-  geom_bar(size = 1)+
+
+ex$exit <- factor(ex$exit, levels = c("y", "m", "n"))
+q<-ggplot(data = ex, aes(date, fill = tag.id, color = exit))+
+  geom_bar(linewidth = 1.2)+
   scale_fill_manual(values = as.vector(glasbey(28)))+
   scale_color_manual(values = c("yellow", "black", "red"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  guides(color=guide_legend(override.aes=list(fill=NA)))+
+  ggtitle("Final tag read")
+
+ggsave(p, filename = paste("results/figures/radio.tag.figures/mainstem.foray/br.rt.ms.foray.png"), width = 18, height = 12, units = "cm")
+
+ggsave(q, filename = paste("results/figures/radio.tag.figures/mainstem.foray/br.rt.final.read.png"), width = 20, height = 16, units = "cm")
+
 
