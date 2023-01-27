@@ -6,6 +6,7 @@ library(ggpubr)
 library(htmlwidgets)
 library(reticulate)
 library(viridis)
+library(ggforce)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
@@ -13,9 +14,9 @@ nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.i
 # Data frames by high/low interval ----------------------------------------
 
 high.int <- nor.ib[nor.ib$highlowDO.2hours == "high",]
-high.int <- na.omit(high.int)
+high.int <- high.int[!is.na(high.int$highlowDO.2hours),]
 low.int <- nor.ib[nor.ib$highlowDO.2hours == "low",]
-low.int <- na.omit(low.int)
+low.int <- low.int[!is.na(low.int$highlowDO.2hours),]
 
 # Logistic regression high DO, 18:00 & 19:00, --------------------------------
 
@@ -111,10 +112,41 @@ plot.temp.eve <-ggplot(preds.peak, aes(x=standardized.temp, y=fit, color=set.DO,
   theme_classic()+
   labs(title = "Norwood ibutton fish temperature selection across set DO concentrations",
        subtitle = "Early evening; 18:00 - 20:00")+
-  xlab("Standardized temperature (Â°C)") + ylab("Relative Probability of Selection")+
+  xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
 ggsave(plot.temp.eve, filename = paste("results/figures/hab.select.mod.figures/line.plots/norwood.ib.evening.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
+
+#######Predictions peak (daytime)) DO period - DO at average (0) #######
+##DO avg, time 17:00 & 18:00
+
+pred.vals.noon.avgDO <- data.frame(standardized.do = 0,
+                                   standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
+                                                           max(high.int$standardized.temp, na.rm = T), 
+                                                           0.1),
+                                   stratID = 91)
+
+# get predictions from model using the values just created above
+predictions.noon.avgDO<-predict(high.clogit, newdata=pred.vals.noon.avgDO, type='risk', se.fit=T)
+
+preds.noon.avgDO<-cbind(pred.vals.noon.avgDO, predictions.noon.avgDO)
+preds.noon.avgDO$lcl<-preds.noon.avgDO$fit - (1.96*preds.noon.avgDO$se.fit)
+preds.noon.avgDO$ucl<-preds.noon.avgDO$fit + (1.96*preds.noon.avgDO$se.fit)
+
+#plot
+plot.temp.eve.avg <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=fit)) +
+  #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
+  geom_line(aes(y = fit), size = 2)+
+  #scale_colour_manual(values=c("wheat3","skyblue4", "red"))+
+  geom_ribbon(aes(ymin=lcl, ymax=ucl),alpha=0.4, color=NA)+
+  #scale_fill_manual(values=c("lightseagreen","grey", "pink"))+
+  theme_classic()+
+  labs(title = "Norwood ibutton fish temperature selection at system average DO",
+       subtitle = "Early evening; 18:00 - 20:00")+
+  xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
+  theme(legend.title = element_blank()) 
+
+ggsave(plot.temp.eve.avg, filename = paste("results/figures/hab.select.mod.figures/line.plots/nor.ib.evening.avgDO.selection.probability.png"), width = 18, height = 10, units = "cm")
 
 
 ##########################################################################################
@@ -193,8 +225,38 @@ plot.temp.morning <-ggplot(preds.low, aes(x=standardized.temp, y=fit, color=set.
   theme_classic()+
   labs(title = "Norwood ibutton fish temperature selection across set DO concentrations",
        subtitle = "Early morning; 06:00 - 08:00")+
-  xlab("Standardized temperature (Â°C)") + ylab("Relative Probability of Selection")+
+  xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
 ggsave(plot.temp.morning, filename = paste("results/figures/hab.select.mod.figures/line.plots/norwood.ib.morning.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
+
+#######Predictions peak (daytime)) DO period - DO at average (0) #######
+##DO avg, time 06:00 & 7:00
+
+pred.vals.morning.avgDO <- data.frame(standardized.do = 0,
+                                      standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
+                                                              max(low.int$standardized.temp, na.rm = T), 
+                                                              0.1),
+                                      stratID = 31)
+
+# get predictions from model using the values just created above
+predictions.morning.avgDO<-predict(low.clogit, newdata=pred.vals.morning.avgDO, type='risk', se.fit=T)
+
+preds.morning.avgDO<-cbind(pred.vals.morning.avgDO, predictions.morning.avgDO)
+preds.morning.avgDO$lcl<-preds.morning.avgDO$fit - (1.96*preds.morning.avgDO$se.fit)
+preds.morning.avgDO$ucl<-preds.morning.avgDO$fit + (1.96*preds.morning.avgDO$se.fit)
+
+plot.temp.morning.avg <-ggplot(preds.morning.avgDO, aes(x=standardized.temp, y=fit)) +
+  #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
+  geom_line(aes(y = fit), size = 2)+
+  #scale_colour_manual(values=c("wheat3","skyblue4", "red"))+
+  geom_ribbon(aes(ymin=lcl, ymax=ucl),alpha=0.4, color=NA)+
+  #scale_fill_manual(values=c("lightseagreen","grey", "pink"))+
+  theme_classic()+
+  labs(title = "Norwood ibutton fish temperature selection at system average DO",
+       subtitle = "Early morning; 06:00 - 08:00")+
+  xlab("Standardized temperature (°C)") + ylab("Relative Probability of Selection")+
+  theme(legend.title = element_blank()) 
+
+ggsave(plot.temp.morning.avg, filename = paste("results/figures/hab.select.mod.figures/line.plots/nor.ib.morning.avgDO.selection.probability.png"), width = 18, height = 10, units = "cm")
 

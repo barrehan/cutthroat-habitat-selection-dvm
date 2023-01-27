@@ -15,9 +15,9 @@ br.ib$highlowDO.2hr <- as.factor(br.ib$highlowDO.2hr)
 # BR high DO 17:00 & 18:00
 # BR low DO 05:00 & 06:00
 high.int <- br.ib[br.ib$highlowDO.2hr == "high",]
-high.int <- na.omit(high.int)
+high.int <- high.int[!is.na(high.int$highlowDO.2hr),]
 low.int <- br.ib[br.ib$highlowDO.2hr == "low",]
-low.int <- na.omit(low.int)
+low.int <- low.ing[!is.na(low.int$highlowDO.2hr),]
 
 # Logistic regression high DO, 17:00 & 18:00 --------------------------------
 
@@ -112,11 +112,11 @@ plot.temp.eve <-ggplot(preds.peak, aes(x=standardized.temp, y=fit, color=set.DO,
   scale_fill_manual(values=c("lightseagreen","grey", "pink"))+
   theme_classic()+
   labs(title = "Blue Ruin ibutton fish temperature selection across set DO concentrations",
-       subtitle = "Early evening; 14:00 - 17:00")+
-  xlab("Standardized temperature (째C)") + ylab("Relative Probability of Selection")+
+       subtitle = "Early evening; 17:00-19:00")+
+  xlab("Standardized temperature (캜)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
-#ggsave(plot.temp.eve, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.evening.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
+ggsave(plot.temp.eve, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.evening.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
 
 #######Predictions peak (daytime)) DO period - DO at average (0) #######
 ##DO avg, time 17:00 & 18:00
@@ -143,8 +143,8 @@ plot.temp.eve.avg <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=fit)) +
   #scale_fill_manual(values=c("lightseagreen","grey", "pink"))+
   theme_classic()+
   labs(title = "Blue Ruin ibutton fish temperature selection at system average DO",
-       subtitle = "Early evening; 14:00 - 17:00")+
-  xlab("Standardized temperature (째C)") + ylab("Relative Probability of Selection")+
+       subtitle = "Early evening; 17:00-19:00")+
+  xlab("Standardized temperature (캜)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
 ggsave(plot.temp.eve.avg, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.evening.avgDO.selection.probability.png"), width = 18, height = 10, units = "cm")
@@ -225,10 +225,10 @@ plot.temp.morning <-ggplot(preds.low, aes(x=standardized.temp, y=fit, color=set.
   theme_classic()+
   labs(title = "Blue Ruin ibutton fish temperature selection across set DO concentrations",
        subtitle = "Early morning; 05:00 - 07:00")+
-  xlab("Standardized temperature (째C)") + ylab("Relative Probability of Selection")+
+  xlab("Standardized temperature (캜)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
-#ggsave(plot.temp.morning, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.morning.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
+ggsave(plot.temp.morning, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.morning.highlowDO.selection.probability.png"), width = 18, height = 10, units = "cm")
 
 #######Predictions peak (daytime)) DO period - DO at average (0) #######
 ##DO avg, time 05:00 & 06:00
@@ -255,7 +255,7 @@ plot.temp.morning.avg <-ggplot(preds.morning.avgDO, aes(x=standardized.temp, y=f
   theme_classic()+
   labs(title = "Blue Ruin ibutton fish temperature selection at system average DO",
        subtitle = "Early morning; 05:00 - 07:00")+
-  xlab("Standardized temperature (째C)") + ylab("Relative Probability of Selection")+
+  xlab("Standardized temperature (캜)") + ylab("Relative Probability of Selection")+
   theme(legend.title = element_blank()) 
 
 ggsave(plot.temp.morning.avg, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.ib.morning.avgDO.selection.probability.png"), width = 18, height = 10, units = "cm")
