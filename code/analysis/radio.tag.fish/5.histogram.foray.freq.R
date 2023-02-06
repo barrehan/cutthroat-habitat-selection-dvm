@@ -23,7 +23,43 @@ river.temp$date.time <- mdy_hm(river.temp$date.time)
 
 tags <-unique(all.rt$tag.id)
 
+dat <-setNames(data.frame(matrix(ncol = 3, nrow = 0)), c("date.time", "tag.id", "foray"))
+
 for(i in tags){
   t0 <- all.rt[all.rt$tag.id == i,] # df for ith tag
+  #Take date.time rows 1 to n-1 and subtract rows 2 to n
+  t0$gap <- c(NA, with(t0, date.time[-1] - date.time[-nrow(t0)]))
+  #order by date, calculate temperature difference for before/after reads
+  
+  t0<-t0[order(t0$date.time),]
+  temp.diff <- diff(t0$temp.strong)
+  diff<-as.data.frame(temp.diff)
+  diff<- diff %>% add_row(temp.diff = 0, .before = 1)
+  rt.temps<- cbind(t0, diff)
+  rt.ms.temp<-merge(rt.temps,river.temp, "date.time")
+  names(rt.ms.temp)[12]<- 'mainstem.temp'
+  
+  #it is a foray if the gap time is greater than 10 minutes, if the temperature difference is 1.5C or greater, and last read
+  #was at receiver site 1 or 2 
+  rt.ms.temp$foray <- ifelse(rt.ms.temp$gap > 10 & rt.ms.temp$temp.diff >= 1.5 & rt.ms.temp$receiver.site %in% c(1,2), rt.ms.temp$gap, NA)
+  #remove non-foray events (NA)
+  rt.ms.temp<- rt.ms.temp %>%
+    filter(!is.na(foray))
+  
+  mod <-rt.ms.temp[,c(1,2,13)]
+  dat <-rbind(mod, dat)
+}
 
+dat$foray.min <- dat$foray
+dat$foray.min[dat$foray >780] <-780
+
+ggplot(dat, aes(x = foray.min))+
+  geom_histogram(breaks = c(seq(0,780,60)),
+                 col = "black",
+                 fill = "red")+
+  labs(x = "Mainstem foray time (minutes)", y = "Count")+
+  scale_x_continuous(limits = c(0, 780), breaks = c(seq(0, 780, by= 60)),
+                     labels = c(seq(0,720, by= 60), "> 12 hours"))+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))
 

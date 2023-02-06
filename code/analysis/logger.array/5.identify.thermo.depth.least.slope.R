@@ -40,22 +40,29 @@ for(i in 1:length(times)){
 dater <-dat[dat$slope < 0,]
 dater <- dater %>% rowwise() %>% mutate(thermo.depth=mean(c(depth, next.depth), na.rm=T)) 
 
-fish <-read.csv("data/modif.data/ibutton/do.depth.interpolation/br.ibutton.17.depth.do.interpolation.csv")
+fish <-read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
+
+fish <-fish[fish$case ==1,]
+fish<-fish[,c(1:4,6)]
 
 fish$date.time<-ymd_hms(fish$date.time)
 fish$date<-as.Date(fish$date.time)
 
+fish$ibutton.id<-as.factor(fish$ibutton.id)
+
+
 ggplot()+
   geom_point(data = dater, aes(x=date.time, y=depth), color = "red")+
-  geom_point(data=fish, aes(x=date.time, y=fish.depth), color = "blue")+
-  scale_y_reverse()
+  geom_point(data=fish, aes(x=date.time, y=depth), color = "blue")+
+  scale_y_reverse()+
+  facet_wrap(vars(ibutton.id))
 
 fish.step <- fish[fish$date == "2021-08-01",]
 array.step <- dater[dater$date == "2021-08-01",]
 
 ggplot()+
-  geom_smooth(data = array.step, aes(x=date.time, y=depth))+
-  geom_point(data = fish.step, aes(x = date.time, y = fish.depth))+
+  geom_smooth(data = array.step, aes(x=date.time, y=depth), color = "red")+
+  geom_smooth(data = fish.step, aes(x = date.time, y = depth, group = ibutton.id))+
   scale_y_reverse()
 
 spline.d <- as.data.frame(spline(step$date.time, step$thermo.depth))
