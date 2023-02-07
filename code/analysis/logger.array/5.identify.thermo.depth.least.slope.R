@@ -57,12 +57,12 @@ ggplot()+
   scale_y_reverse()+
   facet_wrap(vars(ibutton.id))
 
-fish.step <- fish[fish$date == "2021-08-01",]
-array.step <- dater[dater$date == "2021-08-01",]
+fish.step <- fish[fish$date == "2021-08-04",]
+array.step <- dater[dater$date == "2021-08-04",]
 
 ggplot()+
-  geom_smooth(data = array.step, aes(x=date.time, y=depth), color = "red")+
-  geom_smooth(data = fish.step, aes(x = date.time, y = depth, group = ibutton.id))+
+  geom_smooth(data = array.step, aes(x=date.time, y=depth), color = "black")+
+  geom_smooth(data = fish.step, aes(x = date.time, y = depth, group = ibutton.id, colour = ibutton.id))+
   scale_y_reverse()
 
 spline.d <- as.data.frame(spline(step$date.time, step$thermo.depth))
