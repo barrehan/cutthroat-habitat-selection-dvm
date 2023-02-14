@@ -9,7 +9,6 @@ library(viridis)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
-library(chron)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
@@ -48,8 +47,9 @@ for(i in 1:length(buttons)){
     dat<-rbind(new,dat)
     
   }
-
 }
+
+
 
 
 shallow <-dat[dat$min.max == "shallowest",]
@@ -74,10 +74,10 @@ ggplot(data = deep, aes(x =hour))+
   theme_bw()+
   theme(panel.border = element_blank())+
   ggtitle("Daily timing deepest water column position")
-
+#6666cc aquamarine4 lightgoldenrod3
 ggplot(data = fish, aes (x = time2, y = depth))+
-  geom_point()+
-  geom_smooth(colour = "seagreen4", fill = "burlywood")+
+  geom_point(alpha = .1, colour = "slategray")+
+  geom_smooth(fill = "lightsalmon", colour = "lightsalmon4")+
   scale_y_reverse()+
   scale_x_datetime(
     breaks = "2 hours",

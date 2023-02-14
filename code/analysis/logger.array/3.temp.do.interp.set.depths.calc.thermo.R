@@ -36,7 +36,7 @@ new.dat$V1 <- force_tz(new.dat$V1, tzone = "America/Los_Angeles")
 dates <- as.data.frame(unique(br.array$date.time))
 colnames(dates)<- "date.time"
 
-di<- as.data.frame(seq(from = 0, to = 1.7, by = 0.1))
+di<- as.data.frame(seq(from = 0.2, to = 1.6, by = 0.2))
 cntr = 0
 
 #'x= (y-b)/m
@@ -45,7 +45,7 @@ for(i in 1:nrow(dates)){
   dt <- dates[i,]
   match<- temp.array[temp.array$date.time == dt,]
   #fish <- ifelse(fish == '', NA, fish)
-  dist <- as.data.frame(seq(from = 0.4, to = 1.6, by = 0.25)) #max depth 0.05 less than deepest sensor so we can interpolate
+  dist <- as.data.frame(seq(from = 0.2, to = 1.6, by = 0.2)) #max depth 0.05 less than deepest sensor so we can interpolate
   for(i in 1:nrow(dist)){
     d.unif<- dist[i,]
     d1 <- max(match$sensor.depth[which(match$sensor.depth < d.unif)])
@@ -59,6 +59,10 @@ for(i in 1:nrow(dates)){
     bd <- match[match$sensor.depth== 1.55,]
     nbd <- bd$temperature
     t<-ifelse(d.unif>=1.55, nbd, t)
+    sd<-match[match$sensor.depth == 0.25,]
+    nsd <-sd$temperature
+    t<-ifelse(d.unif<0.25,nsd,t)
+    
     cntr<-cntr+1 #start a new row
     new.dat[cntr,1]<-dt #date time
     new.dat[cntr,2]<-d.unif #depth from uniform distribution
@@ -102,4 +106,4 @@ for(i in 1:nrow(dater)){
 colnames(dater)[4] <- "dissolved.oxygen"
 colnames(dater)[5] <- "case"
 
-write.csv(dater, "data/modif.data/logger.array/br.unif.do.temp.set.depth.to.calc.thermocline.csv", row.names = F)
+write.csv(dater, "data/modif.data/logger.array/br.unif.do.temp.set.depth.simulation.csv", row.names = F)
