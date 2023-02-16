@@ -86,41 +86,56 @@ dat$WQI <-round(((dat$temp.fact*dat$do.fact)^.5), digits = 2)
 
 #write.csv(dat, "data/modif.data/ibutton/simulation.data.csv", row.names = F)
 
-array3 <-array(data = NA, dim =c(8,6,24))
+dat$hour<-as.numeric(dat$hour)
+hour <-unique(dat$hour)
 
-for(i in 1:24){
-  slice.i<-dat[dat$hour == i,]
-  as.array(slice.i, dim = c(8,7,1))
-  array3[,,1]<-slice.i
+dater<-data.frame(matrix(ncol = 4,nrow = 0))
+cntr = 0
+for(i in 1:length(hour)){
+  h <-hour[i]
+  slice.i<-dat[dat$hour ==h,]
+  maxt <-which(slice.i$temp.fact == max(slice.i$temp.fact))
+  t.rows<-slice.i[maxt,]
+  t.dep <-t.rows$depth
+  t<-ifelse(t.dep>1,mean(t.dep), t.dep)
+  t<-t[1]
+  
+  maxdo <-which(slice.i$do.fact == max(slice.i$do.fact))
+  do.rows<-slice.i[maxdo,]
+  do.dep <-do.rows$depth
+  d<-ifelse(do.dep>1,mean(do.dep), do.dep)
+  d<-d[1]
+  
+  maxwqi <-which(slice.i$WQI == max(slice.i$WQI))
+  wqi.rows<-slice.i[maxwqi,]
+  wqi.dep <-wqi.rows$depth
+  wqi<-ifelse(wqi.dep>1,mean(wqi.dep), wqi.dep)
+  wqi<-wqi[1]
+  
+  cntr<-cntr+1 #start a new row
+  
+  dater[cntr,1]<-h
+  dater[cntr,2]<-t
+  dater[cntr,3]<-d
+  dater[cntr,4]<-wqi
   
 }
 
-tapply(dat$hour, dat[,-1], c)
+colnames(dater) <- c("Hour", "Temperature", "DO", "WQI")
 
+#wide to long for easier plotting
 
-?tapply
+datlong<-dater %>%gather(Factor, Depth, Temperature:WQI)
 
-#create 3d matrix for simulation
-datrix<- array(dat,
-               dim = length(dat$hour))
-
-
-simplify2array(by(dat,dat$hour,as.matrix))
-head(datrix)
-
-?array
-
-#at each time step (hour) conditions.hours = 
-
-dim(dat)
-
-for(i in 1:24){
-  condit.hour<-datrix[,,i]
+ggplot(data = datlong, aes(x = Hour, y = Depth, group_by = Factor, linetype = Factor), se = TRUE, show.legend = FALSE)+
+  geom_smooth(colour = "black")+
+  scale_y_reverse()+
+  xlab('Hour of day')+
+  ylab("Depth (m)")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.key = element_rect(fill = "white", colour = "transparent"))+
+  labs(linetype = "Depth selection")+
+  scale_linetype_manual(values = c("solid", "dashed", "dotted"))
   
-  t.max <-which.max[condit.hour$temp.fact]
-  dep.maxt<-
-}
-# condition.hour <- datrix[,,i]
-# which.max if length >1, average...
 
-?split
