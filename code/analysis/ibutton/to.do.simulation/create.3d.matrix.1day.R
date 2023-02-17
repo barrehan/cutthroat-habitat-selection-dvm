@@ -127,7 +127,7 @@ colnames(dater) <- c("Hour", "Temperature", "DO", "WQI")
 
 datlong<-dater %>%gather(Factor, Depth, Temperature:WQI)
 
-ggplot(data = datlong, aes(x = Hour, y = Depth, group_by = Factor, linetype = Factor), se = TRUE, show.legend = FALSE)+
+p<-ggplot(data = datlong, aes(x = Hour, y = Depth, group_by(Factor), linetype = Factor), se = TRUE, show.legend = FALSE)+
   geom_smooth(colour = "black")+
   scale_y_reverse()+
   xlab('Hour of day')+
@@ -137,5 +137,7 @@ ggplot(data = datlong, aes(x = Hour, y = Depth, group_by = Factor, linetype = Fa
         legend.key = element_rect(fill = "white", colour = "transparent"))+
   labs(linetype = "Depth selection")+
   scale_linetype_manual(values = c("solid", "dashed", "dotted"))
+
+ggsave(p, filename = paste("results/figures/ibutton.simulation/depth.selection.simulation.png"), width = 15, height = 8, units = "cm")
   
 
