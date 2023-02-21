@@ -76,7 +76,7 @@ ggplot(data = deep, aes(x =hour))+
   ggtitle("Daily timing deepest water column position")
 #6666cc aquamarine4 lightgoldenrod3
 ggplot(data = fish, aes (x = time2, y = depth))+
-  geom_point(alpha = .1, colour = "slategray")+
+  #geom_point(alpha = .1, colour = "slategray")+
   geom_smooth(fill = "lightsalmon", colour = "lightsalmon4")+
   scale_y_reverse()+
   scale_x_datetime(
