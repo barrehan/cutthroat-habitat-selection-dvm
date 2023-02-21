@@ -110,8 +110,8 @@ fig1.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 16.75,
-    end = -18.5,
+    start = 3.5,
+    end = -10.75,
     size = .5,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
@@ -119,6 +119,7 @@ fig1.2 <- plot_ly(
             y = highDO.used$standardized.temp,
             type = 'scatter',
             mode = "markers",
+            jitter = 0.7,
             color = I("chartreuse4"),
             opacity = .85,
             marker = list(size = 3),
@@ -134,6 +135,25 @@ fig1<-subplot(fig1.1,
               nrows = 1,
               shareY = T,
               shareX = T)
+
+fig1.3 <- plot_ly(
+  x = highDO.do.val,
+  y = highDO.temp.val,
+  z = t(high.vals),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 3,
+    end = -11,
+    size = .5,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability")%>%
+  layout(title = 'Blue Ruin radio tag habitat selection, 17:00 - 19:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T) 
 
 ###### LOW DO TIME PERIOD ######
 # Span of temp/DO values during study ---------------------------------------
@@ -196,9 +216,9 @@ fig2.2 <- plot_ly(
   reversescale = T,
   autocontour = F, 
   contours = list(
-    start = 7.25,
-    end = -30.5,
-    size = 1,
+    start = 8,
+    end = -30,
+    size = 2,
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
   add_trace(x = lowDO.used$standardized.do,
@@ -220,6 +240,25 @@ fig2<-subplot(fig2.1,
               nrows = 1,
               shareY = T,
               shareX = T)
+
+fig2.3 <- plot_ly(
+  x = lowDO.do.val,
+  y = lowDO.temp.val,
+  z = t(low.vals),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 8,
+    end = -30,
+    size = 2,
+    showlabels = T))%>%
+  
+  layout(title = 'Blue Ruin radio tag habitat selection, 05:00 - 07:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T)
 
 saveWidget(fig1, "results/figures/hab.select.mod.figures/contour.plots/peak.low.do/rt.br.peak.do.html", selfcontained = T)
 
