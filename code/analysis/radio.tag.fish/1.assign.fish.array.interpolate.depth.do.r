@@ -139,6 +139,9 @@ write.csv(fishes, 'data/modif.data/radio.tag/all.rt.depth.do.interpolated.csv', 
 
 # pull single tag and look at temp and receiver point plots
 
+#fishes <- read.csv('data/modif.data/radio.tag/all.rt.depth.do.interpolated.csv')
+#fishes$date.time<- mdy_hm(fishes$date.time)
+
 plot.fish<-fishes[!fishes$fish.depth == "mouth.mixed",]
 plot.fish$fish.depth<- as.numeric(plot.fish$fish.depth)
 plot.fish$fish.do <- as.numeric(plot.fish$fish.do)
@@ -150,19 +153,25 @@ for(i in unique.tag) {
 p <- ggplot()+
   geom_point(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong,shape = receiver.site), size = 1)+
   geom_line(data = subset(plot.fish, tag.id ==i), aes(date.time, fish.do, color = temp.strong))+
-  scale_color_viridis(option = "inferno")+
+  scale_color_viridis(option = "turbo", limits = c(10, 25))+
+  xlab("Date")+
+  ylab("Dissolved oxygen (mg/L)")+
+  labs(color = "Fish temperature (°C)", shape = "Receiver site")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   labs(title = i)
 
-ggsave(p, filename = paste("results/figures/radio.tag.figures/tag.", i,"do.temp.receiver.png"), width = 15, height = 8, units = "cm")
+ggsave(p, filename = paste("results/figures/radio.tag.figures/tag.temp.do.receiver/tag.", i,"do.temp.receiver.png"), width = 15, height = 8, units = "cm")
 
 }
 
 ggplot(plot.fish, aes(date.time, fish.do))+
   geom_point(aes(color = temp.strong, shape = receiver.site), size = 1)+
   geom_line()+
-  scale_color_viridis(option = "inferno")+
+  scale_color_viridis(option = "inferno", limits = c(10,25))+
+  xlab("Date")+
+  ylab("Dissolved oxygen (mg/L)")+
+  labs(color = "Fish temperature", shape = "Receiver site")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   facet_wrap(~tag.id)
