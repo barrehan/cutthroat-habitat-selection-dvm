@@ -99,8 +99,6 @@ fig1.1 <- plot_ly(
     end = -7,
     size = .5,
     showlabels = T))%>%
-  layout(title = 'Norwood peak DO 18:00-20:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = high.int$standardized.do,
             y = high.int$standardized.temp,
@@ -110,7 +108,11 @@ fig1.1 <- plot_ly(
             opacity = 0.75,
             marker = list(size = 3),
             name = 'Available habitat',
-            showlegend = TRUE)
+            showlegend = TRUE)%>%
+  layout(title = 'Norwood peak DO 18:00-20:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(.15,2.25)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.35,2.75)),
+         showlegend = T)
 
 fig1.2 <- plot_ly(
   x = high.do,
@@ -136,9 +138,9 @@ fig1.2 <- plot_ly(
             symbol = I('o'),
             name = "Selected habitat")%>%
   layout(title = 'Norwood peak DO 18:00-20:00', 
-         xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'), 
-         showlegend = T) 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(.15,2.25)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.35,2.75)),
+         showlegend = T)
 
 fig1.3 <- plot_ly(
   x = high.do,
@@ -155,15 +157,29 @@ fig1.3 <- plot_ly(
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
   layout(title = 'Norwood peak DO 18:00-20:00', 
-         xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'), 
-         showlegend = T) 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(.15,2.25)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.35,2.75)),
+         showlegend = T)
 
-fig1<-subplot(fig1.1, 
+fig1<-subplot(fig1.3,
+              fig1.1, 
               fig1.2,
               nrows = 1,
               shareY = T,
               shareX = T)
+
+fig <- fig1%>%
+  layout(
+    annotations = list(
+        x = 0.16,
+        y = 1,
+        font = list(size = 10),
+        xref = "paper",
+        yref = "paper",
+        xanchor = "center",
+        yanchor = "bottom",
+        showarrow = FALSE
+      ))
 
 # Low DO ----------------------------------------------------------------
 
@@ -183,8 +199,6 @@ fig2.1 <- plot_ly(
     end = -6.25,
     size = .75,
     showlabels = T))%>%
-  layout(title = 'Norwood low DO 6:00-8:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'))%>%
   colorbar(title = "Selection probability") %>%
   add_trace(x = low.int$standardized.do,
             y = low.int$standardized.temp,
@@ -194,7 +208,11 @@ fig2.1 <- plot_ly(
             opacity = 0.75,
             marker = list(size = 3),
             name = 'Available habitat',
-            showlegend = TRUE)
+            showlegend = TRUE)%>%
+  layout(title = 'Norwood low DO 6:00-8:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(-1.95, .6)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.4, 1.25)),
+         showlegend = T)
 
 fig2.2 <- plot_ly(
   x = low.do,
@@ -220,9 +238,9 @@ fig2.2 <- plot_ly(
             symbol = I('o'),
             name = "Selected habitat")%>%
   layout(title = 'Norwood low DO 6:00-8:00', 
-         xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'), 
-         showlegend = T) 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(-1.95, .6)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.4, 1.25)),
+         showlegend = T)
 
 fig2.3 <- plot_ly(
   x = low.do,
@@ -239,15 +257,16 @@ fig2.3 <- plot_ly(
     showlabels = T))%>%
   colorbar(title = "Selection probability")%>%
   layout(title = 'Norwood low DO 6:00-8:00', 
-         xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'), 
-         showlegend = T) 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(-1.95, .6)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-1.4, 1.25)),
+         showlegend = T)
 
 
-fig2<-subplot(fig2.1, fig2.2,
+fig2<-subplot(fig2.3, fig2.1, fig2.2, 
             nrows = 1,
             shareY = T,
             shareX = T)
+  
 
 # Threshold high DO --------------------------------------------------------
 
