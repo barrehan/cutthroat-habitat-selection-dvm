@@ -75,7 +75,8 @@ ggplot(data = deep, aes(x =hour))+
   theme(panel.border = element_blank())+
   ggtitle("Daily timing deepest water column position")
 #6666cc aquamarine4 lightgoldenrod3
-ggplot(data = fish, aes (x = time2, y = depth))+
+
+p<- ggplot(data = fish, aes (x = time2, y = depth))+
   #geom_point(alpha = .1, colour = "slategray")+
   geom_smooth(fill = "lightsalmon", colour = "lightsalmon4")+
   scale_y_reverse()+
@@ -84,9 +85,9 @@ ggplot(data = fish, aes (x = time2, y = depth))+
     date_labels = "%H")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
-  ggtitle("Smoothed fit fish depth across 24-hour period, Blue Ruin netpens")+
+  #ggtitle("Smoothed fit fish depth across 24-hour period, Blue Ruin netpens")+
   xlab("Time")+
   ylab("Depth (m)")
 
-  
+ggsave(p, filename = paste("results/figures/ibutton.simulation/smoothed.fit.fish.depth.BRib.png"), width = 12, height = 8, units = "cm")
 

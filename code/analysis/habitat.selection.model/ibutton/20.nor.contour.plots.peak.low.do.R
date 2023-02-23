@@ -140,6 +140,25 @@ fig1.2 <- plot_ly(
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
 
+fig1.3 <- plot_ly(
+  x = high.do,
+  y = high.temp,
+  z = t(high),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 13.5,
+    end = -7,
+    size = .5,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability")%>%
+  layout(title = 'Norwood peak DO 18:00-20:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T) 
+
 fig1<-subplot(fig1.1, 
               fig1.2,
               nrows = 1,
@@ -200,6 +219,25 @@ fig2.2 <- plot_ly(
             marker = list(size = 3),
             symbol = I('o'),
             name = "Selected habitat")%>%
+  layout(title = 'Norwood low DO 6:00-8:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T) 
+
+fig2.3 <- plot_ly(
+  x = low.do,
+  y = low.temp,
+  z = t(low),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 22,
+    end = -6.25,
+    size = .75,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability")%>%
   layout(title = 'Norwood low DO 6:00-8:00', 
          xaxis = list(title = 'Standardized dissolved oxygen'), 
          yaxis = list(title = 'Standardized temperature'), 
