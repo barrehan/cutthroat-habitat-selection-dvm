@@ -6,6 +6,9 @@ library(ggpubr)
 library(htmlwidgets)
 library(reticulate)
 library(viridis)
+library(ggforce)
+library(dplyr)
+library(lubridate)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 rt<- read.csv("data/modif.data/hab.select.mod/br.radio.tag.data/br.rt.with.interpolated.do.temp.csv")
@@ -78,19 +81,7 @@ l1
 fig1.1 <- plot_ly(
   x = highDO.do.val,
   y = highDO.temp.val,
-  z = t(high.vals),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 3.5,
-    end = -10.75,
-    size = .5,
-    showlabels = T))%>%
-  layout(title = 'Blue Ruin radio tag habitat selection, 17:00 & 18:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'))%>%
-  colorbar(title = "Selection probability") %>%
+  showlabels = T)%>%
   add_trace(x = highDO.avail$standardized.do,
             y = highDO.avail$standardized.temp,
             type = 'scatter',
@@ -99,22 +90,16 @@ fig1.1 <- plot_ly(
             opacity = 0.75,
             marker = list(size = 3),
             name = 'Available habitat',
-            showlegend = TRUE)
+            showlegend = TRUE)%>%
+  layout(title = 'Blue Ruin radio tag habitat selection, 17:00 & 18:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(-2,2)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-2,2)),
+         showlegend = TRUE)
 
 fig1.2 <- plot_ly(
   x = highDO.do.val,
   y = highDO.temp.val,
-  z = t(high.vals),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 3.5,
-    end = -10.75,
-    size = .5,
-    showlabels = T))%>%
-  colorbar(title = "Selection probability")%>%
+  showlabels = T)%>%
   add_trace(x = highDO.used$standardized.do,
             y = highDO.used$standardized.temp,
             type = 'scatter',
@@ -126,8 +111,8 @@ fig1.2 <- plot_ly(
             symbol = I('o'),
             name = "Selected habitat")%>%
   layout(title = 'Blue Ruin radio tag habitat selection, 17:00 & 18:00', 
-         xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'), 
+         xaxis = list(title = 'Standardized dissolved oxygen', range = c(-2,4)), 
+         yaxis = list(title = 'Standardized temperature', range = c(-2,4)), 
          showlegend = T) 
 
 fig1<-subplot(fig1.1, 

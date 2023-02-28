@@ -92,19 +92,7 @@ l1
 fig1.1 <- plot_ly(
   x = high.do,
   y = high.temp,
-  z = t(high),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 14.5,
-    end = -11,
-    size = .5,
-    showlabels = T))%>%
-  layout(title = 'Blue Ruin peak DO 17:00-19:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'))%>%
-  colorbar(title = "Selection probability") %>%
+  showlabels = T)%>%
   add_trace(x = high.int$standardized.do,
             y = high.int$standardized.temp,
             type = 'scatter',
@@ -113,22 +101,16 @@ fig1.1 <- plot_ly(
             opacity = 0.75,
             marker = list(size = 3),
             name = 'Available habitat',
-            showlegend = TRUE)
+            showlegend = TRUE)%>%
+  layout(title = 'Blue Ruin peak DO 17:00-19:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'),
+         showlegend = T)
 
 fig1.2 <- plot_ly(
   x = high.do,
   y = high.temp,
-  z = t(high),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 14.5,
-    end = -11,
-    size = .5,
-    showlabels = T))%>%
-  colorbar(title = "Selection probability")%>%
+  showlabels = T)%>%
   add_trace(x = high.ib$standardized.do,
             y = high.ib$standardized.temp,
             type = 'scatter',
@@ -143,10 +125,89 @@ fig1.2 <- plot_ly(
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
 
-fig1<-subplot(fig1.1, fig1.2,
-            nrows = 1,
-            shareY = T,
-            shareX = T)
+fig1.3 <- plot_ly(
+  x = high.do,
+  y = high.temp,
+  z = t(high),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 14.5,
+    end = -11,
+    size = .5,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability") %>%
+  layout(title = 'Blue Ruin peak DO 17:00-19:00', 
+         xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'), 
+         showlegend = T) 
+
+
+fig1<-subplot(fig1.1, fig1.2, fig1.3,
+              nrows = 1,
+              shareY = T,
+              shareX = T)
+
+# fig1.1 <- plot_ly(
+#   x = high.do,
+#   y = high.temp,
+#   z = t(high),
+#   type = "contour",
+#   colorscale = 'YlOrRd',
+#   reversescale = T,
+#   autocontour = F, 
+#   contours = list(
+#     start = 14.5,
+#     end = -11,
+#     size = .5,
+#     showlabels = T))%>%
+#   layout(title = 'Blue Ruin peak DO 17:00-19:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+#          yaxis = list(title = 'Standardized temperature'))%>%
+#   colorbar(title = "Selection probability") %>%
+#   add_trace(x = high.int$standardized.do,
+#             y = high.int$standardized.temp,
+#             type = 'scatter',
+#             mode = 'markers',
+#             color = I("gray6"),
+#             opacity = 0.75,
+#             marker = list(size = 3),
+#             name = 'Available habitat',
+#             showlegend = TRUE)
+# 
+# fig1.2 <- plot_ly(
+#   x = high.do,
+#   y = high.temp,
+#   z = t(high),
+#   type = "contour",
+#   colorscale = 'YlOrRd',
+#   reversescale = T,
+#   autocontour = F, 
+#   contours = list(
+#     start = 14.5,
+#     end = -11,
+#     size = .5,
+#     showlabels = T))%>%
+#   colorbar(title = "Selection probability")%>%
+#   add_trace(x = high.ib$standardized.do,
+#             y = high.ib$standardized.temp,
+#             type = 'scatter',
+#             mode = "markers",
+#             color = I("chartreuse4"),
+#             opacity = .85,
+#             marker = list(size = 3),
+#             symbol = I('o'),
+#             name = "Selected habitat")%>%
+#   layout(title = 'Blue Ruin peak DO 17:00-19:00', 
+#          xaxis = list(title = 'Standardized dissolved oxygen'), 
+#          yaxis = list(title = 'Standardized temperature'), 
+#          showlegend = T) 
+# 
+# fig1<-subplot(fig1.1, fig1.2,
+#             nrows = 1,
+#             shareY = T,
+#             shareX = T)
 
 # Low DO ----------------------------------------------------------------
 
@@ -156,19 +217,7 @@ l2
 fig2.1 <- plot_ly(
   x = low.do,
   y = low.temp,
-  z = t(low),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 7,
-    end = -12,
-    size = .5,
-    showlabels = T))%>%
-  layout(title = 'Blue Ruin low DO 5:00-7:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
-         yaxis = list(title = 'Standardized temperature'))%>%
-  colorbar(title = "Selection probability") %>%
+    showlabels = T)%>%
   add_trace(x = low.int$standardized.do,
             y = low.int$standardized.temp,
             type = 'scatter',
@@ -177,22 +226,14 @@ fig2.1 <- plot_ly(
             opacity = 0.75,
             marker = list(size = 3),
             name = 'Available habitat',
-            showlegend = TRUE)
+            showlegend = TRUE)%>%
+  layout(title = 'Blue Ruin low DO 5:00-7:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'))
 
 fig2.2 <- plot_ly(
   x = low.do,
   y = low.temp,
-  z = t(low),
-  type = "contour",
-  colorscale = 'YlOrRd',
-  reversescale = T,
-  autocontour = F, 
-  contours = list(
-    start = 7,
-    end = -12,
-    size = .5,
-    showlabels = T))%>%
-  colorbar(title = "Selection probability")%>%
+  showlabels = T)%>%
   add_trace(x = low.ib$standardized.do,
             y = low.ib$standardized.temp,
             type = 'scatter',
@@ -207,12 +248,93 @@ fig2.2 <- plot_ly(
          yaxis = list(title = 'Standardized temperature'), 
          showlegend = T) 
 
+fig2.3 <- plot_ly(
+  x = low.do,
+  y = low.temp,
+  z = t(low),
+  type = "contour",
+  colorscale = 'YlOrRd',
+  reversescale = T,
+  autocontour = F, 
+  contours = list(
+    start = 7,
+    end = -12,
+    size = .5,
+    showlabels = T))%>%
+  colorbar(title = "Selection probability") %>%
+  layout(title = 'Blue Ruin low DO 5:00-7:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+         yaxis = list(title = 'Standardized temperature'))
+  
+
 
 fig2 <- subplot(fig2.1,
-        fig2.2,
-        nrows = 1,
-        shareY = T,
-        shareX = T)
+                fig2.2,
+                fig2.3,
+                nrows = 1,
+                shareY = T,
+                shareX = T)
+
+
+# fig2.1 <- plot_ly(
+#   x = low.do,
+#   y = low.temp,
+#   z = t(low),
+#   type = "contour",
+#   colorscale = 'YlOrRd',
+#   reversescale = T,
+#   autocontour = F, 
+#   contours = list(
+#     start = 7,
+#     end = -12,
+#     size = .5,
+#     showlabels = T))%>%
+#   layout(title = 'Blue Ruin low DO 5:00-7:00', xaxis = list(title = 'Standardized dissolved oxygen'), 
+#          yaxis = list(title = 'Standardized temperature'))%>%
+#   colorbar(title = "Selection probability") %>%
+#   add_trace(x = low.int$standardized.do,
+#             y = low.int$standardized.temp,
+#             type = 'scatter',
+#             mode = 'markers',
+#             color = I("gray6"),
+#             opacity = 0.75,
+#             marker = list(size = 3),
+#             name = 'Available habitat',
+#             showlegend = TRUE)
+# 
+# fig2.2 <- plot_ly(
+#   x = low.do,
+#   y = low.temp,
+#   z = t(low),
+#   type = "contour",
+#   colorscale = 'YlOrRd',
+#   reversescale = T,
+#   autocontour = F, 
+#   contours = list(
+#     start = 7,
+#     end = -12,
+#     size = .5,
+#     showlabels = T))%>%
+#   colorbar(title = "Selection probability")%>%
+#   add_trace(x = low.ib$standardized.do,
+#             y = low.ib$standardized.temp,
+#             type = 'scatter',
+#             mode = "markers",
+#             color = I("chartreuse4"),
+#             opacity = .85,
+#             marker = list(size = 3),
+#             symbol = I('o'),
+#             name = "Selected habitat")%>%
+#   layout(title = 'Blue Ruin low DO 5:00-7:00', 
+#          xaxis = list(title = 'Standardized dissolved oxygen'), 
+#          yaxis = list(title = 'Standardized temperature'), 
+#          showlegend = T) 
+# 
+# 
+# fig2 <- subplot(fig2.1,
+#         fig2.2,
+#         nrows = 1,
+#         shareY = T,
+#         shareX = T)
 
 
 
