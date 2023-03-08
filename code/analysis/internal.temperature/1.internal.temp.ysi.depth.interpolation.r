@@ -7,6 +7,10 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
+library(trekcolors)
+library(extrafont)
+
+lcars_colors()
 
 #' Here I use the slope equation of y=mx=b as d? = D1 + (D2-D1)/(X2-X1)*(T1-X1)
 #' where d? is the depth of the fish that we are trying to determine, D1 and D2 
@@ -87,17 +91,20 @@ ysi$thermo.measure.loc <- factor(ysi$thermo.measure.loc, levels = c("Blue Ruin t
 
 ggplot(NULL, aes(temperature, depth)) +                 
   geom_point(data = ysi,
-             col = "#1b98e0",
+             col = "#AA5533", alpha = 0.5,
              size = 2) +
   geom_point(data = fish,
-             col = "red",
+             col = "#882211", alpha = 0.75,
              size = 4)+
   facet_wrap(~thermo.measure.loc)+
   scale_y_reverse()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab('Temperature (°C)')+
+  ylab("Depth (m)")
 
-ggsave("results/figures/internal.temperature/internal.temp.with.thermocline.jpg", width = 14, height = 8)
+#ggsave("results/figures/internal.temperature/internal.temp.with.thermocline.jpg", width = 14, height = 8)
 
 #' now using the same equation using the fish depth to determine DO at that location
 #' and time. we were stupid and didn't use the YSI at norwood so we do not have DO 
@@ -129,30 +136,36 @@ colnames(ysi)[9]<- "dissolved.oxygen"
 
 ggplot(NULL, aes(dissolved.oxygen, depth)) +                 
   geom_point(data = ysi,
-             col = "#1b98e0",
+             col = "#AA5533", alpha = 0.5,
              size = 2) +
   geom_point(data = fish,
-             col = "red",
+             col = "#882211", alpha = 0.75,
              size = 4)+
   facet_wrap(~thermo.measure.loc)+
   scale_y_reverse()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab("Dissolved oxygen (mg/L)")+
+  ylab('Depth (m)')
 
-ggsave("figures/internal.temperature.figures/choke.poke.do.vs.depth.jpg", width = 14, height = 8)
+#ggsave("figures/internal.temperature.figures/choke.poke.do.vs.depth.jpg", width = 14, height = 8)
 
 
 #' now plotting DO versus Temperature for each location with fish included
 
 ggplot(NULL, aes(dissolved.oxygen, temperature)) +                 
   geom_point(data = ysi,
-             col = "#1b98e0",
+             col = "#AA5533", alpha = 0.5,
              size = 2) +
   geom_point(data = fish,
-             col = "red",
+             col ="#882211", alpha = 0.75,
              size = 4)+
   facet_wrap(~thermo.measure.loc)+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab("Dissolved oxygen (mg/L)")+
+  ylab("Temperature (°C)")
 
-ggsave("figures/internal.temperature.figures/choke.poke.do.vs.temp.jpg", width = 14, height = 8)
+#ggsave("figures/internal.temperature.figures/choke.poke.do.vs.temp.jpg", width = 14, height = 8)
