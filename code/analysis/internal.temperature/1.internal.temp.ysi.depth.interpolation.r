@@ -35,14 +35,14 @@ for(i in 1:nrow(fish)){
   d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
   depth <- ifelse(length(d > 1), mean(d), d)
   #if there are two value options take the average between the two...
-  fish[i,10] <- depth
+  fish[i,11] <- depth
 }
-colnames(fish)[10] <- "depth"
-colnames(fish)[8] <- "temperature"
-colnames(ysi)[7] <- "depth"
-colnames(ysi)[8] <- "temperature"
+colnames(fish)[11] <- "depth"
+colnames(fish)[9] <- "temperature"
+colnames(ysi)[8] <- "depth"
+colnames(ysi)[9] <- "temperature"
 
-fish<- fish[-c(9)]
+fish<- fish[-c(10)]
 
 fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.1"] <- "Blue Ruin thermocline 1"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ruin thermocline 2"
@@ -123,10 +123,10 @@ for(i in 1:nrow(fish)){
   d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
   do <- ifelse(length(d > 1), mean(d), d)
   #if there are two value options take the average between the two...
-  fish[i,10] <- do
+  fish[i,11] <- do
 }
-colnames(fish)[10] <- "dissolved.oxygen"
-colnames(ysi)[9]<- "dissolved.oxygen"
+colnames(fish)[11] <- "dissolved.oxygen"
+colnames(ysi)[10]<- "dissolved.oxygen"
 
 #' harrisburg fish that couldn't have depth assigned also could not have
 #' DO assigned, as well as norwood fish where we did not measure DO
