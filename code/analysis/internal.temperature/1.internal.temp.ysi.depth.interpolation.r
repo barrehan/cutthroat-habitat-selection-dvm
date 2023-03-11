@@ -35,6 +35,9 @@ for(i in 1:nrow(fish)){
   d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
   depth <- ifelse(length(d > 1), mean(d), d)
   #if there are two value options take the average between the two...
+  max<-match[match$depth.m == max(match$depth),]
+  maxd<-max$depth.m
+  depth<-ifelse(is.na(depth), maxd, depth)
   fish[i,11] <- depth
 }
 colnames(fish)[11] <- "depth"
@@ -44,44 +47,44 @@ colnames(ysi)[9] <- "temperature"
 
 fish<- fish[-c(10)]
 
-fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.1"] <- "Blue Ruin thermocline 1"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ruin thermocline 2"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin thermocline 3"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin thermocline 4"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood thermocline 1"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood thermocline 4"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.1"] <- "Harrisburg thermocline 1"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.2"] <- "Harrisburg thermocline 2"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.3"] <- "Harrisburg thermocline 3"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.4"] <- "Harrisburg thermocline 4"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "nor.0827.thermo.1"] <- "Norwood thermocline 1"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "nor.0827.thermo.2"] <- "Norwood thermocline 2"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.1"] <- "Blue Ruin site 1"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ruin site 2"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin site 3"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin site 4"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood site 1"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 4"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.1"] <- "South Harrisburg site 1"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.2"] <- "South Harrisburg site 2"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.3"] <- "South Harrisburg site 3"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.4"] <- "South Harrisburg site 4"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "nor.0827.thermo.1"] <- "Norwood site 1"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "nor.0827.thermo.2"] <- "Norwood site 2"
 
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.1"] <- "Blue Ruin thermocline 1"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ruin thermocline 2"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin thermocline 3"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin thermocline 4"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood thermocline 1"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood thermocline 4"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.1"] <- "Harrisburg thermocline 1"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.2"] <- "Harrisburg thermocline 2"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.3"] <- "Harrisburg thermocline 3"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.4"] <- "Harrisburg thermocline 4"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "nor.0827.thermo.1"] <- "Norwood thermocline 1"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "nor.0827.thermo.2"] <- "Norwood thermocline 2"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.1"] <- "Blue Ruin site 1"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ruin site 2"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin site 3"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin site 4"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood site 1"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 4"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.1"] <- "South Harrisburg site 1"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.2"] <- "South Harrisburg site 2"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.3"] <- "South Harrisburg site 3"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.4"] <- "South Harrisburg site 4"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "nor.0827.thermo.1"] <- "Norwood site 1"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "nor.0827.thermo.2"] <- "Norwood site 2"
 
-fish$thermo.measure.loc <- factor(fish$thermo.measure.loc, levels = c("Blue Ruin thermocline 1", "Blue Ruin thermocline 2",
-                                                                      "Blue Ruin thermocline 3", "Blue Ruin thermocline 4",
-                                                                      "Harrisburg thermocline 1", "Harrisburg thermocline 2",
-                                                                      "Harrisburg thermocline 3", "Harrisburg thermocline 4",
-                                                                      "Cottonwood thermocline 1", "Cottonwood thermocline 4",
-                                                                      "Norwood thermocline 1", "Norwood thermocline 2"))
-ysi$thermo.measure.loc <- factor(ysi$thermo.measure.loc, levels = c("Blue Ruin thermocline 1", "Blue Ruin thermocline 2",
-                                                                    "Blue Ruin thermocline 3", "Blue Ruin thermocline 4",
-                                                                    "Harrisburg thermocline 1", "Harrisburg thermocline 2",
-                                                                    "Harrisburg thermocline 3", "Harrisburg thermocline 4",
-                                                                    "Cottonwood thermocline 1", "Cottonwood thermocline 4",
-                                                                    "Norwood thermocline 1", "Norwood thermocline 2"))
+# #fish$thermo.measure.loc <- factor(fish$thermo.measure.loc, levels = c("Blue Ruin site 1", "Blue Ruin site 2",
+#                                                                       "Blue Ruin site 3", "Blue Ruin site 4",
+#                                                                       "Harrisburg site 1", "Harrisburg site 2",
+#                                                                       "Harrisburg site 3", "Harrisburg site 4",
+#                                                                       "Cottonwood site 1", "Cottonwood site 4",
+#                                                                       "Norwood site 1", "Norwood site 2"))
+# ysi$thermo.measure.loc <- factor(ysi$thermo.measure.loc, levels = c("Blue Ruin site 1", "Blue Ruin site 2",
+#                                                                     "Blue Ruin site 3", "Blue Ruin thermocline 4",
+#                                                                     "Harrisburg thermocline 1", "Harrisburg thermocline 2",
+#                                                                     "Harrisburg thermocline 3", "Harrisburg thermocline 4",
+#                                                                     "Cottonwood thermocline 1", "Cottonwood thermocline 4",
+#                                                                     "Norwood thermocline 1", "Norwood thermocline 2"))
 
 
 
@@ -89,12 +92,28 @@ ysi$thermo.measure.loc <- factor(ysi$thermo.measure.loc, levels = c("Blue Ruin t
 #' recorded using the ysi so these fish were likely on a different thermocline and
 #' will be excluded from the plots below
 
+colors <- c("#D8B70A", "#02401B", "#A2A475", "seagreen4", "#78B7C5","#03436A",  "#FD6467","#CB2314", "#9986A5", "#F1BB7B", "#79402E", "#D67236", "#972D15")
+
+ggplot()+
+geom_point(data = ysi, aes(x = temperature, y = depth, color = "YSI profile"), color = "#273046",alpha = 0.5)+
+  geom_point(data = fish, aes(x = temperature, y = depth, color = thermo.measure.loc),alpha = 0.75, size = 3, show.legend =F)+
+  scale_color_manual(values = colors)+
+  facet_wrap(~thermo.measure.loc)+
+  scale_y_reverse()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab('Temperature (°C)')+
+  ylab("Depth (m)")
+
+
+
 ggplot(NULL, aes(temperature, depth)) +                 
   geom_point(data = ysi,
-             col = "#AA5533", alpha = 0.5,
+             col = "gray58", alpha = 0.5,
              size = 2) +
   geom_point(data = fish,
-             col = "#882211", alpha = 0.75,
+             col = thermo.measure.loc, alpha = 0.75,
              size = 4)+
   facet_wrap(~thermo.measure.loc)+
   scale_y_reverse()+
@@ -123,6 +142,9 @@ for(i in 1:nrow(fish)){
   d <- (d2-d1)/(x2-x1)*(t1 - x1) + d1
   do <- ifelse(length(d > 1), mean(d), d)
   #if there are two value options take the average between the two...
+  max<-match[match$depth == max(match$depth),]
+  mindo<-max$do.mg.l
+  do<-ifelse(is.na(do), mindo, do)
   fish[i,11] <- do
 }
 colnames(fish)[11] <- "dissolved.oxygen"
@@ -132,7 +154,17 @@ colnames(ysi)[10]<- "dissolved.oxygen"
 #' DO assigned, as well as norwood fish where we did not measure DO
 #' because of some stupid reason we likely justified in the field...I regret
 
-
+ggplot()+
+  geom_point(data = ysi, aes(x = dissolved.oxygen, y = depth, color = "YSI profile"), color = "#273046",alpha = 0.5)+
+  geom_point(data = fish, aes(x = dissolved.oxygen, y = depth, color = thermo.measure.loc),alpha = 0.75, size = 3, show.legend =F)+
+  scale_color_manual(values = colors)+
+  facet_wrap(~thermo.measure.loc)+
+  scale_y_reverse()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab('Dissolved oxygen (mg/L)')+
+  ylab("Depth (m)")
 
 ggplot(NULL, aes(dissolved.oxygen, depth)) +                 
   geom_point(data = ysi,
@@ -153,6 +185,18 @@ ggplot(NULL, aes(dissolved.oxygen, depth)) +
 
 
 #' now plotting DO versus Temperature for each location with fish included
+
+ggplot()+
+  geom_point(data = ysi, aes(x = dissolved.oxygen, y = temperature, color = "YSI profile"), color = "#273046",alpha = 0.5)+
+  geom_point(data = fish, aes(x = dissolved.oxygen, y = temperature, color = thermo.measure.loc),alpha = 0.75, size = 3, show.legend =F)+
+  scale_color_manual(values = colors)+
+  facet_wrap(~thermo.measure.loc)+
+  scale_y_reverse()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  xlab('Dissolved oxygen (mg/L)')+
+  ylab("Temperature (°C)")
 
 ggplot(NULL, aes(dissolved.oxygen, temperature)) +                 
   geom_point(data = ysi,
