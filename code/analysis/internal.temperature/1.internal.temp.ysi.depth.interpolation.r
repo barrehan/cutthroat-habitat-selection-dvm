@@ -24,6 +24,9 @@ ysi$date <- mdy(ysi$date)
 fish <- read.csv("data/raw.data/internal.temperature/2019.2021.fish.internal.temp.cwa.csv")
 fish$date <- mdy(fish$date)
 
+#misrecorded do value row 90, replacing with average of bounding do values
+ysi$do.mg.l[ysi$do.mg.l == "0.3"]<-6.82
+
 for(i in 1:nrow(fish)){
   row <- fish[i,]
   match <- ysi[ysi$thermo.measure.loc == row$thermo.measure.loc,]
@@ -52,7 +55,7 @@ fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue 
 fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin site 3"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin site 4"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood site 1"
-fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 4"
+fish$thermo.measure.loc[fish$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 2"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.1"] <- "South Harrisburg site 1"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.2"] <- "South Harrisburg site 2"
 fish$thermo.measure.loc[fish$thermo.measure.loc == "harrisburg.site.3"] <- "South Harrisburg site 3"
@@ -65,7 +68,7 @@ ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.2"] <- "Blue Ru
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.3"] <- "Blue Ruin site 3"
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "br.0822.thermo.4"] <- "Blue Ruin site 4"
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.1"] <- "Cottonwood site 1"
-ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 4"
+ysi$thermo.measure.loc[ysi$thermo.measure.loc == "cottonwood.site.4"] <- "Cottonwood site 2"
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.1"] <- "South Harrisburg site 1"
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.2"] <- "South Harrisburg site 2"
 ysi$thermo.measure.loc[ysi$thermo.measure.loc == "harrisburg.site.3"] <- "South Harrisburg site 3"

@@ -21,6 +21,8 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 
 ysi <- read.csv("data/raw.data/internal.temperature/2019.2021.thermocline.fish.internal.temp.cwa.csv")
 ysi$date.time <- mdy_hms(ysi$date.time)
+#misrecorded do value row 90, replacing with average of bounding do values
+ysi$do.mg.l[ysi$do.mg.l == "0.3"]<-6.82
 
 #create columns for next depth and temp at that depth to calculate slope
 
@@ -110,7 +112,7 @@ depths<-merge(fd,sd, by ="thermo.measure.loc")
 
 #write.csv(depths, "data/modif.data/internal.temp/fish.depth.thermo.depth.csv", row.names = F)
 
-depths$thermo.measure.loc <-factor(depths$thermo.measure.loc, levels = c("harrisburg.site.4", "br.0822.thermo.1", "cottonwood.site.4", "nor.0827.thermo.2", "cottonwood.site.1", "nor.0827.thermo.1", "br.0822.thermo.4", "harrisburg.site.3", "br.0822.thermo.2", "br.0822.thermo.3", "harrisburg.site.2", "harrisburg.site.1"), labels = c("South Harrisburg site 4", "Blue Ruin site 1", "Cottonwood site 4", "Norwood site 2", "Cottonwood site 1", "Norwood site 1", "Blue Ruin site 4", "South Harrisburg site 3", "Blue Ruin site 2", "Blue Ruin site 3", "South Harrisburg site 2", "South Harrisburg site 1"))
+depths$thermo.measure.loc <-factor(depths$thermo.measure.loc, levels = c("harrisburg.site.4", "br.0822.thermo.1", "cottonwood.site.4", "nor.0827.thermo.2", "cottonwood.site.1", "nor.0827.thermo.1", "br.0822.thermo.4", "harrisburg.site.3", "br.0822.thermo.2", "br.0822.thermo.3", "harrisburg.site.2", "harrisburg.site.1"), labels = c("South Harrisburg site 4", "Blue Ruin site 1", "Cottonwood site 2", "Norwood site 2", "Cottonwood site 1", "Norwood site 1", "Blue Ruin site 4", "South Harrisburg site 3", "Blue Ruin site 2", "Blue Ruin site 3", "South Harrisburg site 2", "South Harrisburg site 1"))
 
 depths$thermo.measure.loc
 

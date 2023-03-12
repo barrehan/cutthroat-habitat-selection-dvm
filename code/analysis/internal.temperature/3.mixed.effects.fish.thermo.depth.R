@@ -10,6 +10,7 @@ library(emmeans)
 library(lme4)
 library(rstatix)
 
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 dater<-read.csv("data/modif.data/internal.temp/fish.depth.thermo.depth.csv")
 names(dater)[3]<-"thermocline.depth"
 names(dater)[1] <- "profile"
@@ -17,7 +18,7 @@ names(dater)[1] <- "profile"
 dater<-na.omit(dater)
 
 
-mod1<-lmer(fish.depth ~thermocline.depth, data = dater,
+mod1<-lme(fish.depth ~thermocline.depth, data = dater,
           random = ~1|profile)
 summary(mod1)
 
