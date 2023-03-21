@@ -6,8 +6,8 @@ library(ggplot2)
 library(gridExtra)
 library(grid)
 
-setwd("C:/Users/barrehan/Box/projects/2021.alcove.DO.project")
-ysi <- read.csv("data/temp.do.data/ysi.profile.data/br.netpen.ysi.profile.csv")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+ysi <- read.csv("data/raw.data/ysi.profile/br.netpen.ysi.profile.csv")
 
 netpen<- ysi[ysi$location == "site.4.netpen",]
 noon <- netpen[netpen$day.segment == "noon",]

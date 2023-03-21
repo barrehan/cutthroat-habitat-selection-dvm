@@ -12,18 +12,14 @@ library(rstatix)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 dater<-read.csv("data/modif.data/internal.temp/fish.depth.thermo.depth.csv")
-names(dater)[3]<-"thermocline.depth"
-names(dater)[1] <- "profile"
+names(dater)[4]<-"thermocline.depth"
+names(dater)[2] <- "profile"
 
 dater<-na.omit(dater)
 
-
 mod1<-lme(fish.depth ~thermocline.depth, data = dater,
-          random = ~1|profile)
+          random = ~1|location)
 summary(mod1)
-
-mod1.1<-lmer(fish.depth~thermocline.depth +(1|profile), data = dater)
-summary(mod1.1)
 
 mod2<-lm(fish.depth~thermocline.depth, data = dater)
 summary(mod2)
@@ -32,25 +28,18 @@ anova(mod1, mod2)
 
 #model 1 with random effect is better
 
-confint(mod1.1)
-fixef(mod1.1)
-ranef(mod1.1)
+effects<-effects::effect(term = "thermocline.depth", mod = mod1)
+x_temp <-as.data.frame(effects)
 
-dater$Mod1resid <-resid(mod1, type = "normalized")
-dater$Mod1fitted <-fitted(mod1)
-
-dater$Mod2resid <-resid(mod2)
-dater$Mod2fitted <-fitted(mod2)
-
-ggplot(dater, aes(Mod1fitted, Mod1resid))+
-  geom_point()
-
-ggplot(dater, aes(Mod2fitted, Mod2resid))+
-  geom_point()
+ggplot()+
+  geom_point(data = dater, aes(x =thermocline.depth, y = fish.depth))+
+  geom_line(data =x_temp, aes(thermocline.depth, y =fit), colour = "#D67236", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = thermocline.depth, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#F1BB7B")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 12, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature °C")+
+  ylab("Dissolved oxygen (mg/L)")
 
 
-## to get coefficients of fixed effects in lme use fixef(), and intervals() to get CI of random and fixed effects 
-
-fixef(mod1)
-
-intervals(mod1)

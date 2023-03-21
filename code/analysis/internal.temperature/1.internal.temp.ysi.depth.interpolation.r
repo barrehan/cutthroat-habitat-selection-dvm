@@ -27,6 +27,9 @@ fish$date <- mdy(fish$date)
 #misrecorded do value row 90, replacing with average of bounding do values
 ysi$do.mg.l[ysi$do.mg.l == "0.3"]<-6.82
 
+
+ysi<-ysi[-c(154,155),]
+
 for(i in 1:nrow(fish)){
   row <- fish[i,]
   match <- ysi[ysi$thermo.measure.loc == row$thermo.measure.loc,]
@@ -106,7 +109,7 @@ geom_point(data = ysi, aes(x = temperature, y = depth, color = "YSI profile"), c
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 12, family = "serif"))+
-  xlab('Temperature (Â°C)')+
+  xlab('Temperature (°C)')+
   ylab("Depth (m)")
 
 
@@ -123,7 +126,7 @@ ggplot(NULL, aes(temperature, depth)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 12, family = "serif"))+
-  xlab('Temperature (Â°C)')+
+  xlab('Temperature °C)')+
   ylab("Depth (m)")
 
 #ggsave("results/figures/internal.temperature/internal.temp.with.thermocline.jpg", width = 14, height = 8)
