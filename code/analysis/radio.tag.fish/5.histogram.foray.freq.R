@@ -1,7 +1,7 @@
 rm(list=ls())
 Sys.setenv(TZ = "America/Los_Angeles")
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 library(dplyr)
 library(tidyverse)
 library(lubridate)

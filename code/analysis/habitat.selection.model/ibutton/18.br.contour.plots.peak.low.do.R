@@ -7,7 +7,7 @@ library(htmlwidgets)
 library(reticulate)
 library(viridis)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
 
 # DFs for fish do/temp use at each interval -------------------------------
@@ -20,7 +20,7 @@ low.ib <- br.ib[br.ib$case == 1 & br.ib$highlowDO.2hr == "low",]
 high.int <- br.ib[br.ib$highlowDO.2hr == "high",]
 low.int <- br.ib[br.ib$highlowDO.2hr == "low",]
 
-# Logistic regression high DO, 14:00-16:00 --------------------------------
+# Logistic regression high DO, 17:00-19:00 --------------------------------
 
 high.clogit<-clogit(formula = case ~
                       standardized.do+
@@ -30,7 +30,7 @@ high.clogit<-clogit(formula = case ~
                     data=high.int)
 summary(high.clogit) 
 
-# Logistic regression low Do, 2:00-6:00  --------------------------------------
+# Logistic regression low Do, 5:00-7:00 --------------------------------------
 
 low.clogit<-clogit(formula = case ~
                       standardized.do+

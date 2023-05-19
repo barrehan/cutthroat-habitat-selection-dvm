@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 array <- read.csv("data/modif.data/logger.array/br.unif.do.temp.set.depth.simulation.csv")
 array<-array[,c(1:4)]

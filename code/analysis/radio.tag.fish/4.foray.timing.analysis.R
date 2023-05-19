@@ -15,11 +15,11 @@ rm(list = ls())
 #close open graphics devices
 graphics.off() 
 
-data_all <- list.files(path = "C:/Users/barrehan/GitHub/projects/cwa.habitat.selection/data/modif.data/radio.tag/mainstem.foray/foray.deets", pattern = "*.csv", full.names = TRUE) 
+data_all <- list.files(path = "C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm/data/modif.data/radio.tag/mainstem.foray/foray.deets", pattern = "*.csv", full.names = TRUE) 
 csv<-lapply(data_all, read.csv)  
 results<-do.call(rbind,csv)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 results$date.time <- ymd_hms(results$date.time)
 results <- results %>% force_tz(results$date.time, tzone = "America/Los_Angeles")
