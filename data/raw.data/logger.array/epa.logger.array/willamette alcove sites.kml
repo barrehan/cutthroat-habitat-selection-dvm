@@ -1,0 +1,4455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>willamette alcove sites.kml</name>
+	<Schema name="willamette alcove sites" id="S_willamette_alcove_sites_SSDDSIS">
+		<SimpleField type="string" name="Alcove"><displayName>&lt;b&gt;Alcove&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="location__"><displayName>&lt;b&gt;location #&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="lat"><displayName>&lt;b&gt;lat&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="double" name="long"><displayName>&lt;b&gt;long&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="date"><displayName>&lt;b&gt;date&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="int" name="Time"><displayName>&lt;b&gt;Time&lt;/b&gt;</displayName>
+</SimpleField>
+		<SimpleField type="string" name="status__best_"><displayName>&lt;b&gt;status (best)&lt;/b&gt;</displayName>
+</SimpleField>
+	</Schema>
+	<Style id="normPointStyle">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<table border="0">
+  <tr><td><b>Alcove</b></td><td>$[willamette alcove sites/Alcove]</td></tr>
+  <tr><td><b>location #</b></td><td>$[willamette alcove sites/location__]</td></tr>
+  <tr><td><b>lat</b></td><td>$[willamette alcove sites/lat]</td></tr>
+  <tr><td><b>long</b></td><td>$[willamette alcove sites/long]</td></tr>
+  <tr><td><b>date</b></td><td>$[willamette alcove sites/date]</td></tr>
+  <tr><td><b>Time</b></td><td>$[willamette alcove sites/Time]</td></tr>
+  <tr><td><b>status (best)</b></td><td>$[willamette alcove sites/status__best_]</td></tr>
+</table>
+]]></text>
+		</BalloonStyle>
+	</Style>
+	<StyleMap id="msn_square">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#sn_square</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#sh_square</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="pointStyleMap">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#normPointStyle</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#hlightPointStyle</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="hlightPointStyle">
+		<IconStyle>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle_highlight.png</href>
+			</Icon>
+		</IconStyle>
+		<BalloonStyle>
+			<text><![CDATA[<table border="0">
+  <tr><td><b>Alcove</b></td><td>$[willamette alcove sites/Alcove]</td></tr>
+  <tr><td><b>location #</b></td><td>$[willamette alcove sites/location__]</td></tr>
+  <tr><td><b>lat</b></td><td>$[willamette alcove sites/lat]</td></tr>
+  <tr><td><b>long</b></td><td>$[willamette alcove sites/long]</td></tr>
+  <tr><td><b>date</b></td><td>$[willamette alcove sites/date]</td></tr>
+  <tr><td><b>Time</b></td><td>$[willamette alcove sites/Time]</td></tr>
+  <tr><td><b>status (best)</b></td><td>$[willamette alcove sites/status__best_]</td></tr>
+</table>
+]]></text>
+		</BalloonStyle>
+	</Style>
+	<Style id="sh_square">
+		<IconStyle>
+			<color>ff00ffff</color>
+			<scale>2.36364</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/square.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>2</scale>
+		</LabelStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Style id="sn_square">
+		<IconStyle>
+			<color>ff00ffff</color>
+			<scale>2</scale>
+			<Icon>
+				<href>http://maps.google.com/mapfiles/kml/shapes/square.png</href>
+			</Icon>
+		</IconStyle>
+		<LabelStyle>
+			<scale>2</scale>
+		</LabelStyle>
+		<ListStyle>
+		</ListStyle>
+	</Style>
+	<Folder id="layer 0">
+		<name>willamette alcove sites</name>
+		<open>1</open>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.2839</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1215</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18444,44.28385,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.2842</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1225</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18518,44.28417000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.2849</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1232</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1856,44.28492000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.2845</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1014</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18593,44.28452000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.2847</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1017</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18622,44.28466999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.2843</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1019</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18573,44.28429999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.2841</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1026</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1853,44.28408000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.284</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1030</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18488,44.28395999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.2838</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1035</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18455,44.28379999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.2837</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1038</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18413,44.28365,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">8</SimpleData>
+					<SimpleData name="lat">44.2836</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1044</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18372,44.28358000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>9</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">9</SimpleData>
+					<SimpleData name="lat">44.2835</SimpleData>
+					<SimpleData name="long">-123.183</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1048</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18328,44.28348999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">10</SimpleData>
+					<SimpleData name="lat">44.2837</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1053</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18354,44.28365999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">11</SimpleData>
+					<SimpleData name="lat">44.2837</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1100</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18403,44.28372,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>12</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">12</SimpleData>
+					<SimpleData name="lat">44.2839</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1104</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18436,44.28387000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">13</SimpleData>
+					<SimpleData name="lat">44.2841</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1106</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18468,44.28411000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>14</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">14</SimpleData>
+					<SimpleData name="lat">44.2843</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1110</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18508,44.28426999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>15</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">15</SimpleData>
+					<SimpleData name="lat">44.2844</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1114</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18537,44.28439999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>16</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">16</SimpleData>
+					<SimpleData name="lat">44.2846</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1119</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18561,44.28456,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.2851</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1134</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18531,44.28509,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>17</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">17</SimpleData>
+					<SimpleData name="lat">44.2844</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1139</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18608,44.28439,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>18</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">18</SimpleData>
+					<SimpleData name="lat">44.2842</SimpleData>
+					<SimpleData name="long">-123.186</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1144</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18573,44.28418000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>19</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">19</SimpleData>
+					<SimpleData name="lat">44.284</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1148</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18536,44.28399999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>20</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">20</SimpleData>
+					<SimpleData name="lat">44.2838</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1152</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18498,44.28379,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>21</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">21</SimpleData>
+					<SimpleData name="lat">44.2837</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1156</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18462,44.28370999999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>22</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">22</SimpleData>
+					<SimpleData name="lat">44.2836</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1201</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18391,44.28360000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.2839</SimpleData>
+					<SimpleData name="long">-123.184</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1205</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18444,44.28385,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.2842</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1212</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18518,44.28419,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Church</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.2851</SimpleData>
+					<SimpleData name="long">-123.185</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1010</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18531,44.28509,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.2964</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1320</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1894,44.29635999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.2952</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1327</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18966,44.29523000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.2944</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/23/2020</SimpleData>
+					<SimpleData name="Time">1333</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18965,44.29445,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.2929</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1342</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18901,44.29292000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.2931</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1344</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18903,44.29313000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.2932</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1349</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18936,44.29316000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.2936</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1353</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18921,44.29357999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">8</SimpleData>
+					<SimpleData name="lat">44.2944</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1401</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.19034,44.29437000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.2944</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1415</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18961,44.29441,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>9</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">9</SimpleData>
+					<SimpleData name="lat">44.295</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1421</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18967,44.29502999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">10</SimpleData>
+					<SimpleData name="lat">44.2956</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1426</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18938,44.29558999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">11</SimpleData>
+					<SimpleData name="lat">44.296</SimpleData>
+					<SimpleData name="long">-123.189</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1432</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18946,44.29602,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.2962</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1447</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18951,44.29622999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>12</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">12</SimpleData>
+					<SimpleData name="lat">44.2965</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1451</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.19018,44.29651000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">13</SimpleData>
+					<SimpleData name="lat">44.2971</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1454</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.18951,44.29706999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ccff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ccff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ccff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">CottonWood</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.2976</SimpleData>
+					<SimpleData name="long">-123.19</SimpleData>
+					<SimpleData name="date">7/30/2020</SimpleData>
+					<SimpleData name="Time">1510</SimpleData>
+					<SimpleData name="status__best_"></SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1899,44.29762000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.1257</SimpleData>
+					<SimpleData name="long">-123.106</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1140</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10634,44.12574999999997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.126</SimpleData>
+					<SimpleData name="long">-123.107</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1155</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10656,44.12603999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.1264</SimpleData>
+					<SimpleData name="long">-123.107</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1215</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10699,44.12643,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.1261</SimpleData>
+					<SimpleData name="long">-123.107</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1225</SimpleData>
+					<SimpleData name="status__best_">RED</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10683,44.12613,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.126</SimpleData>
+					<SimpleData name="long">-123.107</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1235</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1066,44.12596,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.1256</SimpleData>
+					<SimpleData name="long">-123.106</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1243</SimpleData>
+					<SimpleData name="status__best_">RED</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10599,44.12562000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.1266</SimpleData>
+					<SimpleData name="long">-123.107</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1250</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10723,44.12655000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.1267</SimpleData>
+					<SimpleData name="long">-123.108</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1300</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10819,44.12673999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.1264</SimpleData>
+					<SimpleData name="long">-123.108</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1310</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10831,44.12642000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">RiverLoop</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.1277</SimpleData>
+					<SimpleData name="long">-123.109</SimpleData>
+					<SimpleData name="date">8/7/2020</SimpleData>
+					<SimpleData name="Time">1320</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.10873,44.12773000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.4766</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1124</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21307,44.47658000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.4757</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1132</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21323,44.47567,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0000ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.4749</SimpleData>
+					<SimpleData name="long">-123.214</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1140</SimpleData>
+					<SimpleData name="status__best_">RED</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21425,44.47493,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.475</SimpleData>
+					<SimpleData name="long">-123.214</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1142</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21395,44.47503999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.4751</SimpleData>
+					<SimpleData name="long">-123.214</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1146</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21371,44.47507999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.4753</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1151</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21339,44.47532000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.4755</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1155</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21327,44.47553000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.4759</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1201</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21318,44.47585000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.4761</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1209</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21315,44.47605999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">8</SimpleData>
+					<SimpleData name="lat">44.4764</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1213</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2131,44.47637999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>9</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">9</SimpleData>
+					<SimpleData name="lat">44.4768</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1220</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21304,44.47677,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">10</SimpleData>
+					<SimpleData name="lat">44.4772</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1226</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21314,44.47724999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">11</SimpleData>
+					<SimpleData name="lat">44.4775</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1233</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21306,44.47749999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>12</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">12</SimpleData>
+					<SimpleData name="lat">44.4771</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1301</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21335,44.47711,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">13</SimpleData>
+					<SimpleData name="lat">44.4767</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1305</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21333,44.47667000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>14</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">14</SimpleData>
+					<SimpleData name="lat">44.4761</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1316</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2133,44.47612000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>15</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">15</SimpleData>
+					<SimpleData name="lat">44.4758</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1318</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21334,44.47580999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>16</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">16</SimpleData>
+					<SimpleData name="lat">44.4752</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1324</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21329,44.47523999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>17</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">17</SimpleData>
+					<SimpleData name="lat">44.4756</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1329</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21319,44.47559000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>18</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">18</SimpleData>
+					<SimpleData name="lat">44.4762</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1334</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21308,44.47617,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>19</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">19</SimpleData>
+					<SimpleData name="lat">44.4767</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1340</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.213,44.47666000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>20</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">20</SimpleData>
+					<SimpleData name="lat">44.4764</SimpleData>
+					<SimpleData name="long">-123.214</SimpleData>
+					<SimpleData name="date">8/24/2020</SimpleData>
+					<SimpleData name="Time">1351</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21426,44.47643000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.4767</SimpleData>
+					<SimpleData name="long">-123.214</SimpleData>
+					<SimpleData name="date">8/27/2020</SimpleData>
+					<SimpleData name="Time">1240</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21412,44.47671999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.4766</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/27/2020</SimpleData>
+					<SimpleData name="Time">1258</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21307,44.47658000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Bear Island</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.4757</SimpleData>
+					<SimpleData name="long">-123.213</SimpleData>
+					<SimpleData name="date">8/27/2020</SimpleData>
+					<SimpleData name="Time">1305</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.21323,44.47567,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.2335</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">938</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16257,44.23349999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.2304</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1004</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16244,44.2304,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.2319</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1023</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16283,44.23190999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.2334</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1025</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16299,44.23344000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.2329</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1030</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16263,44.23293000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.2325</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1038</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1629,44.23251,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.2319</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1042</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16277,44.23187999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.2312</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1050</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16277,44.23124000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.231</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1056</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16234,44.23099000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.2307</SimpleData>
+					<SimpleData name="long">-123.163</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1100</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16257,44.23073,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">8</SimpleData>
+					<SimpleData name="lat">44.2305</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1107</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16212,44.23048000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>9</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">9</SimpleData>
+					<SimpleData name="lat">44.2305</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1109</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16228,44.23049999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">10</SimpleData>
+					<SimpleData name="lat">44.2301</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1111</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.1623,44.23014000000003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">11</SimpleData>
+					<SimpleData name="lat">44.23</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1117</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16225,44.23003,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>12</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">12</SimpleData>
+					<SimpleData name="lat">44.23</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1122</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16209,44.22996,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">13</SimpleData>
+					<SimpleData name="lat">44.2298</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1125</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16213,44.22978000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>14</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Blue Ruin</SimpleData>
+					<SimpleData name="location__">14</SimpleData>
+					<SimpleData name="lat">44.2296</SimpleData>
+					<SimpleData name="long">-123.162</SimpleData>
+					<SimpleData name="date">9/3/2020</SimpleData>
+					<SimpleData name="Time">1129</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.16187,44.22959,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>A</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">A</SimpleData>
+					<SimpleData name="lat">44.3829</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1132</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23785,44.38289999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>B</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">B</SimpleData>
+					<SimpleData name="lat">44.3839</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1153</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23728,44.38389000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>C</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">C</SimpleData>
+					<SimpleData name="lat">44.3843</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1206</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2378,44.38432000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>1</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">1</SimpleData>
+					<SimpleData name="lat">44.3844</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1210</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23711,44.38440999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>2</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">2</SimpleData>
+					<SimpleData name="lat">44.3844</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1218</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23651,44.38440999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>3</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">3</SimpleData>
+					<SimpleData name="lat">44.3842</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1220</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23677,44.38420999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>4</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">4</SimpleData>
+					<SimpleData name="lat">44.384</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1225</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23699,44.38403999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>5</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">5</SimpleData>
+					<SimpleData name="lat">44.3839</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1231</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23714,44.38394,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>6</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">6</SimpleData>
+					<SimpleData name="lat">44.384</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1236</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23718,44.38400999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>7</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">7</SimpleData>
+					<SimpleData name="lat">44.3841</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1241</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23742,44.38407999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>8</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">8</SimpleData>
+					<SimpleData name="lat">44.3841</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1304</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2377,44.38407999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>9</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">9</SimpleData>
+					<SimpleData name="lat">44.384</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1307</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23806,44.38401999999998,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>10</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff0088ff</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">10</SimpleData>
+					<SimpleData name="lat">44.3839</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1311</SimpleData>
+					<SimpleData name="status__best_">ORANGE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23752,44.38393000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>11</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">11</SimpleData>
+					<SimpleData name="lat">44.3838</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1316</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23726,44.38382000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>12</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">12</SimpleData>
+					<SimpleData name="lat">44.3837</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1325</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23737,44.38367,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>13</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">13</SimpleData>
+					<SimpleData name="lat">44.3834</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1327</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23754,44.38336,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>14</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">14</SimpleData>
+					<SimpleData name="lat">44.3831</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1335</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23769,44.38309000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>15</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">15</SimpleData>
+					<SimpleData name="lat">44.3829</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1340</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23784,44.38293,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>16</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">16</SimpleData>
+					<SimpleData name="lat">44.3826</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1348</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23795,44.38256,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>17</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">17</SimpleData>
+					<SimpleData name="lat">44.3828</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1348</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23816,44.38276000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>18</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">18</SimpleData>
+					<SimpleData name="lat">44.383</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1351</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2378,44.38301000000002,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>19</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">19</SimpleData>
+					<SimpleData name="lat">44.3833</SimpleData>
+					<SimpleData name="long">-123.238</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1356</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.2377,44.38330999999999,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>20</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ff00ffee</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">20</SimpleData>
+					<SimpleData name="lat">44.3836</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1401</SimpleData>
+					<SimpleData name="status__best_">YELLOW</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23735,44.38356,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>21</name>
+			<styleUrl>#pointStyleMap</styleUrl>
+			<Style id="inline">
+				<IconStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+					<Icon>
+						<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>
+					</Icon>
+				</IconStyle>
+				<LineStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</LineStyle>
+				<PolyStyle>
+					<color>ffff0000</color>
+					<colorMode>normal</colorMode>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#S_willamette_alcove_sites_SSDDSIS">
+					<SimpleData name="Alcove">Telemetry Slough</SimpleData>
+					<SimpleData name="location__">21</SimpleData>
+					<SimpleData name="lat">44.3839</SimpleData>
+					<SimpleData name="long">-123.237</SimpleData>
+					<SimpleData name="date">8/14/2020</SimpleData>
+					<SimpleData name="Time">1408</SimpleData>
+					<SimpleData name="status__best_">BLUE</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Point>
+				<coordinates>-123.23709,44.38386000000001,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Telemetry</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.2371786729618</longitude>
+				<latitude>44.38356958435445</latitude>
+				<altitude>0</altitude>
+				<heading>-0.04555901548835339</heading>
+				<tilt>0</tilt>
+				<range>201.1561883639491</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.237324070735,44.38372219344418,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Bear Island</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.2120252007979</longitude>
+				<latitude>44.47648107193069</latitude>
+				<altitude>0</altitude>
+				<heading>-0.02798905584955172</heading>
+				<tilt>0</tilt>
+				<range>313.3937911236267</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.2131096308509,44.47665838642399,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Blue Ruin</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.1607314634519</longitude>
+				<latitude>44.23207254509981</latitude>
+				<altitude>0</altitude>
+				<heading>0.007780331733853261</heading>
+				<tilt>0</tilt>
+				<range>1071.43782051309</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.1628072215646,44.23199305209319,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Riverloop</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.1071139265987</longitude>
+				<latitude>44.12644177892385</latitude>
+				<altitude>0</altitude>
+				<heading>0.04513768944950989</heading>
+				<tilt>0</tilt>
+				<range>269.6013686770094</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.1076573762557,44.12671075107997,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Cottonwood</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.1876976056791</longitude>
+				<latitude>44.29607261522654</latitude>
+				<altitude>0</altitude>
+				<heading>-0.01098452678226226</heading>
+				<tilt>0</tilt>
+				<range>897.5428491344867</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.1895240369206,44.29542313255629,0</coordinates>
+			</Point>
+		</Placemark>
+		<Placemark>
+			<name>Church</name>
+			<visibility>0</visibility>
+			<LookAt>
+				<longitude>-123.1843475429896</longitude>
+				<latitude>44.28404971626268</latitude>
+				<altitude>0</altitude>
+				<heading>-0.008650156842248456</heading>
+				<tilt>0</tilt>
+				<range>472.6157526328743</range>
+				<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>
+			</LookAt>
+			<styleUrl>#msn_square</styleUrl>
+			<Point>
+				<gx:drawOrder>1</gx:drawOrder>
+				<coordinates>-123.1850942877968,44.28397694650568,0</coordinates>
+			</Point>
+		</Placemark>
+	</Folder>
+</Document>
+</kml>
