@@ -9,13 +9,18 @@ library(viridis)
 library(dplyr)
 library(tidyverse)
 library(lubridate)
+library(ggpubr)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
-fish <-read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
-fish$date.time<-ymd_hms(fish$date.time)
+fish <-read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv")
+fish$date.time<-mdy_hm(fish$date.time)
+#fish<-fish %>% force_tz(fish$date.time, tzone = "America/Los_Angeles")
 fish <-fish[fish$case ==1,]
-fish<-fish[,c(1:4,6)]
+
+# keeping times and adding fake day to make all reads on same day, 
+# couldnt get formatting to work when trying to just do time for forloop
+
 fish$hour <-hour(fish$date.time)
 fish$date <-as.Date(fish$date.time)
 fish$time <-fish$date.time
@@ -27,7 +32,7 @@ fish$time2 <-ymd_hms(fish$time2)
 buttons <-unique(fish$ibutton.id)
 dates <- unique(fish$date)
 
-dat <-setNames(data.frame(matrix(ncol = 8, nrow = 0)), c("date.time", "temperature", "depth","dissolved.oxygen", "ibutton.id", "hour", "date", "min.max"))
+dat <-setNames(data.frame(matrix(ncol = 12, nrow = 0)), c("site", "date.time", "temperature", "depth","dissolved.oxygen", "case", "ibutton.id", "hour", "date", "time", "fake.date", "min.max"))
 
 for(i in 1:length(buttons)){
   ib<-buttons[i]
@@ -55,7 +60,7 @@ for(i in 1:length(buttons)){
 shallow <-dat[dat$min.max == "shallowest",]
 deep <- dat[dat$min.max == "deepest",]
 
-ggplot(data = shallow, aes(x =hour))+
+f1<- ggplot(data = shallow, aes(x =hour))+
   geom_histogram(binwidth = 1, boundary = -7.5, colour = "black", fill = "lightsteelblue",size = .2)+
   coord_polar()+
   scale_x_continuous(limits = c(0, 24),
@@ -63,9 +68,9 @@ ggplot(data = shallow, aes(x =hour))+
                      minor_breaks = seq(0,24, by = 1))+
   theme_bw()+
   theme(panel.border = element_blank())+
-  ggtitle("Daily timing most shallow water column position")
+  ggtitle("Hour of most shallow water column position")
 
-ggplot(data = deep, aes(x =hour))+
+f2<- ggplot(data = deep, aes(x =hour))+
   geom_histogram(binwidth = 1, boundary = -7.5, colour = "black", fill = "red4",size = .2)+
   coord_polar()+
   scale_x_continuous(limits = c(0, 24),
@@ -73,10 +78,14 @@ ggplot(data = deep, aes(x =hour))+
                      minor_breaks = seq(0,24, by = 1))+
   theme_bw()+
   theme(panel.border = element_blank())+
-  ggtitle("Daily timing deepest water column position")
-#6666cc aquamarine4 lightgoldenrod3
+  ggtitle("Hour of deepest water column position")
 
-p<- ggplot(data = fish, aes (x = time2, y = depth))+
+f3<-ggarrange(f1, f2, 
+              ncol=2)
+
+fish.block<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
+
+p<- ggplot(data = fish.block, aes (x = time2, y = depth))+
   #geom_point(alpha = .1, colour = "slategray")+
   geom_smooth(fill = "lightsalmon", colour = "lightsalmon4")+
   scale_y_reverse()+
