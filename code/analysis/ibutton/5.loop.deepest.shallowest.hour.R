@@ -93,7 +93,8 @@ p<- ggplot(data = fish.block, aes (x = time2, y = depth))+
     breaks = "2 hours",
     date_labels = "%H")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.key=element_rect(fill="white"), text = element_text(size = 12, family = "serif"))+
   #ggtitle("Smoothed fit fish depth across 24-hour period, Blue Ruin netpens")+
   xlab("Time")+
   ylab("Depth (m)")

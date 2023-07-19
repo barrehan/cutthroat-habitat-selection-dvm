@@ -39,8 +39,8 @@ array24$shp1 <- as.factor(1)
 array24$shp2 <- as.factor(2)
 
 ggplot()+
-  geom_smooth(data= array24, aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed")+
-  geom_smooth(data= array24, aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid")+
+  geom_smooth(data= array24, aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F)+
+  geom_smooth(data= array24, aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F)+
   scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#a86048", "#2C374A", "#BD852C"),
                       name = "Sensor depth")+
   scale_linetype_manual(values= c("dashed", "solid"), labels = c("Temperature (\u00B0C)", "Dissolved oxygen (mg/L)"), name = "Metric")+
