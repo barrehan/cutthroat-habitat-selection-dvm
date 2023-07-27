@@ -2,7 +2,7 @@
 #'pool ibuttons for br, create stratum.ID for individual and for pooled data
 rm(list=ls())
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 library(readr)
 library(dplyr)

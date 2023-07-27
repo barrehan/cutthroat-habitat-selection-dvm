@@ -125,6 +125,23 @@ osu <- do.dat[do.dat$collected.by == "osu",]
 
 osu<- osu%>% filter(date >'7/25/2021' & date <'8/14/2021')
 
+ggplot(osu, aes(date.time, dissolved.oxygen, group = sensor.depth))+
+  geom_point(aes(col = sensor.depth))
+  facet_wrap(~logger.site)
+
+osu.s5 <-osu[osu$logger.site == "site.5.head",]
+
+ggplot(osu.s5, aes(date.time, dissolved.oxygen, group =sensor.depth))+
+  geom_point(aes(col = sensor.depth))+
+  facet_wrap(~logger.site)
+
+osu.s4 <-osu[osu$logger.site == "site.4.netpen",]
+
+ggplot(osu.s4, aes(date.time, dissolved.oxygen, group =sensor.depth))+
+  geom_point(aes(col = sensor.depth))+
+  facet_wrap(~logger.site)
+
+
 epa.osu.arrays.clean<-rbind(arrays.clean, osu)
 
 write.csv(epa.osu.arrays.clean, "data/modif.data/logger.array/epa.osu.logger.array.cleaned.csv", row.names = F)

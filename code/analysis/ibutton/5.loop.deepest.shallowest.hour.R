@@ -85,19 +85,20 @@ f3<-ggarrange(f1, f2,
 
 fish.block<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
 
-p<- ggplot(data = fish.block, aes (x = time2, y = depth))+
+p<-ggplot(data = fish.block, aes (x = time2, y = depth))+
   #geom_point(alpha = .1, colour = "slategray")+
-  geom_smooth(fill = "lightsalmon", colour = "lightsalmon4")+
+  geom_smooth(fill = "#6B7F7F", colour = "#293633")+
   scale_y_reverse()+
   scale_x_datetime(
     breaks = "2 hours",
     date_labels = "%H")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        legend.key=element_rect(fill="white"), text = element_text(size = 12, family = "serif"))+
+        legend.key=element_rect(fill="white"), text = element_text(size = 15, family = "serif"))+
   #ggtitle("Smoothed fit fish depth across 24-hour period, Blue Ruin netpens")+
   xlab("Time")+
   ylab("Depth (m)")
 
 ggsave(p, filename = paste("results/figures/ibutton.simulation/smoothed.fit.fish.depth.BRib.png"), width = 12, height = 8, units = "cm")
 
+?scale_x_datetime

@@ -129,22 +129,21 @@ datlong<-dater %>%gather(Factor, Depth, Temperature:WQI)
 
 p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   #first smooth; se only
-  stat_smooth(aes(group=Factor), col=NA, method = "auto", size=1, se=TRUE)+
+  stat_smooth(aes(group=Factor), col=NA, method = "auto", size=1, se=TRUE, fill = "#6B7F7F")+
   #now smooth;line only
-  stat_smooth(aes(lty = Factor), colour = "black", se = F)+
+  stat_smooth(aes(lty = Factor), colour = "#293633", se = F)+
   scale_y_reverse()+
   xlab('Hour of day')+
   ylab("Depth (m)")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        legend.key = element_rect(fill = NA, colour = NA),
-        legend.text=element_text(size=10), legend.title=element_text(size=12),
-        axis.text = element_text(size = 10), axis.title=element_text(size = 12))+
+        text = element_text(size = 15, family = "serif"))+
   labs(linetype = "Depth selection")+
-  scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DO", "WQI", "Temperature"))
-  scale_linetype_discrete(breaks = c())
+  scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DO", "WQI", "Temperature"))+
+  scale_x_continuous(breaks = seq(0,21,3))
 
 
-ggsave(p, filename = paste("results/figures/ibutton.simulation/depth.selection.simulation.png"), width = 12, height = 8, units = "cm")
+
+ggsave(p, filename = paste("results/figures/ibutton.simulation/depth.selection.simulation.png"), width = 18, height = 10, units = "cm")
   
 

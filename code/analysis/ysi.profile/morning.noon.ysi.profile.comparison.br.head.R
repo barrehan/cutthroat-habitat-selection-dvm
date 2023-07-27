@@ -70,31 +70,32 @@ colnames(new.dat)<- c("depth.m", "temp.c", "do.mg.l", "day.segment")
 log5.new <-rbind(new.dat, log5.morning)
 
 f1 <- ggplot(log5.new, aes(x = temp.c, y = depth.m, col = day.segment))+
-  geom_point(size = 1.8)+
+  geom_point(size = 1.5, alpha = 0.9)+
   scale_y_reverse()+
-  scale_color_manual(values = c("#5B1414", "#AD722C"))+
+  scale_color_manual(values = c("#5E3B49", "#BA817D"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.position = "right", legend.key = element_rect(fill = "transparent"),
-        text = element_text(size = 12, family = "serif"), legend.title = element_blank())+
+        text = element_text(size = 15, family = "serif"), legend.title = element_blank())+
   ylab("Depth (m)")+
   xlab("Temperature (\u00B0C)")
 
 f2 <- ggplot(log5.new, aes(x = do.mg.l, y = depth.m, col = day.segment))+
-  geom_point(size = 1.8)+
+  geom_point(size = 1.5, alpha = 0.7)+
   scale_y_reverse()+
-  scale_color_manual(values = c("#5B1414", "#AD722C"))+
+  scale_color_manual(values = c("#5E3B49", "#BA817D"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.position = "right", legend.key = element_rect(fill = "transparent"),
-        text = element_text(size = 12, family = "serif"), legend.title = element_blank())+
+        text = element_text(size = 15, family = "serif"), legend.title = element_blank())+
   ylab("Depth (m)")+
   xlab("Dissolved oxygen (mg/L)")
 
-figure <-ggarrange(f1, f2,
+f <-ggarrange(f1, f2,
                    ncol =2,
                    common.legend = T,
                    legend = "bottom")
 
+ggsave(f, filename = paste("results/figures/ysi.profile/br.head.morning.noon.ysi.png"), width = 15, height = 10, units = "cm")
 
 

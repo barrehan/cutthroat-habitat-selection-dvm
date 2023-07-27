@@ -33,24 +33,30 @@ pp<-ggplot(data= array, aes(x = date.time))+
 
 # pull 24-hour window, August 2, reduce to 3 do loggers
 
-array24<- array[array$date.time >="2021-07-27 06:00:00" & array$date.time < "2021-07-28 06:00:00",]
+array24<- array[array$date.time >="2021-07-27 00:00:00" & array$date.time <= "2021-07-28 00:00:00",]
 array24 <- array24 %>%drop_na(dissolved.oxygen)
 array24$shp1 <- as.factor(1)
 array24$shp2 <- as.factor(2)
 
-ggplot()+
-  geom_smooth(data= array24, aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F)+
-  geom_smooth(data= array24, aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F)+
-  scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#a86048", "#2C374A", "#BD852C"),
+lims <- strptime(c("00:00:00","00:00:00"), format = "%H")
+
+p<- ggplot()+
+  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F, alpha = 0.7, size = 0.75)+
+  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F, alpha = 0.7, size = 0.75)+
+  scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#325731", "#5F4E2F", "#6A9741"),
                       name = "Sensor depth")+
   scale_linetype_manual(values= c("dashed", "solid"), labels = c("Temperature (\u00B0C)", "Dissolved oxygen (mg/L)"), name = "Metric")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.key=element_rect(fill="white"), text = element_text(size = 12, family = "serif"))+
-  scale_x_datetime(breaks = breaks_width("3 hours"), date_labels = "%H:00")+
-  xlab(label = "Time") +
+  scale_x_datetime(breaks = breaks_width("2 hours"), date_labels = "%H")+
+  xlab(label = "Hour of the day") +
   ylab(label = "")+
   theme(text = element_text(size = 15), legend.position = "right")
+
+ggsave(p, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
+
+
 
 # Just look at DO determine min/max windows -------------------------------
 

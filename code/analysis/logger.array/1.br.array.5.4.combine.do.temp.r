@@ -29,7 +29,7 @@ logger.array$sensor.depth<-as.factor(logger.array$sensor.depth)
 ggplot(data= logger.array, aes(x = date.time))+
   geom_jitter(aes(y=temperature, colour = sensor.depth))+
   geom_jitter(aes(y=dissolved.oxygen, colour = sensor.depth))+
-  scale_colour_manual(values = c("goldenrod2", "aquamarine3", "darkviolet", "dark blue", "darkorange", "red", "brown", "black"))+
+  scale_colour_manual(values = c("goldenrod2", "aquamarine3", "darkviolet", "darkblue", "darkorange", "red", "brown", "black"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   scale_x_datetime(date_labels = "%b %d", date_breaks = "2 days")+
