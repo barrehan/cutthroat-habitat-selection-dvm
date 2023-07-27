@@ -14,7 +14,9 @@ library(ggpubr)
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 fish <-read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv")
-fish$date.time<-mdy_hm(fish$date.time)
+fish<-fish%>%
+  mutate(date.time = parse_date_time(date.time, orders = "mdy HM"))
+
 #fish<-fish %>% force_tz(fish$date.time, tzone = "America/Los_Angeles")
 fish <-fish[fish$case ==1,]
 
@@ -57,8 +59,8 @@ for(i in 1:length(buttons)){
 
 
 
-shallow <-dat[dat$min.max == "shallowest",]
-deep <- dat[dat$min.max == "deepest",]
+shallow <-dat[dat$min.max == "shallowest" & dat$site == "norwood",]
+deep <- dat[dat$min.max == "deepest" & dat$site == "norwood",]
 
 f1<- ggplot(data = shallow, aes(x =hour))+
   geom_histogram(binwidth = 1, boundary = -7.5, colour = "black", fill = "lightsteelblue",size = .2)+
