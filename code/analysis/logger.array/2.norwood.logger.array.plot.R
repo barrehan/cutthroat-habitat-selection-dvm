@@ -53,8 +53,7 @@ p<- ggplot()+
   xlab(label = "Hour of the day") +
   ylab(label = "")+
   theme(text = element_text(size = 15), legend.position = "right")
-
-ggsave(p, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
+  ggsave(p, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
 
 
 

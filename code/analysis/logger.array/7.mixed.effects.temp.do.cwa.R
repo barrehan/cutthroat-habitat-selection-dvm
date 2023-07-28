@@ -68,18 +68,18 @@ ggplot()+
 data.mod <-all.array.dat[!(all.array.dat$logger.site == "north.harrisburg.site.b" & all.array.dat$sensor.depth == "2.4"),]
 
 mod3 <- lmer(dissolved.oxygen~temperature +(1|location), data = data.mod)
-summary(mod2)
+summary(mod3)
 
 tab_model(mod3, show.re.var = T,
           pred.labels = c("(Intercept)", "Temperature °C"),
           dv.labels = "Linear relationship between temperature and dissolved oxgyen, all CWA, NHB bottom logger removed")
 
-effects.temp<-effects::effect(term = "temperature", mod = mod3)
-x_temp <-as.data.frame(effects.temp)
+effects.temp3<-effects::effect(term = "temperature", mod = mod3)
+x_temp3 <-as.data.frame(effects.temp3)
 
 q<-ggplot()+
   geom_point(data = data.mod, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
-  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_line(data =x_temp3, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
   geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
@@ -87,6 +87,22 @@ q<-ggplot()+
   #scale_y_reverse()+
   xlab("Temperature (\u00B0C)")+
   ylab("Dissolved oxygen (mg/L)")
+
+ggplot()+
+  #geom_point(data = osu, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  #geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  #geom_point(data = data.mod, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp2, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  #geom_ribbon(data = x_temp2, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")
+
+  
 
 #ggsave(q, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.alc.png"), width = 12, height = 8, units = "cm")
 
@@ -185,12 +201,12 @@ tab_model(mod.highdo, show.re.var = T,
           pred.labels = c("(Intercept)", "Temperature °C"),
           dv.labels = "Linear relationship between temperature and dissolved oxgyen, all arrays 6pm-8pm (high DO)")
 
-effects.temp<-effects::effect(term = "temperature", mod = mod.highdo)
-x_temp <-as.data.frame(effects.temp)
+effects.temp2<-effects::effect(term = "temperature", mod = mod.highdo)
+x_temp2 <-as.data.frame(effects.temp2)
 
 e<-ggplot()+
   geom_point(data = array.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
-  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_line(data =x_temp2, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
   geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
@@ -203,6 +219,113 @@ f<- ggarrange(d,
               e,
               ncol = 2)
 
-ggsave(f, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.array.2hr.png"), width = 20, height = 10, units = "cm")
+j<- ggplot()+
+  #geom_point(data = array.lowdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  #geom_point(data = array.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp2, aes(temperature, y =fit), colour = "#01353D", linewidth = 1)+
+  geom_ribbon(data = x_temp2, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#088096")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")+
+  xlim(10,25)+
+  ylim(0,15)
+
+
+#ggsave(f, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.array.2hr.png"), width = 20, height = 10, units = "cm")
+
+br.netpen<-osu[osu$logger.site == "site.4.netpen",]
+br.lowdo<-br.netpen[br.netpen$hour >= 5 & br.netpen$hour < 7,]
+
+br.mod.lowdo <- lm(dissolved.oxygen~temperature, data = br.lowdo)
+summary(br.mod.lowdo)
+
+tab_model(br.mod.lowdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, br netpen 6am-8am (low DO)")
+
+br.low.effects.temp<-effects::effect(term = "temperature", mod = br.mod.lowdo)
+br.low.x_temp <-as.data.frame(br.low.effects.temp)
+
+br.highdo <-br.netpen[br.netpen$hour >=17 & br.netpen$hour < 19,]
+
+br.mod.highdo <- lm(dissolved.oxygen~temperature, data = br.highdo)
+summary(br.mod.highdo)
+
+tab_model(br.mod.highdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, br netpen 6pm-8pm (high DO)")
+
+br.high.effects.temp<-effects::effect(term = "temperature", mod = br.mod.highdo)
+br.high.x_temp <-as.data.frame(br.high.effects.temp)
+
+a <- ggplot()+
+  #geom_point(data = br.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
+  geom_line(data =br.low.x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = br.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#BA817D")+
+  geom_line(data = br.high.x_temp, aes(x= temperature, y = fit), colour = "#01353D", linewidth = 1)+
+  geom_ribbon(data = br.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#088096")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")+
+  xlim(10,25)+
+  ylim(0,15)
+
+
+nor.netpen<-osu[osu$location == "norwood",]
+nor.lowdo<-nor.netpen[nor.netpen$hour >= 6 & nor.netpen$hour < 8,]
+
+nor.mod.lowdo <- lm(dissolved.oxygen~temperature, data = nor.lowdo)
+summary(nor.mod.lowdo)
+
+tab_model(nor.mod.lowdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, nor netpen 6am-8am (low DO)")
+
+nor.low.effects.temp<-effects::effect(term = "temperature", mod = nor.mod.lowdo)
+nor.low.x_temp <-as.data.frame(nor.low.effects.temp)
+
+nor.highdo <-nor.netpen[nor.netpen$hour >=18 & nor.netpen$hour < 20,]
+
+nor.mod.highdo <- lm(dissolved.oxygen~temperature, data = nor.highdo)
+summary(nor.mod.highdo)
+
+tab_model(nor.mod.highdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, nor netpen 6pm-8pm (high DO)")
+
+nor.high.effects.temp<-effects::effect(term = "temperature", mod = nor.mod.highdo)
+nor.high.x_temp <-as.data.frame(nor.high.effects.temp)
+
+b <- ggplot()+
+  #geom_point(data = nor.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
+  geom_line(data =nor.low.x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = nor.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#BA817D")+
+  geom_line(data = nor.high.x_temp, aes(x= temperature, y = fit), colour = "#01353D", linewidth = 1)+
+  geom_ribbon(data = nor.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#088096")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")+
+  xlim(10,25)+
+  ylim(0,15)
+
+c<- ggarrange(a,
+          b,
+          j,
+          ncol = 2,
+          nrow = 2,
+          align = "hv")
+
+ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
 
 
