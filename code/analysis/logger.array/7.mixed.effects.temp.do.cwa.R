@@ -9,13 +9,17 @@ library(nlme)
 library(emmeans)
 library(lme4)
 library(sjPlot)
+library(ggpubr)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 all.array.dat<-read.csv("data/modif.data/logger.array/epa.osu.logger.array.cleaned.csv")
+all.array.dat$date.time <-mdy_hm(all.array.dat$date.time)
+all.array.dat$hour <-as.numeric(hour(all.array.dat$date.time))
+
 
 osu<-all.array.dat[all.array.dat$collected.by == "osu",]
-
 osu$location <- as.factor(osu$location)
+
 
 mod1 <- lmer(dissolved.oxygen~temperature +(1|location), data = osu)
 summary(mod1)
@@ -38,7 +42,7 @@ p<-ggplot()+
   xlab("Temperature (\u00B0C)")+
   ylab("Dissolved oxygen (mg/L)")
 
-ggsave(p, filename = paste("results/figures/logger.array/temp.do.mixed.effects.br.nor.png"), width = 12, height = 8, units = "cm")
+#ggsave(p, filename = paste("results/figures/logger.array/temp.do.mixed.effects.br.nor.png"), width = 12, height = 8, units = "cm")
 
 mod2 <- lmer(dissolved.oxygen~temperature +(1|location), data = all.array.dat)
 summary(mod2)
@@ -84,4 +88,121 @@ q<-ggplot()+
   xlab("Temperature (\u00B0C)")+
   ylab("Dissolved oxygen (mg/L)")
 
-ggsave(q, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.alc.png"), width = 12, height = 8, units = "cm")
+#ggsave(q, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.alc.png"), width = 12, height = 8, units = "cm")
+
+
+
+# Pull OSU data into 2 dfs, 2hr high and 2hr low DO -----------------------
+#6am-6pm
+
+osu.lowdo<-osu[osu$hour >= 6 & osu$hour < 8,]
+osu.highdo <-osu[osu$hour >=18 & osu$hour < 20,]
+
+mod.lowdo <- lmer(dissolved.oxygen~temperature +(1|location), data = osu.lowdo)
+summary(mod.lowdo)
+
+tab_model(mod.lowdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, Blue Ruin and Norwood 6am-8am (low DO)")
+
+effects.temp<-effects::effect(term = "temperature", mod = mod.lowdo)
+x_temp <-as.data.frame(effects.temp)
+
+a<-ggplot()+
+  geom_point(data = osu.lowdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")
+
+
+mod.highdo <- lmer(dissolved.oxygen~temperature +(1|location), data = osu.highdo)
+summary(mod.highdo)
+
+tab_model(mod.highdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, Blue Ruin and Norwood 6pm-8pm (high DO)")
+
+effects.temp<-effects::effect(term = "temperature", mod = mod.highdo)
+x_temp <-as.data.frame(effects.temp)
+
+b<-ggplot()+
+  geom_point(data = osu.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")
+
+c<- ggarrange(a,
+          b,
+          ncol = 2)
+
+#ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.br.nor.2hr.png"), width = 20, height = 10, units = "cm")
+
+
+# Pull all logger data into 2 dfs, 2hr high and 2hr low DO -----------------------
+#6am-6pm
+
+array.lowdo<-data.mod[data.mod$hour >= 6 & data.mod$hour < 8,]
+array.highdo <-data.mod[data.mod$hour >=18 & data.mod$hour < 20,]
+
+mod.lowdo <- lmer(dissolved.oxygen~temperature +(1|location), data = array.lowdo)
+summary(mod.lowdo)
+
+tab_model(mod.lowdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, all arrays 6am-8am (low DO)")
+
+effects.temp<-effects::effect(term = "temperature", mod = mod.lowdo)
+x_temp <-as.data.frame(effects.temp)
+
+d<-ggplot()+
+  geom_point(data = array.lowdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")+
+  scale_y_continuous(breaks = seq(0,8,2))+
+  scale_x_continuous(breaks = seq (8, 22, 2))
+
+
+mod.highdo <- lmer(dissolved.oxygen~temperature +(1|location), data = array.highdo)
+summary(mod.highdo)
+
+tab_model(mod.highdo, show.re.var = T,
+          pred.labels = c("(Intercept)", "Temperature °C"),
+          dv.labels = "Linear relationship between temperature and dissolved oxgyen, all arrays 6pm-8pm (high DO)")
+
+effects.temp<-effects::effect(term = "temperature", mod = mod.highdo)
+x_temp <-as.data.frame(effects.temp)
+
+e<-ggplot()+
+  geom_point(data = array.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 15, family = "serif"))+
+  #scale_y_reverse()+
+  xlab("Temperature (\u00B0C)")+
+  ylab("Dissolved oxygen (mg/L)")
+
+f<- ggarrange(d,
+              e,
+              ncol = 2)
+
+ggsave(f, filename = paste("results/figures/logger.array/temp.do.mixed.effects.all.array.2hr.png"), width = 20, height = 10, units = "cm")
+
+

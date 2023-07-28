@@ -41,9 +41,9 @@ array24$shp2 <- as.factor(2)
 lims <- strptime(c("00:00:00","00:00:00"), format = "%H")
 
 p<- ggplot()+
-  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F, alpha = 0.7, size = 0.75)+
-  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F, alpha = 0.7, size = 0.75)+
-  scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#325731", "#5F4E2F", "#6A9741"),
+  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F, size = 0.85)+
+  geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F, size = 0.85)+
+  scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#212E52", "#386EC2", "#8087AA"),
                       name = "Sensor depth")+
   scale_linetype_manual(values= c("dashed", "solid"), labels = c("Temperature (\u00B0C)", "Dissolved oxygen (mg/L)"), name = "Metric")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),

@@ -39,11 +39,20 @@ br.do8 <- (8-br.mean.do)/br.sd.do
 
 ## find average DO of bottom logger during 2-hour window, this
 ##is what we'll set line plot to
-nor.hypo <-nor.ib[nor.ib$depth >= 1 & nor.ib$highlowDO.2hours == "high",]
-mean(nor.hypo$dissolved.oxygen, na.rm = T)
+nor.hypo.h <-nor.ib[nor.ib$depth >= 1 & nor.ib$highlowDO.2hours == "high",]
+mean(nor.hypo.h$dissolved.oxygen, na.rm = T)
 
-nor.hypo <-nor.ib[nor.ib$depth >= 1 & nor.ib$highlowDO.2hours == "low",]
-mean(nor.hypo$dissolved.oxygen, na.rm = T)
+nor.hypo.l <-nor.ib[nor.ib$depth >= 1 & nor.ib$highlowDO.2hours == "low",]
+mean(nor.hypo.l$dissolved.oxygen, na.rm = T)
 
 nor.do.high<- (8.4-nor.mean.do)/nor.sd.do
 nor.do.low<- (1.3-nor.mean.do)/nor.sd.do
+
+#Now for BR as well
+br.hypo.h <-br.ib[br.ib$depth >=1 & br.ib$highlowDO.2hr == "high",]
+mean(br.hypo.h$dissolved.oxygen, na.rm = T)
+br.hypo.l <- br.ib[br.ib$depth >=1 & br.ib$highlowDO.2hr == "low",]
+mean(br.hypo.l$dissolved.oxygen, na.rm = T)5
+
+br.do.high <- (4.2-br.mean.do)/br.sd.do
+br.do.low <- (2.6-br.mean.do)/br.sd.do
