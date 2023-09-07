@@ -53,13 +53,18 @@ for(i in tags){
 dat$foray.min <- dat$foray
 dat$foray.min[dat$foray >780] <-780
 
-ggplot(dat, aes(x = foray.min))+
+q <-ggplot(dat, aes(x = foray.min))+
   geom_histogram(breaks = c(seq(0,780,60)),
                  col = "black",
-                 fill = "red")+
+                 fill = "#535260")+
   labs(x = "Mainstem foray time (minutes)", y = "Count")+
   scale_x_continuous(limits = c(0, 780), breaks = c(seq(0, 780, by= 60)),
                      labels = c(seq(0,720, by= 60), "> 12 hours"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        text = element_text(size = 13, family = "serif"))
+
+ggsave(q, filename = paste("results/figures/radio.tag.figures/mainstem.foray/foray.frequency.png"), width = 18, height = 10, units = "cm")
+
+
 
