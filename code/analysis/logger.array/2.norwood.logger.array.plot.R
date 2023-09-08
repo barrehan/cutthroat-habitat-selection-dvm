@@ -15,8 +15,43 @@ unique(array$sensor.depth)
 array$sensor.depth<- as.factor(array$sensor.depth)
 array$date.time<- mdy_hm(array$date.time) 
 array <- array %>% force_tz(array$date.time, tzone = "America/Los_Angeles")
-array<- array[array$date.time >"2021-07-25 00:00:00",]
-array<- array[array$date.time < "2021-08-14 00:00:00",]
+array<- array[array$date.time >="2021-07-31 00:00:00",]
+array<- array[array$date.time < "2021-08-07 00:00:00",]
+
+array$date <-as.Date(array$date.time, width = "1 day")
+
+epi <-array[array$sensor.depth == 0.25,]
+hyp <-array[array$sensor.depth == 1.45,]
+
+min.hyp <- hyp%>%
+  group_by(date)%>%
+  summarise_at(vars(dissolved.oxygen),
+               list(min = min))
+
+mean(min.hyp$min)
+  
+max.hyp <- hyp%>%
+  group_by(date)%>%
+  summarise_at(vars(dissolved.oxygen),
+               list(max=max))  
+
+mean(max.hyp$max)
+
+min.epi <- epi%>%
+  group_by(date)%>%
+  summarise_at(vars(dissolved.oxygen),
+               list(min = min))
+
+mean(min.epi$min)
+
+max.epi <- epi%>%
+  group_by(date)%>%
+  summarise_at(vars(dissolved.oxygen),
+               list(max=max))  
+
+mean(max.epi$max)
+
+
 
 pp<-ggplot(data= array, aes(x = date.time))+
   geom_jitter(aes(y=temperature, colour = sensor.depth))+
@@ -33,7 +68,7 @@ pp<-ggplot(data= array, aes(x = date.time))+
 
 # pull 24-hour window, August 2, reduce to 3 do loggers
 
-array24<- array[array$date.time >="2021-07-27 00:00:00" & array$date.time <= "2021-07-28 00:00:00",]
+array24<- array[array$date.time >="2021-08-01 00:00:00" & array$date.time <= "2021-08-02 00:00:00",]
 array24 <- array24 %>%drop_na(dissolved.oxygen)
 array24$shp1 <- as.factor(1)
 array24$shp2 <- as.factor(2)
