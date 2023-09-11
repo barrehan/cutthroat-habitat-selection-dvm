@@ -2,7 +2,7 @@
 # Check for correlation between DO and Temp -------------------------------
 
 rm(list=ls())
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 library(readr)
 library(dplyr)
 library(tidyverse)
