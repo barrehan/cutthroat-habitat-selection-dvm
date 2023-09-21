@@ -1,7 +1,7 @@
 site,location,logger.type,depth,logger.id,sensor.depth.m,total.depth,lat,lon,deploy.date,deploy.time,data.retrieved
 blue.ruin,site.0.mouth,hobo.onset.temp,NA,20659255,NA,NA,44.23356,-123.162974,,,
-blue.ruin,site.1.logger.1,minidot.do,surface.do,956736,0.3,2.9,44.2322885,-123.163012,,,y
-blue.ruin,site.1.logger.1,minidot.do,bottom.do,296187,2.5,2.9,44.2322885,-123.163012,,,y
+blue.ruin,site.1.logger.1,minidot.do,surface.do,956736,0.3,2.9,44.2322885,-123.16297,,,y
+blue.ruin,site.1.logger.1,minidot.do,bottom.do,296187,2.5,2.9,44.2322885,-123.16297,,,y
 blue.ruin,site.2.logger.2,hobo.onset.do,surface.do,21063703,0.25,3.8,44.2315577,-123.1627615,,,y
 blue.ruin,site.2.logger.2,hobo.onset.temp,surface.temp,20659268,0,3.8,44.2315577,-123.1627615,,,y
 blue.ruin,site.2.logger.2,hobo.onset.temp,mid.temp,20659258,1,3.8,44.2315577,-123.1627615,,,y
