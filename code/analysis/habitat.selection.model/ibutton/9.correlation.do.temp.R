@@ -16,10 +16,25 @@ br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pool
 
 # Make time ID columns factors --------------------------------------------
 
+br.ib$highlowDO.2hr <- as.factor(br.ib$highlowDO.2hr)
 br.ib$dayID <-as.factor(br.ib$dayID)
 br.ib$hourID <-as.factor(br.ib$hourID)
 br.ib$quarterID <-as.factor(br.ib$quarterID)
 
+
+# Data frames by 2-hour window --------------------------------------------
+high.br <-br.ib[br.ib$highlowDO.2hr == "high",]
+high.br <-na.omit(high.br)
+low.br <-br.ib[br.ib$highlowDO.2hr == "low",]
+low.br <- na.omit(low.br)
+
+cor(high.br$standardized.do, high.br$standardized.temp)
+cor(low.br$standardized.do, low.br$standardized.temp)
+
+both.br <-br.ib[br.ib$highlowDO.2hr == "high" | br.ib$highlowDO.2hr == "low",]
+both.br <- na.omit(both.br)
+
+cor(both.br$standardized.do, both.br$standardized.temp)
 # Data frames by day and night --------------------------------------------
 
 day.br <- br.ib[br.ib$dayID == 0,]
