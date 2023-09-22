@@ -9,6 +9,7 @@ library(viridis)
 library(ggforce)
 library(dplyr)
 library(lubridate)
+library(sjPlot)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
@@ -32,7 +33,7 @@ high.clogit<-clogit(formula = case ~
                       strata(stratID),
                     data=high.int)
 summary(high.clogit) 
-
+tab_model(high.clogit, show.re.var = T)
 # Logistic regression low DO, 6:00 & 7:00  --------------------------------------
 
 low.clogit<-clogit(formula = case ~
@@ -42,6 +43,7 @@ low.clogit<-clogit(formula = case ~
                      strata(stratID),
                    data=low.int)
 summary(low.clogit) 
+tab_model(low.clogit, show.re.var = T)
 
 #######Predictions peak (daytime)) DO period - range temps over set high/mid/low DO 
 

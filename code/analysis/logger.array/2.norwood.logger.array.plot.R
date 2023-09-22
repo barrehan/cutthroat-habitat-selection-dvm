@@ -15,20 +15,25 @@ unique(array$sensor.depth)
 array$sensor.depth<- as.factor(array$sensor.depth)
 array$date.time<- mdy_hm(array$date.time) 
 array <- array %>% force_tz(array$date.time, tzone = "America/Los_Angeles")
-array<- array[array$date.time >="2021-07-31 00:00:00",]
-array<- array[array$date.time < "2021-08-07 00:00:00",]
+array<- array[array$date.time >="2021-07-25 12:00:00",]
+array<- array[array$date.time < "2021-08-14 00:00:00",]
 
+colors <- c("#212E52", "#444E7E","#278192", "#00B089", "#8FF7BD", "#FEB424", "#FD8700", "#DA6C41")
 
-pp<-ggplot(data= array, aes(x = date.time))+
+ggplot(data= array, aes(x = date.time))+
   geom_jitter(aes(y=temperature, colour = sensor.depth))+
   geom_jitter(aes(y=dissolved.oxygen, colour = sensor.depth))+
-  scale_colour_manual(values = c("goldenrod2", "aquamarine3", "deeppink4", "darkviolet", "darkorange", "dark blue",  "red"))+
+  scale_y_continuous(breaks = seq(0, 30, by = 15))+
+  expand_limits(y = 0)+
+  scale_colour_manual(values = colors, name = "logger depth (m)")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.position = "right", legend.key = element_rect(fill = "transparent"),
+        text = element_text(size = 15, family = "serif"))+
   scale_x_datetime(date_labels = "%b %d", date_breaks = "2 days")+
   xlab(label = "Date") +
   ylab(label = "")+
-  theme(text = element_text(size = 15), legend.position = "right")
+  theme(text = element_text(size = 18), legend.position = "right")
 
 # ggsave(pp, file=paste0("results/figures/logger.array/norwood.temp.do.depth.time.png"), width = 50, height = 30, units = "cm") 
 

@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 #'br logger array bottom DO logger had macrophyte fouling issues which spiked the 
 #'DO, tried taking the average from days where the logger was clean but it really
@@ -19,23 +19,33 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
 logger.array <- read.csv("data/modif.data/logger.array/blue.ruin.netpen.array.do.temp.csv")
 logger.array$date.time <- mdy_hm(logger.array$date.time)
 logger.array <- logger.array %>% force_tz(logger.array$date.time, tzone = "America/Los_Angeles")
-logger.array<-logger.array%>% filter(date.time >'2021-07-25 12:00:00' & date.time < '2021-08-15 08:00:00')
+logger.array<-logger.array%>% filter(date.time >'2021-07-25 12:00:00' & date.time < "2021-08-14 00:00:00")
 
 logger.array$date.time<-round_date(logger.array$date.time, "5 minutes")
 #logger.array<-logger.array[!(logger.array$sensor.depth=="1.55"),]
 unique(logger.array$sensor.depth)
 logger.array$sensor.depth<-as.factor(logger.array$sensor.depth)
 
+colors <- c("#8C2B0E", "#C5692D", "#FEB359","#81A88D", "#132F5B", "#435F90", "#426737",  "#291919")
+
+#colors <- c("goldenrod2", "#D67236", "#3F3F7B", "#02401B", "#81A88D", "#972D15", )
+
 ggplot(data= logger.array, aes(x = date.time))+
   geom_jitter(aes(y=temperature, colour = sensor.depth))+
   geom_jitter(aes(y=dissolved.oxygen, colour = sensor.depth))+
-  scale_colour_manual(values = c("goldenrod2", "aquamarine3", "darkviolet", "darkblue", "darkorange", "red", "brown", "black"))+
+  scale_y_continuous(breaks = seq(0, 30, by = 15))+
+  expand_limits(y = 0)+
+  scale_colour_manual(values = colors, name = "logger depth (m)")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.position = "right", legend.key = element_rect(fill = "transparent"),
+        text = element_text(size = 15, family = "serif"))+
   scale_x_datetime(date_labels = "%b %d", date_breaks = "2 days")+
   xlab(label = "Date") +
   ylab(label = "")+
-  theme(text = element_text(size = 15), legend.position = "right")
+  theme(text = element_text(size = 18), legend.position = "right")
+
+ggsave(n, filename = paste("results/figures/logger.array/blue.ruin.netpen.do.temp.png"), width = 20, height = 8, units = "cm")
 
 #YSI profiles from netpen site and logger site 5 to see how thermocline/oxycline
 #compare
@@ -68,7 +78,8 @@ ggplot(data= logger.array, aes(x = date.time))+
   geom_jitter(aes(y=dissolved.oxygen, colour = sensor.depth))+
   scale_colour_manual(values = c("goldenrod2", "aquamarine3", "darkviolet", "dark blue", "darkorange", "red", "brown", "black"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.background=element_blank())+
   scale_x_datetime(date_labels = "%b %d", date_breaks = "2 days")+
   xlab(label = "Date") +
   ylab(label = "")+

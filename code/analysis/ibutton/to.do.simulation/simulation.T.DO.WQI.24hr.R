@@ -121,11 +121,11 @@ for(i in 1:length(hour)){
   
 }
 
-colnames(dater) <- c("Hour", "Temperature", "DO", "WQI")
+colnames(dater) <- c("Hour", "Tmin", "DOmax", "TDOopt")
 
 #wide to long for easier plottinghttp://127.0.0.1:15187/graphics/plot_zoom_png?width=1048&height=895
 
-datlong<-dater %>%gather(Factor, Depth, Temperature:WQI)
+datlong<-dater %>%gather(Factor, Depth, Tmin:TDOopt)
 
 p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   #first smooth; se only
@@ -139,7 +139,7 @@ p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   labs(linetype = "Depth selection")+
-  scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DO", "WQI", "Temperature"))+
+  scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DOmax", "TDOopt", "Tmin"))+
   scale_x_continuous(breaks = seq(0,21,3))
 
 
