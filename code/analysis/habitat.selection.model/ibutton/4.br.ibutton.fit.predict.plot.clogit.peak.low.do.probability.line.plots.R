@@ -114,6 +114,43 @@ f<-ggarrange(e,
              ncol = 2)
 
 
-ggsave(f, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.2hr.hypoDOavg.png"), width = 23, height = 10, units = "cm")
+#ggsave(f, filename = paste("results/figures/hab.select.mod.figures/line.plots/br.2hr.hypoDOavg.png"), width = 23, height = 10, units = "cm")
+
+# Threshold vals --------------------------------------------------------
+# at what temperature threshold value does DO become more important 
+# than temperature?
+
+# High DO threshold -------------------------------------------------------
+
+summary(high.clogit)
+# y = a + bT + cDO + dTDO
+# y = a + bT + DO(c + dT)
+# pull out c + dT
+# c + dT = 0 
+# T* = -c/d
+# c = coef st.do.
+# d = coef st.do:st.temp
+
+c <- summary(high.clogit)$coefficients[1,1]
+d <- summary(high.clogit)$coefficients[3,1]
+high.temp.thresh.std <- -c/d
+
+# Calculate temp from standardized temp
+# st.T* = (T* - mean)/sd
+# (st.T*sd) + mean = T*
+
+br.sd <- sd(br.ib$temperature)
+br.mean <- mean(br.ib$temperature)
+
+high.temp.thresh <-  (high.temp.thresh.std * br.sd) + br.mean
+
+# Low DO threshold --------------------------------------------------------
+
+summary(low.clogit)
+
+c.low <- summary(low.clogit)$coefficients[1,1]
+d.low <- summary(low.clogit)$coefficients[3,1]
+low.temp.thresh.std <- -c.low/d.low
 
 
+low.temp.thresh <-  (low.temp.thresh.std * br.sd) + br.mean

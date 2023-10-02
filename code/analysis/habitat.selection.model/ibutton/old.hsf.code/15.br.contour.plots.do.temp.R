@@ -265,7 +265,7 @@ summary(quart1.clogit)
 # pull out c + dT
 # c + dT = 0 
 # T* = -c/d
-# c = coef st.do. d = coef st.do:st.temp
+# c = coef st.do.d = coef st.do:st.temp
 
 q1.temp.thresh.std <- (-(-2.85342/0.29928))
 
