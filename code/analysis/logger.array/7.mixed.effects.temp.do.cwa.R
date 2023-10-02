@@ -326,6 +326,18 @@ c<- ggarrange(a,
           nrow = 2,
           align = "hv")
 
-ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
+#ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
 
+
+array.lowdo$logger.site<-as.factor(array.lowdo$logger.site)
+
+ggplot(data = array.lowdo, aes(x = logger.site, y = dissolved.oxygen, colour = logger.site))+
+  geom_boxplot()+
+  facet_wrap(~location)+
+  scale_y_continuous(limits=c(0,10), breaks = seq(0, 10, 1))
+  
+ggplot(data = array.highdo, aes(x = logger.site, y = dissolved.oxygen, colour = logger.site))+
+  geom_boxplot()+
+  facet_wrap(~location)+
+  scale_y_continuous(limits=c(0,10), breaks = seq(0, 10, 1))
 
