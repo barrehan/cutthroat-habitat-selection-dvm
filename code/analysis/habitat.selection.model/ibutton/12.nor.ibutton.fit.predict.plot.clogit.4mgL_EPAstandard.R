@@ -74,7 +74,7 @@ m <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=fit)) +
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   labs(title = "Norwood temperature selection",
-       subtitle = "Early evening; 18:00 - 20:00 (8.4mg/L)")+
+       subtitle = "Early evening; 18:00 - 20:00 (4mg/L)")+
   xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank()) 
 
@@ -104,7 +104,7 @@ e <-ggplot(preds.night.lowDO, aes(x=standardized.temp, y=fit)) +
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   labs(title = "Norwood  temperature selection",
-       subtitle = "Early morning; 06:00 - 08:00 (1.3mg/L)")+
+       subtitle = "Early morning; 06:00 - 08:00 (4mg/L)")+
   xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank()) 
 
