@@ -131,27 +131,31 @@ summary(high.clogit)
 # d = coef st.do:st.temp
 
 c <- summary(high.clogit)$coefficients[1,1]
+b <-summary(high.clogit)$coefficients[2,1]
 d <- summary(high.clogit)$coefficients[3,1]
 high.temp.thresh.std <- -c/d
+high.do.thresh.std <- -b/d
 
 # Calculate temp from standardized temp
 # st.T* = (T* - mean)/sd
 # (st.T*sd) + mean = T*
 
-nor.sd <- sd(nor.ib$temperature)
-nor.mean <- mean(nor.ib$temperature)
+nor.sd <- sd(nor.ib$dissolved.oxygen)
+nor.mean <- mean(nor.ib$dissolved.oxygen)
 
-high.temp.thresh <-  (high.temp.thresh.std * nor.sd) + nor.mean
+high.temp.thresh <-  (high.do.thresh.std * nor.sd) + nor.mean
 
 # Low DO threshold --------------------------------------------------------
 
 summary(low.clogit)
 
 c.low <- summary(low.clogit)$coefficients[1,1]
+b.low <-summary(low.clogit)$coefficients[2,1]
 d.low <- summary(low.clogit)$coefficients[3,1]
 low.temp.thresh.std <- -c.low/d.low
+low.do.thresh.std <- -b.low/d
 
 
-low.temp.thresh <-  (low.temp.thresh.std * nor.sd) + nor.mean
+low.temp.thresh <-  (low.do.thresh.std * nor.sd) + nor.mean
 
 

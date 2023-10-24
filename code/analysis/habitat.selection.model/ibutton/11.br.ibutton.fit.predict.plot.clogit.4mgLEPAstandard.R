@@ -66,10 +66,10 @@ preds.noon.avgDO$lcl<-preds.noon.avgDO$fit - (1.96*preds.noon.avgDO$se.fit)
 preds.noon.avgDO$ucl<-preds.noon.avgDO$fit + (1.96*preds.noon.avgDO$se.fit)
 
 #plot
-m <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=fit)) +
+m <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=log(fit))) +
   #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
-  geom_line(aes(y = fit), linewidth = 1.25, color = "#274C31")+
-  geom_ribbon(aes(ymin=lcl, ymax=ucl),alpha=0.3, fill = "#3F7156")+
+  geom_line(aes(y = log(fit)), linewidth = 1.25, color = "#274C31")+
+  #geom_ribbon(aes(ymin=lcl, ymax=ucl),alpha=0.3, fill = "#3F7156")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
@@ -98,8 +98,8 @@ preds.night.lowDO$ucl<-preds.night.lowDO$fit + (1.96*preds.night.lowDO$se.fit)
 #plot
 e <-ggplot(preds.night.lowDO, aes(x=standardized.temp, y=fit)) +
   #geom_hline(yintercept=1, color='grey',size=2)+ #horizontal line at y = 0 , reference point line of indifference
-  geom_line(aes(y = fit), linewidth = 1.25, color = "#274C31")+
-  geom_ribbon(aes(ymin=lcl, ymax=ucl),alpha=0.3, fill="#3F7156")+
+  geom_line(aes(y = log(fit)), linewidth = 1.25, color = "#274C31")+
+  #geom_ribbon(aes(ymin=lcl), ymax=ucl),alpha=0.3, fill="#3F7156")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
