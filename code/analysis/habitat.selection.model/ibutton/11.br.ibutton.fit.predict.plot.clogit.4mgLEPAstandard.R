@@ -73,8 +73,6 @@ m <-ggplot(preds.noon.avgDO, aes(x=standardized.temp, y=fit)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  labs(title = "Blue Ruin temperature selection",
-       subtitle = "Early evening; 17:00 - 19:00 (4mg/L)")+
   xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank()) 
 
@@ -103,11 +101,9 @@ e <-ggplot(preds.night.lowDO, aes(x=standardized.temp, y=fit)) +
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  labs(title = "Blue Ruin temperature selection",
-       subtitle = "Early morning; 05:00 - 07:00 (4mg/L)")+
   xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank()) 
-
+?ggarrange
 f<-ggarrange(e,
-             m,
+             m + rremove("ylab"),
              ncol = 2)
