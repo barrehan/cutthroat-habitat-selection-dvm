@@ -34,7 +34,9 @@ high.clogit.do.quad.interaction <- clogit(formula = case ~
                                             standardized.temp+
                                             standardized.do+
                                             standardized.temp:standardized.do+
-                                            I(standardized.do^2)+ 
+                                            I(standardized.do^2)+
+                                            I(standardized.temp^2)+
+                                            I(standardized.temp^2):I(standardized.do^2)+
                                             strata(stratID),
                                           data=high.int)
 
@@ -42,7 +44,9 @@ low.clogit.do.quad.interaction <- clogit(formula = case ~
                                            standardized.temp+
                                            standardized.do+
                                            standardized.temp:standardized.do+
-                                           I(standardized.do^2)+ 
+                                           I(standardized.do^2)+
+                                           I(standardized.temp^2)+
+                                           I(standardized.temp^2):I(standardized.do^2)+
                                            strata(stratID),
                                          data=low.int)
 
@@ -58,7 +62,7 @@ pred.vals.noon.avgDO <- data.frame(standardized.do = -0.3603449,
                                    stratID = 691)
 
 # get predictions from model using the values just created above
-predictions.noon.avgDO<-predict(high.clogit.do.quad.interaction, newdata=pred.vals.noon.avgDO, type='risk', se.fit=T)
+predictions.noon.avgDO<-predict(high.clogit.do.quad.interaction, newdata=pred.vals.noon.avgDO, type='lp', se.fit=T)
 
 preds.noon.avgDO<-cbind(pred.vals.noon.avgDO, predictions.noon.avgDO)
 preds.noon.avgDO$lcl<-preds.noon.avgDO$fit - (1.96*preds.noon.avgDO$se.fit)
@@ -85,7 +89,7 @@ pred.vals.night.lowDO <- data.frame(standardized.do = -0.3603449,
                                     stratID = 631)
 
 # get predictions from model using the values just created above
-predictions.night.lowDO<-predict(low.clogit.do.quad.interaction, newdata=pred.vals.night.lowDO, type='risk', se.fit=T)
+predictions.night.lowDO<-predict(low.clogit.do.quad.interaction, newdata=pred.vals.night.lowDO, type='lp', se.fit=T)
 
 preds.night.lowDO<-cbind(pred.vals.night.lowDO, predictions.night.lowDO)
 preds.night.lowDO$lcl<-preds.night.lowDO$fit - (1.96*preds.night.lowDO$se.fit)
@@ -122,19 +126,21 @@ high.clogit.temp.quad.interaction <-clogit(formula = case ~
                                              standardized.temp+
                                              standardized.do+
                                              standardized.temp:standardized.do+
-                                             I(standardized.temp^2)+ 
+                                             I(standardized.temp^2)+
+                                             I(standardized.do^2)+ 
+                                             I(standardized.temp^2:standardized.do^2)
                                              strata(stratID),
                                            data=high.int)
 
-high.clogit.do.quad <- clogit(formula = case ~
+high.clogit.do<- clogit(formula = case ~
                                 standardized.temp+
                                 standardized.do+
-                                I(standardized.do^2)+ 
+                                standardized.temp:standardized.do+
                                 strata(stratID),
                               data=high.int)
 
 
 
-models <- list(high.clogit.temp.quad, high.clogit.do.quad, high.clogit.do.quad.interaction, high.clogit.temp.quad.interaction)
-mod.names <- c("high.clogit.temp.quad", "high.clogit.do.quad", "high.clogit.do.quad.interaction", "high.clogit.temp.quad.interaction")
+models <- list(high.clogit.do, high.clogit.do.quad.interaction)
+mod.names <- c("high.clogit.do", "high.clogit.do.quad.interaction")
 aictab(cand.set = models, modnames = mod.names)
