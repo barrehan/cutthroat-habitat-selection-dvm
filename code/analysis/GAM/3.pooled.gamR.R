@@ -1,5 +1,3 @@
-#contour plots with GAM
-
 rm(list=ls())
 library(survival)
 library(ggplot2)
@@ -14,60 +12,94 @@ library(lubridate)
 library(sjPlot)
 library(AICcmodavg)
 library(mgcv)
+library(tidyverse)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
+nor.ib$date.time <- ymd_hms(nor.ib$date.time)
+nor.ib <- nor.ib %>% force_tz(nor.ib$date.time, tzone = "America/Los_Angeles")
+nor.ib<-nor.ib[nor.ib$date.time >="2021-07-30 00:00:00" & nor.ib$date.time < "2021-08-06 00:00:00",]
+
 br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
 br.ib$date.time <- ymd_hms(br.ib$date.time)
 br.ib <- br.ib %>% force_tz(br.ib$date.time, tzone = "America/Los_Angeles")
 br.ib<-br.ib[br.ib$date.time >="2021-07-30 00:00:00" & br.ib$date.time < "2021-08-06 00:00:00",]
 
+#Need to standardize across both dataframes, and make new stratIDs, and add Location column
+#Just keep first 6 columns of these og dfs
+
+br.ib<-br.ib[,c(1:6)]
+nor.ib<-nor.ib[,c(1:6)]
+
+#'stratum column
+br.ib <- br.ib %>% mutate(stratID = group_indices_(br.ib, .dots = c("date.time", "ibutton.id")))
+br.ib$location <- "Blue Ruin"
+
+#'stratum column
+nor.ib <- nor.ib %>% mutate(stratID = group_indices_(nor.ib, .dots = c("date.time", "ibutton.id")))
+nor.ib$stratID <- nor.ib$stratID + 9287
+nor.ib$location <- "Norwood"
+
+all.dat <- rbind(br.ib, nor.ib)
+
+all.dat$standardized.temp <- as.numeric(scale(all.dat$temperature))
+all.dat$standardized.do <- as.numeric(scale(all.dat$dissolved.oxygen))
+
+all.dat$hour <-hour(all.dat$date.time)
+
+do.mean <- mean(all.dat$dissolved.oxygen)
+do.sd <-sd(all.dat$dissolved.oxygen)
+
+epa.std.4mgl <-(4-do.mean)/do.sd
+
 # Data frames by high/low interval ----------------------------------------
+# going to do 6-8 
 
-high.int <- br.ib[br.ib$highlowDO.2hr == "high",]
-high.int <- high.int[!is.na(high.int$highlowDO.2hr),]
-low.int <- br.ib[br.ib$highlowDO.2hr == "low",]
-low.int <- low.int[!is.na(low.int$highlowDO.2hr),]
+high.int <- all.dat[all.dat$hour == 6 | all.dat$hour == 7,]
+low.int <- all.dat[all.dat$hour == 18 | all.dat$hour == 19,]
 
-
-# GAM Blue Ruin high DO 2hr window ----------------------------------------
-
+# GAM pooled high DO 2hr window ------------------------------------------
 
 high.int$dumt <-rep(1,nrow(high.int))
 gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), #how to add interaction for GAM
-                  data = high.int,
-                  family=cox.ph, weights = case)
+              data = high.int,
+              family=cox.ph, weights = case)
 summary(gam.high)
 
-pred.vals.high<- data.frame(standardized.do = 0.1848958,
+
+
+pred.vals.high<- data.frame(standardized.do = epa.std.4mgl,
                             standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
                                                     max(high.int$standardized.temp, na.rm = T), 
                                                     0.1),
-                            stratID = 1734)
+                            stratID = 361)
 
 preds.gam.high <- predict.gam(gam.high, newdata = pred.vals.high, type = 'link', se.fit = T) 
 plot(x = pred.vals.high$standardized.temp, y = preds.gam.high$fit, type = 'l') #if want exp put exp in front of y
 
+# GAM pooled low DO 2hr window ------------------------------------------
 
-# GAM Blue Ruin low DO 2hr window -----------------------------------------
+#StratID 9990 has weird predicted temp for the DO, remove for analysis
+# low.int <-low.int[!(low.int$stratID == 9990),]
 
 low.int$dumt <-rep(1,nrow(low.int))
-gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), #how to add interaction for GAM
-                 data = low.int,
-                 family=cox.ph, weights = case)
+gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), 
+             data = low.int,
+             family=cox.ph, weights = case)
 summary(gam.low)
 
-pred.vals.low<- data.frame(standardized.do = 0.1848958,
+pred.vals.low<- data.frame(standardized.do = epa.std.4mgl,
                            standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
                                                    max(low.int$standardized.temp, na.rm = T), 
                                                    0.1),
-                           stratID = 565)
+                           stratID = 1038)
 
 preds.gam.low <- predict.gam(gam.low, newdata = pred.vals.low, type = 'link', se.fit = T) 
 plot(x = pred.vals.low$standardized.temp, y = preds.gam.low$fit, type = 'l') #if want exp put exp in front of y
 
 #######Predictions########
 
-# Predictions Blue Ruin high DO 2hr window ----------------------------------
+# Predictions Norwood high DO 2hr window ----------------------------------
 
 ######Line Plot#########
 
@@ -110,8 +142,8 @@ df.pred.high <- predict(gam.high, newdata = df.pred.high,
 
 a<-ggplot()+
   geom_tile(data = df.pred.high, aes(x = standardized.temp, y = standardized.do, fill = fit))+
-  geom_point(data = high.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
-  geom_point(data = high.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
+  #geom_point(data = high.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
+  #geom_point(data = high.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
   scale_fill_gradientn(colours = c("#D4D9DD", "#AEB2B7", "#878195", "#7C5467", "#532A34","#291919"))+
   geom_contour(data = df.pred.high, aes(x= standardized.temp, y = standardized.do, z= fit), colour = "white")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -123,7 +155,7 @@ a<-ggplot()+
 # +coord_cartesian(xlim = c(1.9, 4.5), ylim = c(4, 8))
 
 
-# Predictions Blue Ruin low DO 2hr window -----------------------------------
+# Predictions Norwood low DO 2hr window -----------------------------------
 
 ######Line Plot#########
 
@@ -164,8 +196,8 @@ df.pred.low <- predict(gam.low, newdata = df.pred.low,
 
 b<-ggplot()+
   geom_tile(data = df.pred.low, aes(x = standardized.temp, y = standardized.do, fill = fit))+
-  geom_point(data = low.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
-  geom_point(data = low.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
+  #geom_point(data = low.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
+  #geom_point(data = low.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
   scale_fill_gradientn(colours = c("#D4D9DD", "#AEB2B7", "#878195", "#7C5467", "#532A34","#291919"))+
   geom_contour(data = df.pred.low, aes(x= standardized.temp, y = standardized.do, z= fit), colour = "white")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -175,15 +207,12 @@ b<-ggplot()+
   ylab(label = "Dissolved oxygen (mg/l)")+
   labs(fill='') 
 
-br.cont <- ggarrange(a, 
+cwa.cont <- ggarrange(a, 
                       b + rremove("ylab"),
                       ncol = 2, nrow = 1)
 
-br.line <- ggarrange(p,
+cwa.line <- ggarrange(p,
                       q + rremove("ylab"),
                       ncol = 2, nrow = 1)
-
-
-
 
 
