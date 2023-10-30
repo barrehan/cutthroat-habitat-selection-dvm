@@ -45,8 +45,9 @@ ggplot(low.int, aes(x= date.time, y = dissolved.oxygen))+
 
 
 high.int$dumt <-rep(1,nrow(high.int))
-gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), #how to add interaction for GAM
+gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp), #how to add interaction for GAM
              data = high.int,
+             method="REML",
              family=cox.ph, weights = case)
 summary(gam.high)
 
@@ -72,15 +73,24 @@ preds.gam.high<-cbind(pred.vals.high, preds.gam.high)
 preds.gam.high$lcl<-preds.gam.high$fit - (1.96*preds.gam.high$se.fit)
 preds.gam.high$ucl<-preds.gam.high$fit + (1.96*preds.gam.high$se.fit)
 
+#back transformation from standardized scale
+mean.t<-mean(nor.ib$temperature)
+sd.t <-sd(nor.ib$temperature)
+mean.do<-mean(nor.ib$dissolved.oxygen)
+sd.do<-sd(nor.ib$dissolved.oxygen)
+
+preds.gam.high$temperature <- preds.gam.high$standardized.temp*sd.t+mean.t
+preds.gam.high$dissolved.oxygen<-preds.gam.high$standardized.do*sd.do+mean.do
+
 #Plot
 
-p <-ggplot(preds.gam.high, aes(x=standardized.temp, y=fit)) +
+p <-ggplot(preds.gam.high, aes(x=temperature, y=fit)) +
   geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
+  xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())
 
 ######Contour Plot#######
@@ -103,11 +113,6 @@ df.pred.high <- predict(gam.high, newdata = df.pred.high,
 
 # Back transform temp and do for plot
 
-mean.t<-mean(nor.ib$temperature)
-sd.t <-sd(nor.ib$temperature)
-mean.do<-mean(nor.ib$dissolved.oxygen)
-sd.do<-sd(nor.ib$dissolved.oxygen)
-
 df.pred.high$temperature <- df.pred.high$standardized.temp*sd.t+mean.t
 df.pred.high$dissolved.oxygen <-df.pred.high$standardized.do*sd.do+mean.do
 
@@ -122,7 +127,7 @@ a<-ggplot()+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.key=element_rect(fill="white"), text = element_text(size = 15, family = "serif"))+
-  xlab(label = "Standardized temperature (\u00B0C)") +
+  xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
   labs(fill='') 
 # +coord_cartesian(xlim = c(1.9, 4.5), ylim = c(4, 8))
@@ -135,8 +140,9 @@ a<-ggplot()+
 low.int <-low.int[!(low.int$stratID == 9990),]
 
 low.int$dumt <-rep(1,nrow(low.int))
-gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), 
+gam.low<-gam(cbind(dumt,stratID) ~ ti(standardized.do,standardized.temp), 
              data = low.int,
+             method = "REML",
              family=cox.ph, weights = case)
 summary(gam.low)
 
@@ -159,15 +165,20 @@ preds.gam.low<-cbind(pred.vals.low, preds.gam.low)
 preds.gam.low$lcl<-preds.gam.low$fit - (1.96*preds.gam.low$se.fit)
 preds.gam.low$ucl<-preds.gam.low$fit + (1.96*preds.gam.low$se.fit)
 
+#back transformation from standardized scale
+
+preds.gam.low$temperature <- preds.gam.low$standardized.temp*sd.t+mean.t
+preds.gam.low$dissolved.oxygen<-preds.gam.low$standardized.do*sd.do+mean.do
+
 #Plot
 
-q <-ggplot(preds.gam.low, aes(x=standardized.temp, y=fit)) +
+q <-ggplot(preds.gam.low, aes(x=temperature, y=fit)) +
   geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
+  xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())
 
 ######Contour Plot#######
@@ -194,17 +205,22 @@ df.pred.low$temperature <- df.pred.low$standardized.temp*sd.t+mean.t
 df.pred.low$dissolved.oxygen <-df.pred.low$standardized.do*sd.do+mean.do
 
 b<-ggplot()+
+  geom_rug(data = low.int[low.int$case == 0,], aes(x = temperature, y = dissolved.oxygen))+
   geom_tile(data = df.pred.low, aes(x = temperature, y = dissolved.oxygen, fill = fit))+
-  geom_point(data = low.int[low.int$case == 0,], aes(x = temperature, y = dissolved.oxygen), colour = "black", alpha = 0.5)+
+  geom_jitter(data = low.int[low.int$case == 0,], aes(x = temperature, y = dissolved.oxygen), colour = "black", alpha = 0.5)+
   geom_point(data = low.int[low.int$case == 1,], aes(x = temperature, y = dissolved.oxygen), colour = "white", alpha = 0.75)+
   scale_fill_gradientn(colours = c("#D4D9DD", "#AEB2B7", "#878195", "#7C5467", "#532A34","#291919"))+
   geom_contour(data = df.pred.low, aes(x= temperature, y = dissolved.oxygen, z= fit), colour = "white")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.key=element_rect(fill="white"), text = element_text(size = 15, family = "serif"))+
-  xlab(label = "Standardized temperature (\u00B0C)") +
+  xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
   labs(fill='') 
+
+ggplot()+
+  geom_histogram(data = low.int[low.int$case == 0,], aes(x = dissolved.oxygen))
+
 
 nor.cont <- ggarrange(a, 
                       b + rremove("ylab"),

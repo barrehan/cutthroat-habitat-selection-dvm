@@ -1,0 +1,79 @@
+---
+title: "Norwood GAM individual tag id"
+author: "Hannah Barrett"
+date: "2023-10-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r, echo = FALSE}
+rm(list=ls())
+library(survival)
+library(ggplot2)
+library(plotly)
+library(ggpubr)
+library(htmlwidgets)
+library(reticulate)
+library(viridis)
+library(ggforce)
+library(dplyr)
+library(lubridate)
+library(sjPlot)
+library(AICcmodavg)
+library(mgcv)
+library(tidyverse)
+
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
+nor.ib$date.time <- ymd_hms(nor.ib$date.time)
+nor.ib <- nor.ib %>% force_tz(nor.ib$date.time, tzone = "America/Los_Angeles")
+nor.ib<-nor.ib[nor.ib$date.time >="2021-07-30 00:00:00" & nor.ib$date.time < "2021-08-06 00:00:00",]
+
+# Data frames by high/low interval ----------------------------------------
+
+high.int <- nor.ib[nor.ib$highlowDO.2hours == "high",]
+high.int <- high.int[!is.na(high.int$highlowDO.2hours),]
+
+ggplot(high.int, aes(x= date.time, y = temperature))+
+  geom_point()
+ggplot(high.int, aes(x= date.time, y = dissolved.oxygen))+
+  geom_point()
+
+low.int <- nor.ib[nor.ib$highlowDO.2hours == "low",]
+low.int <- low.int[!is.na(low.int$highlowDO.2hours),]
+
+ggplot(low.int, aes(x= date.time, y = temperature))+
+  geom_point()
+ggplot(low.int, aes(x= date.time, y = dissolved.oxygen))+
+  geom_point()
+
+######HIGH DO ANALYSIS######
+# GAM Norwood high DO 2hr window ------------------------------------------
+
+
+high.int$dumt <-rep(1,nrow(high.int))
+gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp), #how to add interaction for GAM
+             data = high.int,
+             method="REML",
+             family=cox.ph, weights = case)
+summary(gam.high)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -14,6 +14,8 @@ library(lubridate)
 library(sjPlot)
 library(AICcmodavg)
 library(mgcv)
+library(tidyverse)
+
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
@@ -33,12 +35,12 @@ low.int <- low.int[!is.na(low.int$highlowDO.2hr),]
 
 
 high.int$dumt <-rep(1,nrow(high.int))
-gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), #how to add interaction for GAM
+gam.high<-gam(cbind(dumt,stratID) ~  s(standardized.do,standardized.temp), #how to add interaction for GAM
                   data = high.int,
                   family=cox.ph, weights = case)
 summary(gam.high)
 
-pred.vals.high<- data.frame(standardized.do = 0.1848958,
+pred.vals.high<- data.frame(standardized.do = 0.1848958, #EPA standard 4mg/L (standardized)
                             standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
                                                     max(high.int$standardized.temp, na.rm = T), 
                                                     0.1),
@@ -47,27 +49,11 @@ pred.vals.high<- data.frame(standardized.do = 0.1848958,
 preds.gam.high <- predict.gam(gam.high, newdata = pred.vals.high, type = 'link', se.fit = T) 
 plot(x = pred.vals.high$standardized.temp, y = preds.gam.high$fit, type = 'l') #if want exp put exp in front of y
 
-
-# GAM Blue Ruin low DO 2hr window -----------------------------------------
-
-low.int$dumt <-rep(1,nrow(low.int))
-gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.temp) + s(standardized.do) + s(standardized.do,standardized.temp), #how to add interaction for GAM
-                 data = low.int,
-                 family=cox.ph, weights = case)
-summary(gam.low)
-
-pred.vals.low<- data.frame(standardized.do = 0.1848958,
-                           standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
-                                                   max(low.int$standardized.temp, na.rm = T), 
-                                                   0.1),
-                           stratID = 565)
-
-preds.gam.low <- predict.gam(gam.low, newdata = pred.vals.low, type = 'link', se.fit = T) 
-plot(x = pred.vals.low$standardized.temp, y = preds.gam.low$fit, type = 'l') #if want exp put exp in front of y
-
 #######Predictions########
 
 # Predictions Blue Ruin high DO 2hr window ----------------------------------
+
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
 
 ######Line Plot#########
 
@@ -77,9 +63,19 @@ preds.gam.high<-cbind(pred.vals.high, preds.gam.high)
 preds.gam.high$lcl<-preds.gam.high$fit - (1.96*preds.gam.high$se.fit)
 preds.gam.high$ucl<-preds.gam.high$fit + (1.96*preds.gam.high$se.fit)
 
+#back transform from standardized scale
+
+mean.t<-mean(br.ib$temperature)
+sd.t <-sd(br.ib$temperature)
+mean.do<-mean(br.ib$dissolved.oxygen)
+sd.do<-sd(br.ib$dissolved.oxygen)
+
+preds.gam.high$temperature <- preds.gam.high$standardized.temp*sd.t+mean.t
+preds.gam.high$dissolved.oxygen<-preds.gam.high$standardized.do*sd.do+mean.do
+
 #Plot
 
-p <-ggplot(preds.gam.high, aes(x=standardized.temp, y=fit)) +
+p <-ggplot(preds.gam.high, aes(x=temperature, y=fit)) +
   geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -106,21 +102,49 @@ df.pred.high <- predict(gam.high, newdata = df.pred.high,
   as_tibble()%>%
   cbind(df.pred.high)
 
+#Back transform
+
+df.pred.high$temperature <- df.pred.high$standardized.temp*sd.t+mean.t
+df.pred.high$dissolved.oxygen <-df.pred.high$standardized.do*sd.do+mean.do
+
 #Plot
 
 a<-ggplot()+
-  geom_tile(data = df.pred.high, aes(x = standardized.temp, y = standardized.do, fill = fit))+
-  geom_point(data = high.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
-  geom_point(data = high.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
+  geom_tile(data = df.pred.high, aes(x = temperature, y = dissolved.oxygen, fill = fit))+
+  geom_point(data = high.int[low.int$case == 0,], aes(x = temperature, y = dissolved.oxygen), colour = "black", alpha = 0.5)+
+  geom_point(data = high.int[low.int$case == 1,], aes(x = temperature, y = dissolved.oxygen), colour = "white", alpha = 0.75)+
   scale_fill_gradientn(colours = c("#D4D9DD", "#AEB2B7", "#878195", "#7C5467", "#532A34","#291919"))+
-  geom_contour(data = df.pred.high, aes(x= standardized.temp, y = standardized.do, z= fit), colour = "white")+
+  geom_contour(data = df.pred.high, aes(x = temperature, y = dissolved.oxygen, z= fit), colour = "white")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.key=element_rect(fill="white"), text = element_text(size = 15, family = "serif"))+
-  xlab(label = "Standardized temperature (\u00B0C)") +
+  xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
-  labs(fill='') 
+  labs(fill='') +
+  scale_x_continuous(breaks=number_ticks(5)) +
+  scale_y_continuous(breaks=number_ticks(5))
 # +coord_cartesian(xlim = c(1.9, 4.5), ylim = c(4, 8))
+
+#######################################
+###GAM LOW DO WINDOW###################
+
+# GAM Blue Ruin low DO 2hr window -----------------------------------------
+
+low.int$dumt <-rep(1,nrow(low.int))
+gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp), #how to add interaction for GAM
+                 data = low.int,
+                 family=cox.ph, weights = case)
+summary(gam.low)
+
+pred.vals.low<- data.frame(standardized.do = 0.1848958,
+                           standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
+                                                   max(low.int$standardized.temp, na.rm = T), 
+                                                   0.1),
+                           stratID = 565)
+
+preds.gam.low <- predict.gam(gam.low, newdata = pred.vals.low, type = 'link', se.fit = T) 
+plot(x = pred.vals.low$standardized.temp, y = preds.gam.low$fit, type = 'l') #if want exp put exp in front of y
+
 
 
 # Predictions Blue Ruin low DO 2hr window -----------------------------------
@@ -133,16 +157,23 @@ preds.gam.low<-cbind(pred.vals.low, preds.gam.low)
 preds.gam.low$lcl<-preds.gam.low$fit - (1.96*preds.gam.low$se.fit)
 preds.gam.low$ucl<-preds.gam.low$fit + (1.96*preds.gam.low$se.fit)
 
+#Back transform
+
+preds.gam.low$temperature <- preds.gam.low$standardized.temp*sd.t+mean.t
+preds.gam.low$dissolved.oxygen<-preds.gam.low$standardized.do*sd.do+mean.do
+
 #Plot
 
-q <-ggplot(preds.gam.low, aes(x=standardized.temp, y=fit)) +
+q <-ggplot(preds.gam.low, aes(x=temperature, y=fit)) +
   geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
-  theme(legend.title = element_blank())
+  theme(legend.title = element_blank())+
+  scale_x_continuous(breaks=number_ticks(5)) +
+  scale_y_continuous(breaks=number_ticks(5))
 
 ######Contour Plot#######
 
@@ -162,18 +193,29 @@ df.pred.low <- predict(gam.low, newdata = df.pred.low,
   as_tibble()%>%
   cbind(df.pred.low)
 
+#Back transform
+
+#Back transform
+
+df.pred.low$temperature <- df.pred.low$standardized.temp*sd.t+mean.t
+df.pred.low$dissolved.oxygen <-df.pred.low$standardized.do*sd.do+mean.do
+
+#Plot
+
 b<-ggplot()+
-  geom_tile(data = df.pred.low, aes(x = standardized.temp, y = standardized.do, fill = fit))+
-  geom_point(data = low.int[low.int$case == 0,], aes(x = standardized.temp, y = standardized.do), colour = "black", alpha = 0.5)+
-  geom_point(data = low.int[low.int$case == 1,], aes(x = standardized.temp, y = standardized.do), colour = "white", alpha = 0.75)+
+  geom_tile(data = df.pred.low, aes(x = temperature, y = dissolved.oxygen, fill = fit))+
+  geom_point(data = low.int[low.int$case == 0,], aes(x = temperature, y = dissolved.oxygen), colour = "black", alpha = 0.5)+
+  geom_point(data = low.int[low.int$case == 1,], aes(x = temperature, y = dissolved.oxygen), colour = "white", alpha = 0.75)+
   scale_fill_gradientn(colours = c("#D4D9DD", "#AEB2B7", "#878195", "#7C5467", "#532A34","#291919"))+
-  geom_contour(data = df.pred.low, aes(x= standardized.temp, y = standardized.do, z= fit), colour = "white")+
+  geom_contour(data = df.pred.low, aes(x = temperature, y = dissolved.oxygen, z= fit), colour = "white")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.key=element_rect(fill="white"), text = element_text(size = 15, family = "serif"))+
-  xlab(label = "Standardized temperature (\u00B0C)") +
+  xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
-  labs(fill='') 
+  labs(fill='') +
+  scale_x_continuous(breaks=number_ticks(5)) +
+  scale_y_continuous(breaks=number_ticks(5))
 
 br.cont <- ggarrange(a, 
                       b + rremove("ylab"),
