@@ -23,13 +23,24 @@ br.ib$date.time <- ymd_hms(br.ib$date.time)
 br.ib <- br.ib %>% force_tz(br.ib$date.time, tzone = "America/Los_Angeles")
 br.ib<-br.ib[br.ib$date.time >="2021-07-30 00:00:00" & br.ib$date.time < "2021-08-06 00:00:00",]
 
+br.ib<-br.ib[,-7:-8]
+
+br.ib$standardized.do <- as.numeric(scale(br.ib$dissolved.oxygen))
+br.ib$standardized.temp <-as.numeric(scale(br.ib$temperature))
+
+#variables for back transformation from standardized scale
+
+mean.t<-mean(br.ib$temperature)
+sd.t <-sd(br.ib$temperature)
+mean.do<-mean(br.ib$dissolved.oxygen)
+sd.do<-sd(br.ib$dissolved.oxygen)
+
 # Data frames by high/low interval ----------------------------------------
 
 high.int <- br.ib[br.ib$highlowDO.2hr == "high",]
 high.int <- high.int[!is.na(high.int$highlowDO.2hr),]
 low.int <- br.ib[br.ib$highlowDO.2hr == "low",]
 low.int <- low.int[!is.na(low.int$highlowDO.2hr),]
-
 
 # GAM Blue Ruin high DO 2hr window ----------------------------------------
 
@@ -40,49 +51,60 @@ gam.high<-gam(cbind(dumt,stratID) ~  s(standardized.do,standardized.temp), #how 
                   family=cox.ph, weights = case)
 summary(gam.high)
 
-pred.vals.high<- data.frame(standardized.do = 0.1848958, #EPA standard 4mg/L (standardized)
-                            standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
-                                                    max(high.int$standardized.temp, na.rm = T), 
-                                                    0.1),
-                            stratID = 1734)
+pred.vals.high.2<- data.frame(standardized.do = (2-mean.do)/sd.do, #setting DO to 4mg/l epa standard
+                              standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
+                                                      max(high.int$standardized.temp, na.rm = T), 
+                                                      0.1),
+                              stratID = 1734)
 
-preds.gam.high <- predict.gam(gam.high, newdata = pred.vals.high, type = 'link', se.fit = T) 
-plot(x = pred.vals.high$standardized.temp, y = preds.gam.high$fit, type = 'l') #if want exp put exp in front of y
+preds.gam.high.2 <- predict.gam(gam.high, newdata = pred.vals.high.2, type = 'link', se.fit = T) 
 
-#######Predictions########
+pred.vals.high.4<- data.frame(standardized.do = (4-mean.do)/sd.do, #setting DO to 4mg/l epa standard
+                              standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
+                                                      max(high.int$standardized.temp, na.rm = T), 
+                                                      0.1),
+                              stratID = 1734)
 
-# Predictions Blue Ruin high DO 2hr window ----------------------------------
+preds.gam.high.4 <- predict.gam(gam.high, newdata = pred.vals.high.4, type = 'link', se.fit = T) 
 
-number_ticks <- function(n) {function(limits) pretty(limits, n)}
+
+# Predictions Blue Ruin high DO 2hr window -----------------------------------
 
 ######Line Plot#########
 
 #Prep
 
-preds.gam.high<-cbind(pred.vals.high, preds.gam.high)
-preds.gam.high$lcl<-preds.gam.high$fit - (1.96*preds.gam.high$se.fit)
-preds.gam.high$ucl<-preds.gam.high$fit + (1.96*preds.gam.high$se.fit)
+preds.gam.high.2<-cbind(pred.vals.high.2, preds.gam.high.2)
+preds.gam.high.2$lcl<-preds.gam.high.2$fit - (1.96*preds.gam.high.2$se.fit)
+preds.gam.high.2$ucl<-preds.gam.high.2$fit + (1.96*preds.gam.high.2$se.fit)
 
-#back transform from standardized scale
+preds.gam.high.4<-cbind(pred.vals.high.4, preds.gam.high.4)
+preds.gam.high.4$lcl<-preds.gam.high.4$fit - (1.96*preds.gam.high.4$se.fit)
+preds.gam.high.4$ucl<-preds.gam.high.4$fit + (1.96*preds.gam.high.4$se.fit)
 
-mean.t<-mean(br.ib$temperature)
-sd.t <-sd(br.ib$temperature)
-mean.do<-mean(br.ib$dissolved.oxygen)
-sd.do<-sd(br.ib$dissolved.oxygen)
+#back transformation from standardized scale
 
-preds.gam.high$temperature <- preds.gam.high$standardized.temp*sd.t+mean.t
-preds.gam.high$dissolved.oxygen<-preds.gam.high$standardized.do*sd.do+mean.do
+preds.gam.high.2$temperature <- preds.gam.high.2$standardized.temp*sd.t+mean.t
+preds.gam.high.2$dissolved.oxygen<-preds.gam.high.2$standardized.do*sd.do+mean.do
+
+preds.gam.high.4$temperature <- preds.gam.high.4$standardized.temp*sd.t+mean.t
+preds.gam.high.4$dissolved.oxygen<-preds.gam.high.4$standardized.do*sd.do+mean.do
 
 #Plot
 
-p <-ggplot(preds.gam.high, aes(x=temperature, y=fit)) +
-  geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
-  geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
+p <- ggplot() +
+  geom_line(data = preds.gam.high.4, aes(x = temperature, y = fit), linewidth = 1.25, color = "#01353D")+
+  geom_ribbon(data = preds.gam.high.4, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
+  geom_line(data = preds.gam.high.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
+  geom_ribbon(data = preds.gam.high.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
-  theme(legend.title = element_blank())
+  xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
+  theme(legend.title = element_blank())+
+  xlim(10,25)
+
+
 
 ######Contour Plot#######
 
@@ -121,8 +143,7 @@ a<-ggplot()+
   xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
   labs(fill='') +
-  scale_x_continuous(breaks=number_ticks(5)) +
-  scale_y_continuous(breaks=number_ticks(5))
+  xlim(10,25)
 # +coord_cartesian(xlim = c(1.9, 4.5), ylim = c(4, 8))
 
 #######################################
@@ -136,44 +157,58 @@ gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp), #how to
                  family=cox.ph, weights = case)
 summary(gam.low)
 
-pred.vals.low<- data.frame(standardized.do = 0.1848958,
-                           standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
-                                                   max(low.int$standardized.temp, na.rm = T), 
-                                                   0.1),
-                           stratID = 565)
+pred.vals.low.2<- data.frame(standardized.do = (2-mean.do)/sd.do, #setting DO to 4mg/l epa standard
+                             standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
+                                                     max(low.int$standardized.temp, na.rm = T), 
+                                                     0.1),
+                             stratID = 565)
 
-preds.gam.low <- predict.gam(gam.low, newdata = pred.vals.low, type = 'link', se.fit = T) 
-plot(x = pred.vals.low$standardized.temp, y = preds.gam.low$fit, type = 'l') #if want exp put exp in front of y
+preds.gam.low.2 <- predict.gam(gam.low, newdata = pred.vals.low.2, type = 'link', se.fit = T) 
+
+pred.vals.low.4<- data.frame(standardized.do = (4-mean.do)/sd.do, #setting DO to 4mg/l epa standard
+                             standardized.temp = seq(min(low.int$standardized.temp, na.rm = T),
+                                                     max(low.int$standardized.temp, na.rm = T), 
+                                                     0.1),
+                             stratID = 565)
+
+preds.gam.low.4 <- predict.gam(gam.low, newdata = pred.vals.low.4, type = 'link', se.fit = T) 
 
 
-
-# Predictions Blue Ruin low DO 2hr window -----------------------------------
+# Predictions Norwood low DO 2hr window -----------------------------------
 
 ######Line Plot#########
 
 #Prep
 
-preds.gam.low<-cbind(pred.vals.low, preds.gam.low)
-preds.gam.low$lcl<-preds.gam.low$fit - (1.96*preds.gam.low$se.fit)
-preds.gam.low$ucl<-preds.gam.low$fit + (1.96*preds.gam.low$se.fit)
+preds.gam.low.2<-cbind(pred.vals.low.2, preds.gam.low.2)
+preds.gam.low.2$lcl<-preds.gam.low.2$fit - (1.96*preds.gam.low.2$se.fit)
+preds.gam.low.2$ucl<-preds.gam.low.2$fit + (1.96*preds.gam.low.2$se.fit)
 
-#Back transform
+preds.gam.low.4<-cbind(pred.vals.low.4, preds.gam.low.4)
+preds.gam.low.4$lcl<-preds.gam.low.4$fit - (1.96*preds.gam.low.4$se.fit)
+preds.gam.low.4$ucl<-preds.gam.low.4$fit + (1.96*preds.gam.low.4$se.fit)
 
-preds.gam.low$temperature <- preds.gam.low$standardized.temp*sd.t+mean.t
-preds.gam.low$dissolved.oxygen<-preds.gam.low$standardized.do*sd.do+mean.do
+#back transformation from standardized scale
+
+preds.gam.low.2$temperature <- preds.gam.low.2$standardized.temp*sd.t+mean.t
+preds.gam.low.2$dissolved.oxygen<-preds.gam.low.2$standardized.do*sd.do+mean.do
+
+preds.gam.low.4$temperature <- preds.gam.low.4$standardized.temp*sd.t+mean.t
+preds.gam.low.4$dissolved.oxygen<-preds.gam.low.4$standardized.do*sd.do+mean.do
 
 #Plot
 
-q <-ggplot(preds.gam.low, aes(x=temperature, y=fit)) +
-  geom_line(aes(y = fit), linewidth = 1.25, color = "#01353D")+
-  geom_ribbon(aes(ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
+q <- ggplot() +
+  geom_line(data = preds.gam.low.4, aes(x = temperature, y = fit), linewidth = 1.25, color = "#01353D")+
+  geom_ribbon(data = preds.gam.low.4, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
+  geom_line(data = preds.gam.low.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
+  geom_ribbon(data = preds.gam.low.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
-  xlab("Standardized temperature (\u00B0C)") + ylab("Relative probability of selection")+
+  xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  scale_x_continuous(breaks=number_ticks(5)) +
-  scale_y_continuous(breaks=number_ticks(5))
+  xlim(10,25)
 
 ######Contour Plot#######
 
@@ -214,8 +249,7 @@ b<-ggplot()+
   xlab(label = "Temperature (\u00B0C)") +
   ylab(label = "Dissolved oxygen (mg/l)")+
   labs(fill='') +
-  scale_x_continuous(breaks=number_ticks(5)) +
-  scale_y_continuous(breaks=number_ticks(5))
+  xlim(10, 25)
 
 br.cont <- ggarrange(a, 
                       b + rremove("ylab"),
