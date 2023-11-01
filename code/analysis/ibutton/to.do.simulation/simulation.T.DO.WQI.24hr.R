@@ -53,10 +53,13 @@ for(i in 1:length(di)){
 #set min max do and min max temp as values of 0 and 1 respectively to calculate line slopes
 
 temp <- c(11.9,22.3)
-do <-c(9.6,2.5)
 factor <- c(1,0)
 
 t.dat<-data.frame(temp,factor)
+
+do <-c(9.6,2.5)
+factor<-c(.3,.7)
+
 do.dat <-data.frame(do,factor)
 
 ggplot(t.dat, aes(temp,factor))+
