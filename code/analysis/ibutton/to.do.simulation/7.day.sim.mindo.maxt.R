@@ -1,0 +1,288 @@
+rm(list=ls())
+
+Sys.setenv(TZ = "America/Los_Angeles")
+
+library(ggplot2)
+library(tidyverse)
+library(viridis)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+library(ggpubr)
+
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+
+array <- read.csv("data/modif.data/logger.array/br.unif.do.temp.set.depth.simulation.csv")
+array<-array[,c(1:4)]
+array$date.time <-ymd_hms(array$date.time)
+array$hour <-hour(array$date.time)
+array$date <-as.Date(array$date.time)
+array<-na.omit(array)
+
+#pull the week of days that we are interested in
+days<-array[array$date.time >="2021-07-30 00:00:00" & array$date.time < "2021-08-06 00:00:00",]
+
+da<-unique(days$date)
+di <-unique(days$depth)
+ti <-unique(days$hour)
+
+#per day per hour per depth, find the mean do and mean temperature
+dat <-setNames(data.frame(matrix(ncol = 5, nrow =  0)), c("day", "hour", "depth", "temperature", "dissolved.oxygen"))
+
+cntr = 0
+for(i in 1:length(di)){
+  dep<-di[i]
+  match<-days[days$depth == dep,]
+  for(j in 1:length(ti)){
+    time<-ti[j]
+    t.match<-match[match$hour == time,]
+    for(k in 1:length(da)){
+      day<-da[k]
+      d.match <- t.match[t.match$date == day,]
+      t<-round(mean(d.match$temperature), digits = 1)
+      do<-round(mean(d.match$dissolved.oxygen), digits = 1)
+      cntr<-cntr+1 #start a new row
+      dat[cntr,1] <- day
+      dat[cntr,2] <-time
+      dat[cntr,3] <-dep
+      dat[cntr,4]<-t
+      dat[cntr,5]<-do
+    }
+  }
+}
+
+
+dat$day<- as.Date(dat$day)
+
+dat<-na.omit(dat)
+
+# Source for movement model
+# Sullivan AB, Jager HI, Myers R. 2003. Modeling white sturgeon movement in a 
+# reservoir: the effect of water quality and sturgeon density. Ecological modelling. 
+# 167:97-114.
+
+#score for t or do individually, 0 = worst, 1 = best, use actual highest and lowest
+#temp and do that occur during this 7-day period
+#set min max do and min max temp as values of 0 and 1 respectively to calculate line slopes
+min(dat$temperature)
+max(dat$temperature)
+temp <- c(11.9,23.4)
+factor <- c(1,0)
+t.dat<-data.frame(temp,factor)
+
+min(dat$dissolved.oxygen)
+max(dat$dissolved.oxygen)
+do <-c(10.6,2.2)
+factor<-c(1,0)
+
+do.dat <-data.frame(do,factor)
+
+ggplot(t.dat, aes(temp,factor))+
+  geom_point()+
+  geom_smooth(method="lm")
+
+ggplot(do.dat, aes(do,factor))+
+  geom_point()+
+  geom_smooth(method="lm")
+
+t.fit<-lm(t.dat$factor~t.dat$temp)
+do.fit<-lm(do.dat$factor~do.dat$do)
+
+#intercept and slope values for each
+t.cept<-t.fit$coef[1]
+t.slope<-t.fit$coef[2]
+
+do.cept<-do.fit$coef[1]
+do.slope<-do.fit$coef[2]
+
+dat$temp.fact<- round((t.slope*dat$temperature) + t.cept, digits =2)
+dat$do.fact <-round((do.slope*dat$dissolved.oxygen) + do.cept, digits = 2)
+
+#t/do combination score 
+#WQI = (Tfact*DOfact)^1/2
+dat$WQI <-round(((dat$temp.fact*dat$do.fact)^.5), digits = 2)
+
+#find highest factor score per hour per strategy
+ hour<-unique(dat$hour)
+ day<-unique(dat$day)
+ 
+ #Looking just at the temperature strategy, per hour, what do
+ #and what temp have the highest factor scores?
+ tfact.df <-dat[,-c(7:8)]
+ 
+ tmin.dater <-setNames(data.frame(matrix(ncol = 5, nrow =  0)), c("day", "hour","temperature", "dissolved.oxygen", "strategy"))
+ cntr = 0
+ for(i in 1:length(day)){
+   d<-day[i]
+   slice.i<-tfact.df[tfact.df$day == d,]
+   for(j in 1:length(hour)){
+     h<-hour[j]
+     slice.j<-slice.i[slice.i$hour ==h,]
+     max.fact <-which(slice.j$temp.fact == max(slice.j$temp.fact))
+     trows<-slice.j[max.fact,]
+     t<-trows$temperature
+     t<-ifelse(t>1, mean(t), t)
+     t<-t[1]
+     do<-trows$dissolved.oxygen
+     do<-ifelse(do>1, mean(do), do)
+     do<-do[1]
+     
+     cntr<-cntr+1
+     tmin.dater[cntr,1] <-d
+     tmin.dater[cntr,2]<-h
+     tmin.dater[cntr,3]<-t
+     tmin.dater[cntr,4] <-do
+     tmin.dater[cntr,5]<-"Tmin"
+   
+   }
+ }
+ 
+ tmin.dater$day <-as.Date(tmin.dater$day)
+ tmin.dater<-na.omit(tmin.dater)
+
+ 
+ #Looking just at the do strategy, per hour, what do
+ #and what temp have the highest factor scores?
+ dofact.df <-dat[,-c(6,8)]
+ 
+ domax.dater <-setNames(data.frame(matrix(ncol = 5, nrow =  0)), c("day", "hour","temperature", "dissolved.oxygen", "strategy"))
+ cntr = 0
+ for(i in 1:length(day)){
+   d<-day[i]
+   slice.i<-dofact.df[dofact.df$day == d,]
+   for(j in 1:length(hour)){
+     h<-hour[j]
+     slice.j<-slice.i[slice.i$hour ==h,]
+     max.fact <-which(slice.j$do.fact == max(slice.j$do.fact))
+     trows<-slice.j[max.fact,]
+     t<-trows$temperature
+     t<-ifelse(t>1, mean(t), t)
+     t<-t[1]
+     do<-trows$dissolved.oxygen
+     do<-ifelse(do>1, mean(do), do)
+     do<-do[1]
+     
+     cntr<-cntr+1
+     domax.dater[cntr,1] <-d
+     domax.dater[cntr,2]<-h
+     domax.dater[cntr,3]<-t
+     domax.dater[cntr,4] <-do
+     domax.dater[cntr,5]<-"DOmax"
+     
+   }
+ }
+ 
+ domax.dater$day <-as.Date(domax.dater$day)
+ domax.dater<-na.omit(domax.dater)
+ 
+ 
+ #Looking just at the WQI strategy, per hour, what do
+ #and what temp have the highest factor scores?
+ WQIfact.df <-dat[,-c(6:7)]
+ 
+ WQI.dater <-setNames(data.frame(matrix(ncol = 5, nrow =  0)), c("day", "hour","temperature", "dissolved.oxygen", "strategy"))
+ cntr = 0
+ for(i in 1:length(day)){
+   d<-day[i]
+   slice.i<-WQIfact.df[WQIfact.df$day == d,]
+   for(j in 1:length(hour)){
+     h<-hour[j]
+     slice.j<-slice.i[slice.i$hour ==h,]
+     max.fact <-which(slice.j$WQI == max(slice.j$WQI))
+     trows<-slice.j[max.fact,]
+     t<-trows$temperature
+     t<-ifelse(t>1, mean(t), t)
+     t<-t[1]
+     do<-trows$dissolved.oxygen
+     do<-ifelse(do>1, mean(do), do)
+     do<-do[1]
+     
+     cntr<-cntr+1
+     WQI.dater[cntr,1] <-d
+     WQI.dater[cntr,2]<-h
+     WQI.dater[cntr,3]<-t
+     WQI.dater[cntr,4] <-do
+     WQI.dater[cntr,5]<-"TDOopt"
+     
+   }
+ }
+ 
+ WQI.dater$day <-as.Date(WQI.dater$day)
+ WQI.dater<-na.omit(WQI.dater)
+ 
+ #average daily min DO, average daily max temp
+ all.dat <- do.call("rbind", list(tmin.dater, domax.dater, WQI.dater))
+ 
+ min.do <-all.dat %>% group_by(strategy, day)%>%
+    summarize(mindo = min(dissolved.oxygen))
+ 
+ max.t <-all.dat %>% group_by(strategy, day)%>%
+    summarize(maxt = max(temperature))
+
+joint.dat <- left_join(min.do, max.t, by = c("strategy" = "strategy", "day" = "day"))
+
+a <- ggplot()+
+   geom_boxplot(data = joint.dat, aes(x = strategy, y = mindo))+
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         panel.background = element_blank(), axis.line = element_line(colour = "black"),
+         text = element_text(size = 15, family = "serif"))+
+   xlab(label = "Strategy") +
+   ylab (label = "Minimum daily DO (mg/L)")
+
+b<- ggplot()+   
+   geom_boxplot(data = joint.dat, aes(x = strategy, y = maxt))+
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         panel.background = element_blank(), axis.line = element_line(colour = "black"),
+         text = element_text(size = 15, family = "serif"))+
+   xlab(label = "Strategy") +
+   ylab (label = "Maximum daily temperature (\u00B0C)")
+
+
+# NOW BRING IN THE REAL FISH DATER ----------------------------------------
+
+fish <-read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv")
+fish<-fish[fish$case ==1,]
+fish$date.time <-mdy_hm(fish$date.time)
+fish$hour <-hour(fish$date.time)
+#pull the week of days that we are interested in
+fish<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
+
+fish<-fish[,c(1,3,5,7,9,10)]
+fish<-fish[fish$site == "blue.ruin",]
+
+calc <- fish%>% group_by(ibutton.id, date, hour) %>%
+   summarise(maxt = max(temperature), mindo = min(dissolved.oxygen))
+
+calc$strategy <- "Tagged fish"
+
+calc<- calc%>%
+   rename(day = date)
+
+calc <- calc[,c(2, 4:6)]
+calc$day <-mdy(calc$day)
+
+calc<- select(calc, 4, 1, 3, 2)
+
+sim.fish.join <- rbind(calc, joint.dat)
+
+sim.fish.join$strategy <- factor(sim.fish.join$strategy, levels = c("DOmax", "Tmin", "TDOopt", "Tagged fish"))
+
+a <- ggplot()+
+   geom_violin(data = sim.fish.join, aes(x = strategy, y = maxt))+
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         panel.background = element_blank(), axis.line = element_line(colour = "black"),
+         text = element_text(size = 15, family = "serif"))+
+   xlab(label = "Strategy") +
+   ylab (label = "Maximum daily temperature (\u00B0C)")
+
+b <-ggplot()+
+   geom_violin(data = sim.fish.join, aes(x = strategy, y = mindo))+
+   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+         panel.background = element_blank(), axis.line = element_line(colour = "black"),
+         text = element_text(size = 15, family = "serif"))+
+   xlab(label = "Strategy") +
+   ylab (label = "Minimum daily DO (mg/L)")
+
+
+f3<-ggarrange(a, b, 
+              ncol=1)
