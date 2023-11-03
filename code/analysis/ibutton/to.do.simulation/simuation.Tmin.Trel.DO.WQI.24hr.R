@@ -116,7 +116,7 @@ dat$WQI1 <-round(((dat$temp.fact1*dat$do.fact)^.5), digits = 2)
 
 # WQI USING NEW TEMP FACTOR -----------------------------------------------
 
-dat$WQI2 <-round(((dat$temp.fact2*dat$do.fact)^.5), digits = 2)
+dat$WQI2 <-round(((dat$temp.fact2^2)*(dat$do.fact^.5)), digits = 2)
 
 
 # FOR LOOP FOR SCORES -----------------------------------------------------
