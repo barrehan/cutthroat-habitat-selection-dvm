@@ -92,17 +92,20 @@ preds.gam.high.4$dissolved.oxygen<-preds.gam.high.4$standardized.do*sd.do+mean.d
 
 #Plot
 
+min.high.int<-high.int %>%group_by(case)%>%slice(which.min(temperature))
+max.high.int<-high.int %>%group_by(case)%>%slice(which.max(temperature))
+
 p <- ggplot() +
   geom_line(data = preds.gam.high.4, aes(x = temperature, y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(data = preds.gam.high.4, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
-  geom_line(data = preds.gam.high.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
-  geom_ribbon(data = preds.gam.high.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
+  #geom_line(data = preds.gam.high.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
+  #geom_ribbon(data = preds.gam.high.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(10,25)
+  xlim(11.5,16.5)
 
 
 
@@ -198,17 +201,20 @@ preds.gam.low.4$dissolved.oxygen<-preds.gam.low.4$standardized.do*sd.do+mean.do
 
 #Plot
 
+min.low.int<-low.int %>%group_by(case)%>%slice(which.min(temperature))
+max.low.int<-low.int %>%group_by(case)%>%slice(which.max(temperature))
+
 q <- ggplot() +
   geom_line(data = preds.gam.low.4, aes(x = temperature, y = fit), linewidth = 1.25, color = "#01353D")+
   geom_ribbon(data = preds.gam.low.4, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="#01353D")+
-  geom_line(data = preds.gam.low.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
-  geom_ribbon(data = preds.gam.low.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
+  #geom_line(data = preds.gam.low.2, aes(x = temperature, y = fit), linewidth = 1.25, color = "red")+
+  #geom_ribbon(data = preds.gam.low.2, aes(x = temperature, ymin=lcl, ymax=ucl), alpha=0.2, fill="pink")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(10,25)
+  xlim(11.5,17)
 
 ######Contour Plot#######
 

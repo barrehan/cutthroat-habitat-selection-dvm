@@ -11,15 +11,17 @@ library(lubridate)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
-array <- read.csv("data/modif.data/logger.array/br.unif.do.temp.set.depth.simulation.csv")
+array <- read.csv("data/modif.data/logger.array/nor.unif.do.temp.set.depth.simulation.csv")
 array<-array[,c(1:4)]
+
 array$date.time <-ymd_hms(array$date.time)
 array$hour <-hour(array$date.time)
 array$date <-as.Date(array$date.time)
-array<-na.omit(array)
+
 
 #just going to do july 29 right now instead of all days
-day<-array[array$date.time >="2021-07-29 00:00:00" & array$date.time <"2021-07-30 00:00:00",]
+day<-array[array$date.time >="2021-08-01 00:00:00" & array$date.time <"2021-08-02 00:00:00",]
+day<-day %>%drop_na(depth)
 
 di <-unique(day$depth)
 ti <-unique(day$hour)
@@ -43,6 +45,8 @@ for(i in 1:length(di)){
   }
 }
 
+dat<-na.omit(dat)
+
 # Source for movement model
 # Sullivan AB, Jager HI, Myers R. 2003. Modeling white sturgeon movement in a 
 # reservoir: the effect of water quality and sturgeon density. Ecological modelling. 
@@ -51,16 +55,15 @@ for(i in 1:length(di)){
 #score for t or do individually, 0 = worst, 1 = best, use actual highest and lowest
 #temp and do that occur during this 24 hour period
 #set min max do and min max temp as values of 0 and 1 respectively to calculate line slopes
-
 min(dat$temperature)
 max(dat$temperature)
-temp <- c(11.9,22.3)
+temp <- c(12.4,22.6)
 factor <- c(1,0)
 t.dat<-data.frame(temp,factor)
 
 min(dat$dissolved.oxygen)
 max(dat$dissolved.oxygen)
-do <-c(9.6,2.5)
+do <-c(12.1,0.9)
 factor<-c(1,0)
 
 do.dat <-data.frame(do,factor)
@@ -151,6 +154,6 @@ p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
 
 
 
-ggsave(p, filename = paste("results/figures/ibutton.simulation/br.depth.selection.simulation.png"), width = 18, height = 10, units = "cm")
+ggsave(p, filename = paste("results/figures/ibutton.simulation/nor.depth.selection.simulation.png"), width = 18, height = 10, units = "cm")
   
 

@@ -5,6 +5,8 @@
 #'specific time of day/where it is in relation to thermocline)
 
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+rm(list=ls())
+
 library(readr)
 library(dplyr)
 library(tidyverse)
@@ -18,25 +20,27 @@ library(ggplot2)
 #' (selected using runif), D1 and D2 are the known depths of the bounding sensors, 
 #' and t1 and t2 are the known temperatures of those sensors
 
-br.array<- read.csv("data/modif.data/logger.array/blue.ruin.netpen.array.do.temp.csv")
-br.array$date.time <-mdy_hm(br.array$date.time)
-br.array <- br.array %>% force_tz(br.array$date.time, tzone = "America/Los_Angeles")
+nor.array<- read.csv("data/raw.data/logger.array/norwood.mouth.temp.do.csv")
+nor.array$date.time <-mdy_hm(nor.array$date.time)
+nor.array <- nor.array %>% force_tz(nor.array$date.time, tzone = "America/Los_Angeles")
+nor.array$date.time<- round_date(nor.array$date.time, unit = "5 minutes")
+nor.array<-nor.array[nor.array$date.time >="2021-07-30 00:00:00" & nor.array$date.time < "2021-08-06 00:00:00",]
 
 #'remove temperature NA rows
-temp.array<-br.array%>%drop_na(temperature)
+temp.array<-nor.array%>%drop_na(temperature)
 
 #'create blank data frame that will house depth/temp estimates from for loop
 
 length(unique(temp.array$date.time))
-row.ct<-5999*10
+row.ct<-14965*10
 new.dat<-as.data.frame(matrix(ncol=3,nrow=row.ct))
 new.dat$V1<-mdy_hms(new.dat$V1)
 new.dat$V1 <- force_tz(new.dat$V1, tzone = "America/Los_Angeles")
 
-dates <- as.data.frame(unique(br.array$date.time))
+dates <- as.data.frame(unique(nor.array$date.time))
 colnames(dates)<- "date.time"
 
-di<- as.data.frame(seq(from = 0.2, to = 1.6, by = 0.1))
+di<- as.data.frame(seq(from = 0.2, to = 1.5, by = 0.2))
 cntr = 0
 
 #'x= (y-b)/m
@@ -45,7 +49,7 @@ for(i in 1:nrow(dates)){
   dt <- dates[i,]
   match<- temp.array[temp.array$date.time == dt,]
   #fish <- ifelse(fish == '', NA, fish)
-  dist <- as.data.frame(seq(from = 0.2, to = 1.6, by = 0.1)) #max depth 0.05 less than deepest sensor so we can interpolate
+  dist <- as.data.frame(seq(from = 0.2, to = 1.5, by = 0.1)) #max depth 0.05 less than deepest sensor so we can interpolate
   for(i in 1:nrow(dist)){
     d.unif<- dist[i,]
     d1 <- max(match$sensor.depth[which(match$sensor.depth < d.unif)])
@@ -58,7 +62,7 @@ for(i in 1:nrow(dates)){
     #at depth
     bd <- match[match$sensor.depth== 1.55,]
     nbd <- bd$temperature
-    t<-ifelse(d.unif>=1.55, nbd, t)
+    t<-ifelse(d.unif>=1.45, nbd, t)
     sd<-match[match$sensor.depth == 0.25,]
     nsd <-sd$temperature
     t<-ifelse(d.unif<0.25,nsd,t)
@@ -82,7 +86,7 @@ colnames(new.dat) <- c("date.time","depth","temperature")
 #'need to estimate DO at unif depths too
 #'create df for the DO data
 dater<- new.dat
-do.array<-br.array%>%drop_na(dissolved.oxygen)
+do.array<-nor.array%>%drop_na(dissolved.oxygen)
 unique(do.array$sensor.depth)
 
 for(i in 1:nrow(dater)){
@@ -106,4 +110,4 @@ for(i in 1:nrow(dater)){
 colnames(dater)[4] <- "dissolved.oxygen"
 colnames(dater)[5] <- "case"
 
-write.csv(dater, "data/modif.data/logger.array/br.unif.do.temp.set.depth.simulation.csv", row.names = F)
+write.csv(dater, "data/modif.data/logger.array/nor.unif.do.temp.set.depth.simulation.csv", row.names = F)

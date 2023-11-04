@@ -16,7 +16,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 array <- read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv") #going to use ibutton interp data rather than 
 #interp df created for sim - less precise
-array <- array[array$site == "blue.ruin",]
+array <- array[array$site == "norwood",]
 array<- array[,c(2,5:7)]
 #array<-array[,c(1:4)]
 array$date.time <-mdy_hm(array$date.time)
@@ -27,9 +27,9 @@ array<-na.omit(array)
 #pull the week of days that we are interested in
 array<-array[array$date.time >="2021-07-30 00:00:00" & array$date.time < "2021-08-06 00:00:00",]
 
-da<-unique(days$date)
-di <-unique(days$depth)
-ti <-unique(days$hour)
+# da<-unique(days$date)
+# di <-unique(days$depth)
+# ti <-unique(days$hour)
 
 #per day per hour per depth, find the mean do and mean temperature
 # dat <-setNames(data.frame(matrix(ncol = 5, nrow =  0)), c("day", "hour", "depth", "temperature", "dissolved.oxygen"))
@@ -256,7 +256,7 @@ fish$date.time <-mdy_hm(fish$date.time)
 fish$hour <-hour(fish$date.time)
 #pull the week of days that we are interested in
 fish<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
-fish<-fish[fish$site == "blue.ruin",]
+fish<-fish[fish$site == "norwood",]
 
 fish<-fish[,c(1,3,5,7,9,10)]
 
@@ -281,18 +281,18 @@ sim.fish.join <- rbind(calc, joint.dat)
 sim.fish.join$strategy <- factor(sim.fish.join$strategy, levels = c("DOmax", "Tmin", "TDOopt", "Tagged fish"))
 
 a <- ggplot()+
-   geom_violin(data = sim.fish.join, aes(x = strategy, y = maxt))+
+   geom_violin(data = sim.fish.join, aes(x = strategy, y = maxt), linewidth = .8)+
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
          panel.background = element_blank(), axis.line = element_line(colour = "black"),
-         text = element_text(size = 15, family = "serif"))+
+         text = element_text(size = 17, family = "serif"))+
    xlab(label = "Strategy") +
    ylab (label = "Maximum daily temperature (\u00B0C)")
 
 b <-ggplot()+
-   geom_violin(data = sim.fish.join, aes(x = strategy, y = mindo))+
+   geom_violin(data = sim.fish.join, aes(x = strategy, y = mindo), linewidth = .8)+
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
          panel.background = element_blank(), axis.line = element_line(colour = "black"),
-         text = element_text(size = 15, family = "serif"))+
+         text = element_text(size = 17, family = "serif"))+
    xlab(label = "Strategy") +
    ylab (label = "Minimum daily DO (mg/L)")
 
