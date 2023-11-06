@@ -280,6 +280,9 @@ sim.fish.join <- rbind(calc, joint.dat)
 
 sim.fish.join$strategy <- factor(sim.fish.join$strategy, levels = c("DOmax", "Tmin", "TDOopt", "Tagged fish"))
 
+sim.fish.join$mindo<-round(sim.fish.join$mindo, digits = 1)
+sim.fish.join$maxt<-round(sim.fish.join$maxt, digits = 1)
+
 a <- ggplot()+
    geom_violin(data = sim.fish.join, aes(x = strategy, y = maxt), linewidth = .8)+
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
