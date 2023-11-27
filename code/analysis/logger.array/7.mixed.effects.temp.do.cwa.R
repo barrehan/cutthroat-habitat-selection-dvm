@@ -52,12 +52,12 @@ tab_model(mod2, show.re.var = T,
           dv.labels = "Linear relationship between temperature and dissolved oxgyen, all CWA")
 
 effects.temp<-effects::effect(term = "temperature", mod = mod2)
-x_temp <-as.data.frame(effects.temp)
+x_temp2 <-as.data.frame(effects.temp)
 
 ggplot()+
   geom_point(data = all.array.dat, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
   geom_line(data =x_temp, aes(temperature, y =fit), colour = "#212E52", linewidth = 1)+
-  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#8087AA")+
+  geom_ribbon(data = x_temp2, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#8087AA")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
@@ -221,11 +221,11 @@ f<- ggarrange(d,
 
 j<- ggplot()+
   #geom_point(data = array.lowdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
-  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
-  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#BA817D")+
+  geom_line(data =x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
+  geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#289A84")+
   #geom_point(data = array.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
-  geom_line(data =x_temp2, aes(temperature, y =fit), colour = "#01353D", linewidth = 1)+
-  geom_ribbon(data = x_temp2, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#088096")+
+  geom_line(data =x_temp2, aes(temperature, y =fit), colour = "#8FF7BD", linewidth = 1)+
+  geom_ribbon(data = x_temp2, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill = "#8FF7BD")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
@@ -265,10 +265,10 @@ br.high.x_temp <-as.data.frame(br.high.effects.temp)
 
 a <- ggplot()+
   #geom_point(data = br.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
-  geom_line(data =br.low.x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
-  geom_ribbon(data = br.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#BA817D")+
-  geom_line(data = br.high.x_temp, aes(x= temperature, y = fit), colour = "#01353D", linewidth = 1)+
-  geom_ribbon(data = br.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#088096")+
+  geom_line(data =br.low.x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
+  geom_ribbon(data = br.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#289A84")+
+  geom_line(data = br.high.x_temp, aes(x= temperature, y = fit), colour = "#8FF7BD", linewidth = 1)+
+  geom_ribbon(data = br.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#8FF7BD")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
@@ -306,10 +306,10 @@ nor.high.x_temp <-as.data.frame(nor.high.effects.temp)
 
 b <- ggplot()+
   #geom_point(data = nor.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
-  geom_line(data =nor.low.x_temp, aes(temperature, y =fit), colour = "#5E3B49", linewidth = 1)+
-  geom_ribbon(data = nor.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#BA817D")+
-  geom_line(data = nor.high.x_temp, aes(x= temperature, y = fit), colour = "#01353D", linewidth = 1)+
-  geom_ribbon(data = nor.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#088096")+
+  geom_line(data =nor.low.x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
+  geom_ribbon(data = nor.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#289A84")+
+  geom_line(data = nor.high.x_temp, aes(x= temperature, y = fit), colour = "#8FF7BD", linewidth = 1)+
+  geom_ribbon(data = nor.high.x_temp, aes(x = temperature, ymin = lower, ymax= upper), alpha = 0.4, fill = "#8FF7BD")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 15, family = "serif"))+
@@ -326,7 +326,7 @@ c<- ggarrange(a,
           nrow = 2,
           align = "hv")
 
-#ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
+ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
 
 
 array.lowdo$logger.site<-as.factor(array.lowdo$logger.site)

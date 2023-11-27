@@ -46,7 +46,7 @@ array24$shp2 <- as.factor(2)
 
 lims <- strptime(c("00:00:00","00:00:00"), format = "%H")
 
-p<- ggplot()+
+p<-ggplot()+
   geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=temperature, colour = sensor.depth), linetype = "dashed", se = F, size = 0.85)+
   geom_line(data= array24, stat = "smooth", method = "loess", aes(x = date.time, y=dissolved.oxygen, colour = sensor.depth), linetype = "solid", se = F, size = 0.85)+
   scale_colour_manual(labels = c("0.25m", "0.85m", "1.45m"), values = c("#212E52", "#386EC2", "#8087AA"),
@@ -59,11 +59,21 @@ p<- ggplot()+
   xlab(label = "Hour of the day") +
   ylab(label = "")+
   theme(text = element_text(size = 15), legend.position = "right")
-  ggsave(p, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
+
+rect1<- ymd_hms("2021-08-01 11:00:00")
+rect2<- ymd_hms("2021-08-01 15:00:00")
+rect3<- ymd_hms("2021-08-01 23:00:00")
+rect4<- ymd_hms("2021-08-02 03:00:00")
+
+g<-p + annotate("rect",
+                xmin = rect1, xmax = rect2, 
+                ymin = -Inf, ymax = Inf,  fill = "#B14311", alpha=.5)# Just look at DO determine min/max windows -------------------------------
+f<- g+ annotate("rect", xmin = rect3, xmax = rect4, ymin = -Inf, ymax = Inf, fill = "#F0AC7D", alpha = .3)
 
 
+  ggsave(f, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
 
-# Just look at DO determine min/max windows -------------------------------
+
 
 array$hourID <-hour(array$date.time)
 array$hourID <- as.factor(array$hourID)

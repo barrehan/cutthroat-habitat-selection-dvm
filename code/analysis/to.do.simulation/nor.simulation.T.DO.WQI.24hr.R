@@ -139,18 +139,18 @@ datlong<-dater %>%gather(Factor, Depth, Tmin:TDOopt)
 
 p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   #first smooth; se only
-  stat_smooth(aes(group=Factor), col=NA, method = "auto", size=1, se=TRUE, fill = "#6B7F7F")+
+  stat_smooth(aes(group=Factor), col=NA, method = "auto", size=1, se=TRUE, fill = "#7C5467")+
   #now smooth;line only
-  stat_smooth(aes(lty = Factor), colour = "#293633", se = F)+
+  stat_smooth(aes(lty = Factor), colour = "#291919", se = F)+
   scale_y_reverse()+
   xlab('Hour of day')+
   ylab("Depth (m)")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        text = element_text(size = 15, family = "serif"))+
+        text = element_text(size = 15, family = "serif"), legend.key = element_rect(colour = NA, fill = NA))+
   labs(linetype = "Depth selection")+
   scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DOmax", "TDOopt", "Tmin"))+
-  scale_x_continuous(breaks = seq(0,21,3))
+  scale_x_continuous(breaks = seq(0,24,2))
 
 
 

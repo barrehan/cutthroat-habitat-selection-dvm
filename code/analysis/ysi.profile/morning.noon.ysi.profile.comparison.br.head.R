@@ -83,7 +83,7 @@ f1 <- ggplot(log5.new, aes(x = temp.c, y = depth.m, col = day.segment))+
 f2 <- ggplot(log5.new, aes(x = do.mg.l, y = depth.m, col = day.segment))+
   geom_point(size = 1.5, alpha = 0.9)+
   scale_y_reverse()+
-  scale_color_manual(values = c("#8C2B0E", "#FEB359"))+
+  scale_color_manual(values = c("#8C2B0E", "#FEB359"))
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         legend.position = "right", legend.key = element_rect(fill = "transparent"),

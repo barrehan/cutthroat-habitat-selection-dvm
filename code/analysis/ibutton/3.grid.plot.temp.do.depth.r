@@ -18,9 +18,9 @@ df <- do.call(rbind, lapply(list_csv_files, function(x) read.csv(x, stringsAsFac
 setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 df$date.time<- ymd_hms(df$date.time)
-df$hour <- hour(df$date.time)
+df$Hour <- hour(df$date.time)
 
-df<-df[df$date.time >="2021-07-30 00:00:00" & df$date.time < "2021-08-06 00:00:00",]
+df<-df[df$date.time >="2021-07-30 00:00:00" & df$date.time < "2021-08-05 12:00:00",]
 
 nor <- df[df$site == "norwood.mouth",]
 br <- df[df$site == "blue.ruin.1" | df$site == "blue.ruin.2",]
@@ -31,8 +31,8 @@ br <- df[df$site == "blue.ruin.1" | df$site == "blue.ruin.2",]
 tag.id<- unique(nor$ibutton)
 
 for(i in tag.id){
-p1<- ggplot(data =subset(nor, ibutton == i), aes(date.time, fish.depth))+
-  geom_point(aes(colour = hour), size = 2)+
+p1<- ggplot(data =subset(nor, ibutton == 13), aes(date.time, fish.depth))+
+  geom_point(aes(colour = Hour), size = 2)+
  # scale_color_viridis(option = "A")+
   scale_color_gradientn(colours = c("#291919", "#532A34", "#7C5467", "#878195", "#AEB2B7", "#D4D9DD"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
@@ -42,7 +42,7 @@ p1<- ggplot(data =subset(nor, ibutton == i), aes(date.time, fish.depth))+
   xlab(label = "Date") +
   ylab (label = "Fish depth (m)")
 
-p2<- ggplot(data =subset(nor, ibutton == i), aes(date.time, ibutton.temp))+
+p2<- ggplot(data =subset(nor, ibutton == 14), aes(date.time, ibutton.temp))+
   geom_point(aes(colour = hour), size = 2)+
   scale_color_gradientn(colours = c("#291919", "#532A34", "#7C5467", "#878195", "#AEB2B7", "#D4D9DD"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
