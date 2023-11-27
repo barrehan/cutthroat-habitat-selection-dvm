@@ -23,12 +23,15 @@ rm(list = ls())
 graphics.off() 
 
 #'working directory
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection")
+setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 # Import fish tag data and array data, clean dates and timestamps ---------
 fish.dat <- read.csv('data/modif.data/radio.tag/tag.reads.10.min.interval.csv')
 fish.dat$date.time = mdy_hm(fish.dat$date.time)
 fish.dat <- fish.dat %>% force_tz(fish.dat$date.time, tzone = "America/Los_Angeles")
+
+cut <- fish.dat[fish.dat$date.time >= "2021-07-25 00:00:00",] 
+mean(cut$temp.strong)
 
 #'assign closest logger array id
 fish.dat$logger.site<- ifelse(fish.dat$receiver.site == 1 & fish.dat$antenna.number ==1, "site.0.mouth",
@@ -156,7 +159,7 @@ p <- ggplot()+
   scale_color_viridis(option = "turbo", limits = c(10, 25))+
   xlab("Date")+
   ylab("Dissolved oxygen (mg/L)")+
-  labs(color = "Fish temperature (°C)", shape = "Receiver site")+
+  labs(color = "Fish temperature (?C)", shape = "Receiver site")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"))+
   labs(title = i)
