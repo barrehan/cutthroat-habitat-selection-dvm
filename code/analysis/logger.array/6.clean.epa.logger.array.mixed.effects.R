@@ -126,7 +126,7 @@ osu <- do.dat[do.dat$collected.by == "osu",]
 osu<- osu%>% filter(date >'7/25/2021' & date <'8/14/2021')
 
 ggplot(osu, aes(date.time, dissolved.oxygen, group = sensor.depth))+
-  geom_point(aes(col = sensor.depth))
+  geom_point(aes(col = sensor.depth))+
   facet_wrap(~logger.site)
 
 osu.s5 <-osu[osu$logger.site == "site.5.head",]
@@ -144,6 +144,36 @@ ggplot(osu.s4, aes(date.time, dissolved.oxygen, group =sensor.depth))+
 
 epa.osu.arrays.clean<-rbind(arrays.clean, osu)
 
-write.csv(epa.osu.arrays.clean, "data/modif.data/logger.array/epa.osu.logger.array.cleaned.csv", row.names = F)
+mins <- epa.osu.arrays.clean %>%
+  group_by(logger.site,date, sensor.depth)%>%
+  summarize_at(vars(dissolved.oxygen), list(dissolved.oxygen = min))
+
+max.d<- mins%>%
+  group_by(logger.site,date)%>%
+  slice(which.max(sensor.depth))
+
+prop <- max.d %>%
+  group_by(logger.site)%>%
+  summarize_at(vars(dissolved.oxygen), list(dissolved.oxygen = mean))
+
+sites <- prop[prop$dissolved.oxygen <2,]
+
+maxes <- epa.osu.arrays.clean %>%
+  group_by(logger.site,date, sensor.depth)%>%
+  summarize_at(vars(dissolved.oxygen), list(dissolved.oxygen = max))
+
+min.d<- maxes%>%
+  group_by(logger.site,date)%>%
+  slice(which.min(sensor.depth))
+
+prop2 <- min.d %>%
+  group_by(logger.site)%>%
+  summarize_at(vars(dissolved.oxygen), list(dissolved.oxygen = mean))
+
+max.hyp.props <- prop2[prop2$logger.site %in% sites$logger.site,]
+
+  
+
+#write.csv(epa.osu.arrays.clean, "data/modif.data/logger.array/epa.osu.logger.array.cleaned.csv", row.names = F)
 
 
