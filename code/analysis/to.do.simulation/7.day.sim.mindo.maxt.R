@@ -16,9 +16,10 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 
 array <- read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv") #going to use ibutton interp data rather than 
 #interp df created for sim - less precise
+# array <- array[array$site == "norwood",]
 array <- array[array$site == "blue.ruin",]
 array<- array[,c(2,5:7)]
-#array<-array[,c(1:4)]
+# array<-array[,c(1:4)]
 array$date.time <-mdy_hm(array$date.time)
 array$hour <-hour(array$date.time)
 array$date <-as.Date(array$date.time)
@@ -256,9 +257,12 @@ fish$date.time <-mdy_hm(fish$date.time)
 fish$hour <-hour(fish$date.time)
 #pull the week of days that we are interested in
 fish<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
+# fish<-fish[fish$site == "norwood",]
 fish<-fish[fish$site == "blue.ruin",]
 
 fish<-fish[,c(1,3,5,7,9,10)]
+
+length(unique(fish$ibutton.id))
 
 calc <- fish%>% group_by(ibutton.id, date) %>%
    summarise(maxt = max(temperature), mindo = min(dissolved.oxygen))
@@ -307,7 +311,10 @@ d<-ggplot()+
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())+
   geom_vline(xintercept=c(3.5), linetype = "dashed")+
-  ylab (label = "Minimum daily DO (mg/L)")
+  ylab (label = "Minimum daily DO (mg/L)")+
+   ylim(0.5, 7.5)
+
+f1 <- ggarrange(a,c +rremove("ylab"), b, d + rremove ("ylab"), ncol = 2, nrow = 2, common.legend = T, legend = "right")
 
 
 f3<-ggarrange(a, b, c, d,

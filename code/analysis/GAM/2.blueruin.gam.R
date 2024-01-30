@@ -105,7 +105,8 @@ p <- ggplot() +
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(11.5,16.5)
+  xlim(11.5,16.5)+
+  ggtitle(bold('a') ~  "Blue ruin day (DO-maxima)")
 
 
 
@@ -214,7 +215,8 @@ q <- ggplot() +
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(11.5,17)
+  xlim(11.5,17)+
+  ggtitle(bold('b') ~  "Blue Ruin night (DO-minima)")
 
 ######Contour Plot#######
 

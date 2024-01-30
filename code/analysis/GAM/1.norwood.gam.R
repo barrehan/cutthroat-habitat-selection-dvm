@@ -107,7 +107,8 @@ p <- ggplot() +
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(11,16)
+  xlim(11,16)+
+  ggtitle(bold('a') ~  "Norwood day (DO-maxima)")
 
 
 ######Contour Plot#######
@@ -227,7 +228,8 @@ q <- ggplot() +
         text = element_text(size = 15, family = "serif"))+
   xlab("Temperature (\u00B0C)") + ylab("Relative probability of selection")+
   theme(legend.title = element_blank())+
-  xlim(12,17)
+  xlim(12,17)+
+  ggtitle(bold('b') ~  "Norwood night (DO-minima)")
 
 
 
