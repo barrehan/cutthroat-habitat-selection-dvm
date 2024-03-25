@@ -147,7 +147,7 @@ p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   ylab("Depth (m)")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        text = element_text(size = 15, family = "serif"), legend.key = element_rect(colour = NA, fill = NA))+
+        text = element_text(size = 20, family = "serif"), legend.key = element_rect(colour = NA, fill = NA))+
   labs(linetype = "Depth selection")+
   scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DOmax", "TDOopt", "Tmin"))+
   scale_x_continuous(breaks = seq(0,24,2))

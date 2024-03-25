@@ -17,7 +17,7 @@ setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
 array <- read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv") #going to use ibutton interp data rather than 
 #interp df created for sim - less precise
 # array <- array[array$site == "norwood",]
-array <- array[array$site == "blue.ruin",]
+array <- array[array$site == "norwood",]
 array<- array[,c(2,5:7)]
 # array<-array[,c(1:4)]
 array$date.time <-mdy_hm(array$date.time)
@@ -258,7 +258,7 @@ fish$hour <-hour(fish$date.time)
 #pull the week of days that we are interested in
 fish<-fish[fish$date.time >="2021-07-30 00:00:00" & fish$date.time < "2021-08-06 00:00:00",]
 # fish<-fish[fish$site == "norwood",]
-fish<-fish[fish$site == "blue.ruin",]
+fish<-fish[fish$site == "norwood",]
 
 fish<-fish[,c(1,3,5,7,9,10)]
 
@@ -272,8 +272,7 @@ calc <- calc %>% group_by(date) %>%
 
 calc$strategy <- "Tagged fish"
 
-calc<- calc%>%
-   rename(day = date)
+names(calc)[names(calc) == "date"] <- "day"
 
 #calc <- calc[,c(2:5)]
 calc$day <-mdy(calc$day)
@@ -287,12 +286,12 @@ sim.fish.join$strategy <- factor(sim.fish.join$strategy, levels = c("DOmax", "TD
 sim.fish.join$mindo<-round(sim.fish.join$mindo, digits = 1)
 sim.fish.join$maxt<-round(sim.fish.join$maxt, digits = 1)
 
-c<- ggplot()+
+a<- ggplot()+
    geom_boxplot(data = sim.fish.join, aes(x = strategy, y = maxt, fill = strategy), alpha = 0.9)+
    scale_fill_manual(values = c("#722710", "#A3844D", "#675243", "#A85017"), name = "Strategy")+
    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
          panel.background = element_blank(), axis.line = element_line(colour = "black"),
-         text = element_text(size = 15, family = "serif"), legend.key = element_rect(colour = NA, fill = NA),
+         text = element_text(size = 20, family = "serif"), legend.key = element_rect(colour = NA, fill = NA),
          axis.title.x=element_blank(),
          axis.text.x=element_blank(),
          axis.ticks.x=element_blank())+
@@ -301,18 +300,22 @@ c<- ggplot()+
     labels = scales::number_format(accuracy = 1), limits = c(10,25))+
    ylab (label = "Maximum daily temperature (\u00B0C)")
 
-d<-ggplot()+
+b<-ggplot()+
   geom_boxplot(data = sim.fish.join, aes(x = strategy, y = mindo, fill = strategy), alpha = 0.9)+
   scale_fill_manual(values = c("#722710", "#A3844D", "#675243", "#A85017"), name = "Strategy")+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        text = element_text(size = 15, family = "serif"), legend.key = element_rect(colour = NA, fill = NA),
+        text = element_text(size = 20, family = "serif"), legend.key = element_rect(colour = NA, fill = NA),
         axis.title.x=element_blank(),
         axis.text.x=element_blank(),
         axis.ticks.x=element_blank())+
   geom_vline(xintercept=c(3.5), linetype = "dashed")+
   ylab (label = "Minimum daily DO (mg/L)")+
    ylim(0.5, 7.5)
+
+e <- ggarrange (c, d,
+                common.legend = T,
+                legennd = "right")
 
 f1 <- ggarrange(a,c +rremove("ylab"), b, d + rremove ("ylab"), ncol = 2, nrow = 2, common.legend = T, legend = "right")
 
