@@ -101,6 +101,26 @@ p<-ggplot(data = fish.block, aes (x = time2, y = depth))+
   xlab("Hour of Day")+
   ylab("Depth (m)")
 
+p <- ggplot(data = fish.block, aes(x = time2, y = depth)) +
+  #geom_point(alpha = .1, colour = "slategray") +
+  geom_smooth(fill = "#7C5467", colour = "#291919") +
+  scale_y_reverse(limits = c(1.6, 0.2), breaks = seq(1.6, 0.2, by = -0.4)) +
+  scale_x_datetime(
+    breaks = "2 hours",
+    date_labels = "%H"
+  ) +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(),
+    axis.line = element_line(colour = "black"),
+    legend.key = element_rect(fill = "white"),
+    text = element_text(size = 20, family = "serif")
+  ) +
+  #ggtitle("Smoothed fit fish depth across 24-hour period, Blue Ruin netpens") +
+  xlab("Hour of Day") +
+  ylab("Depth (m)")
+
 ggsave(p, filename = paste("results/figures/ibutton.simulation/smoothed.fit.fish.depth.BRib.png"), width = 12, height = 8, units = "cm")
 
 ?scale_x_datetime

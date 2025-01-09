@@ -16,7 +16,7 @@ library(AICcmodavg)
 library(mgcv)
 library(tidyverse)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/GitHub/cwa.habitat.selection.dvm")
 nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
 nor.ib$date.time <- ymd_hms(nor.ib$date.time)
 nor.ib <- nor.ib %>% force_tz(nor.ib$date.time, tzone = "America/Los_Angeles")
@@ -53,7 +53,7 @@ gam.high<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp), #how t
              family=cox.ph, weights = case)
 summary(gam.high)
 
-pred.vals.high.2<- data.frame(standardized.do = (2-mean.do)/sd.do, #setting DO to 4mg/l epa standard
+pred.vals.high.2<- data.frame(standardized.do = (2-mean.do)/sd.do, #setting DO to 2mg/l 
                              standardized.temp = seq(min(high.int$standardized.temp, na.rm = T),
                                                      max(high.int$standardized.temp, na.rm = T), 
                                                      0.1),
@@ -172,6 +172,7 @@ gam.low<-gam(cbind(dumt,stratID) ~ s(standardized.do,standardized.temp),
              data = low.int, 
              family=cox.ph, weights = case)
 summary(gam.low)
+
 
 
 pred.vals.low.2<- data.frame(standardized.do = (2-mean.do)/sd.do, #setting DO to 4mg/l epa standard

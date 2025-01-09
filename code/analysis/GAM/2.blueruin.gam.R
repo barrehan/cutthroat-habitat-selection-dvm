@@ -17,7 +17,7 @@ library(mgcv)
 library(tidyverse)
 
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/GitHub/cwa.habitat.selection.dvm")
 br.ib<- read.csv("data/modif.data/hab.select.mod/br.ibutton.data/br.ibutton.pooled.csv")
 br.ib$date.time <- ymd_hms(br.ib$date.time)
 br.ib <- br.ib %>% force_tz(br.ib$date.time, tzone = "America/Los_Angeles")
