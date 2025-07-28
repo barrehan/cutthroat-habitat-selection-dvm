@@ -11,7 +11,7 @@ library(dplyr)
 library(lubridate)
 library(sjPlot)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/Documents/GitHub/cwa.habitat.selection.dvm")
 nor.ib<- read.csv("data/modif.data/hab.select.mod/norwood.ibutton.data/norwood.ibutton.pooled.csv")
 nor.ib$date.time <- ymd_hms(nor.ib$date.time)
 nor.ib <- nor.ib %>% force_tz(nor.ib$date.time, tzone = "America/Los_Angeles")

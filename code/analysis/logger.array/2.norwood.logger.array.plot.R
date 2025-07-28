@@ -8,7 +8,7 @@ library(RColorBrewer)
 library(viridis)
 library(scales)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/Documents/GitHub/cwa.habitat.selection.dvm")
 
 array <- read.csv("data/raw.data/logger.array/norwood.mouth.temp.do.csv")
 unique(array$sensor.depth)
@@ -60,6 +60,37 @@ p<-ggplot()+
   ylab(label = "")+
   theme(text = element_text(size = 15), legend.position = "right")
 
+
+p <- ggplot() +
+  geom_line(data = array24, stat = "smooth", method = "loess", 
+            aes(x = date.time, y = temperature, colour = sensor.depth), 
+            linetype = "dashed", se = FALSE, size = 0.85) +
+  geom_line(data = array24, stat = "smooth", method = "loess", 
+            aes(x = date.time, y = dissolved.oxygen, colour = sensor.depth), 
+            linetype = "solid", se = FALSE, size = 0.85) +
+  scale_colour_manual(
+    labels = c("0.25m", "0.85m", "1.45m"), 
+    values = c("#212E52", "#386EC2", "#8087AA"),
+    name = "Sensor depth"
+  ) +
+  scale_linetype_manual(
+    values = c("dashed", "solid"), 
+    labels = c("Temperature (\u00B0C)", "Dissolved oxygen (mg/L)"), 
+    name = "Metric"
+  ) +
+  scale_x_datetime(breaks = breaks_width("2 hours"), date_labels = "%H") +
+  xlab("Hour of the day") +
+  ylab("Temperature (°C, dashed lines) and DO (mg·L⁻¹, solid lines)") +
+  theme(
+    panel.grid.major = element_blank(), 
+    panel.grid.minor = element_blank(),
+    panel.background = element_blank(), 
+    axis.line = element_line(colour = "black"),
+    legend.key = element_blank(),  # removes black box around legend items
+    text = element_text(size = 15, family = "serif"),
+    legend.position = "right"
+  )
+
 rect1<- ymd_hms("2021-08-01 11:00:00")
 rect2<- ymd_hms("2021-08-01 15:00:00")
 rect3<- ymd_hms("2021-08-01 23:00:00")
@@ -71,7 +102,7 @@ g<-p + annotate("rect",
 f<- g+ annotate("rect", xmin = rect3, xmax = rect4, ymin = -Inf, ymax = Inf, fill = "#F0AC7D", alpha = .3)
 
 
-  ggsave(f, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 16, height = 10, units = "cm")
+ggsave(f, filename = paste("results/figures/logger.array/norwood.24hr.temp.do.png"), width = 18, height = 14, units = "cm")
 
 
 

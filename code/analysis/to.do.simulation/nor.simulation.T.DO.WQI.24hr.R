@@ -9,7 +9,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/GitHub/cwa.habitat.selection.dvm")
 
 array <- read.csv("data/modif.data/logger.array/nor.unif.do.temp.set.depth.simulation.csv")
 array<-array[,c(1:4)]
@@ -122,20 +122,29 @@ for(i in 1:length(hour)){
   wqi<-ifelse(wqi.dep>1,mean(wqi.dep), wqi.dep)
   wqi<-wqi[1]
   
+  # Closest to 14°C
+  slice.i$Tdiff <- abs(slice.i$temperature - 14)
+  min.diff <- which(slice.i$Tdiff == min(slice.i$Tdiff, na.rm = TRUE))
+  temp14.rows <- slice.i[min.diff, ]
+  temp14.dep <- temp14.rows$depth
+  temp14 <- ifelse(any(temp14.dep > 1), mean(temp14.dep[temp14.dep > 1]), temp14.dep[1])
+  
+  
   cntr<-cntr+1 #start a new row
   
   dater[cntr,1]<-h
   dater[cntr,2]<-t
   dater[cntr,3]<-d
   dater[cntr,4]<-wqi
+  dater[cntr,5]<-temp14
   
 }
 
-colnames(dater) <- c("Hour", "Tmin", "DOmax", "TDOopt")
+colnames(dater) <- c("Hour", "Tmin", "DOmax", "TDOopt", "Temp14")
 
 #wide to long for easier plottinghttp://127.0.0.1:15187/graphics/plot_zoom_png?width=1048&height=895
 
-datlong<-dater %>%gather(Factor, Depth, Tmin:TDOopt)
+datlong<-dater %>%gather(Factor, Depth, Tmin:TDOopt, Temp14)
 
 p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   #first smooth; se only
@@ -152,6 +161,30 @@ p<-ggplot(data = datlong, aes(x = Hour, y = Depth))+
   scale_linetype_manual(values = c("solid", "dotted", "dashed"), limits = c("DOmax", "TDOopt", "Tmin"))+
   scale_x_continuous(breaks = seq(0,24,2))
 
+q<-ggplot(data = datlong, aes(x = Hour, y = Depth)) +
+  # Confidence ribbon
+  stat_smooth(aes(group = Factor), col = NA, method = "auto", size = 1,
+              se = TRUE, fill = "#7C5467") +
+  # Smooth lines
+  stat_smooth(aes(lty = Factor), colour = "#291919", se = FALSE) +
+  scale_y_reverse() +
+  xlab("Hour of day") +
+  ylab("Depth (m)") +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(),
+        axis.line = element_line(colour = "black"),
+        text = element_text(size = 20, family = "serif"),
+        legend.key = element_rect(colour = NA, fill = NA)) +
+  labs(linetype = "Depth selection") +
+  scale_linetype_manual(
+    values = c("solid", "dotted", "dashed", "dotdash"),
+    limits = c("DOmax", "TDOopt", "Tmin", "Temp14"),
+    labels = c("Max DO", "Temp & DO Optimum", "Temp Optimum", "Closest to 14°C")
+  ) +
+  scale_x_continuous(breaks = seq(0, 24, 2))
+
+print(q)
 
 
 ggsave(p, filename = paste("results/figures/ibutton.simulation/nor.depth.selection.simulation.png"), width = 18, height = 10, units = "cm")

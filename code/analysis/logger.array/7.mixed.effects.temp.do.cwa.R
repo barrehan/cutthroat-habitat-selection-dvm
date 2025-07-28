@@ -11,7 +11,7 @@ library(lme4)
 library(sjPlot)
 library(ggpubr)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/Documents/GitHub/cwa.habitat.selection.dvm")
 all.array.dat<-read.csv("data/modif.data/logger.array/epa.osu.logger.array.cleaned.csv")
 all.array.dat$date.time <-mdy_hm(all.array.dat$date.time)
 all.array.dat$hour <-as.numeric(hour(all.array.dat$date.time))
@@ -221,6 +221,8 @@ f<- ggarrange(d,
 
 j<- ggplot()+
   #geom_point(data = array.lowdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
+  # geom_point(data = array.lowdo, aes(x = temperature, y = dissolved.oxygen), colour = "#D3D3D3", alpha = 0.2) +
+  # geom_point(data = array.highdo, aes(x = temperature, y = dissolved.oxygen), colour = "#4D4D4D", alpha = 0.6) +
   geom_line(data =x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
   geom_ribbon(data = x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.3, fill =  "#289A84")+
   #geom_point(data = array.highdo, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.3)+
@@ -265,6 +267,8 @@ br.high.x_temp <-as.data.frame(br.high.effects.temp)
 
 a <- ggplot()+
   #geom_point(data = br.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
+  # geom_point(data = br.lowdo, aes(x = temperature, y = dissolved.oxygen), colour = "#D3D3D3", alpha = 0.2) +
+  # geom_point(data = br.highdo, aes(x = temperature, y = dissolved.oxygen), colour = "#4D4D4D", alpha = 0.6) +
   geom_line(data =br.low.x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
   geom_ribbon(data = br.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#289A84")+
   geom_line(data = br.high.x_temp, aes(x= temperature, y = fit), colour = "#8FF7BD", linewidth = 1)+
@@ -306,6 +310,8 @@ nor.high.x_temp <-as.data.frame(nor.high.effects.temp)
 
 b <- ggplot()+
   #geom_point(data = nor.netpen, aes(x =temperature, y = dissolved.oxygen), colour = "lightgrey", alpha = 0.2)+
+  geom_point(data = nor.lowdo, aes(x = temperature, y = dissolved.oxygen), colour = "#D3D3D3", alpha = 0.2) +
+  geom_point(data = nor.highdo, aes(x = temperature, y = dissolved.oxygen), colour = "#4D4D4D", alpha = 0.6) +
   geom_line(data =nor.low.x_temp, aes(temperature, y =fit), colour = "#289A84", linewidth = 1)+
   geom_ribbon(data = nor.low.x_temp, aes(x = temperature, ymin = lower, ymax = upper), alpha = 0.4, fill =  "#289A84")+
   geom_line(data = nor.high.x_temp, aes(x= temperature, y = fit), colour = "#8FF7BD", linewidth = 1)+
@@ -326,7 +332,7 @@ c<- ggarrange(a,
           nrow = 2,
           align = "hv")
 
-ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
+# ggsave(c, filename = paste("results/figures/logger.array/temp.do.mixed.effects.3.panel.2hr.png"), width = 20, height = 18, units = "cm")
 
 
 array.lowdo$logger.site<-as.factor(array.lowdo$logger.site)

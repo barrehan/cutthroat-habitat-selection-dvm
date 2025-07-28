@@ -11,8 +11,6 @@ library(tidyverse)
 library(lubridate)
 library(ggpubr)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
-
 fish <-read.csv("data/modif.data/ibutton/all.ib.interp.depth.csv")
 fish<-fish%>%
   mutate(date.time = parse_date_time(date.time, orders = "mdy HM"))
@@ -121,6 +119,6 @@ p <- ggplot(data = fish.block, aes(x = time2, y = depth)) +
   xlab("Hour of Day") +
   ylab("Depth (m)")
 
-ggsave(p, filename = paste("results/figures/ibutton.simulation/smoothed.fit.fish.depth.BRib.png"), width = 12, height = 8, units = "cm")
+# ggsave(p, filename = paste("results/figures/ibutton.simulation/smoothed.fit.fish.depth.BRib.png"), width = 12, height = 8, units = "cm")
 
 ?scale_x_datetime
