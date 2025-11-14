@@ -1,0 +1,7 @@
+"Window","Model","AICp","edf","deltaAICp"
+"DO-maxima (high)","Both (bivariate)",14.9139568478225,7.19684390666682,0
+"DO-maxima (high)","Temperature only",38.3332020632038,3.02802677079217,23.4192452153813
+"DO-maxima (high)","DO only",175.829294515151,3.70323430007887,160.915337667328
+"DO-minima (low)","Both (bivariate)",162.26817669968,4.82298426003832,0
+"DO-minima (low)","DO only",167.54427909026,3.89921174623609,5.27610239058075
+"DO-minima (low)","Temperature only",167.563705105267,3.75162060490526,5.29552840558702

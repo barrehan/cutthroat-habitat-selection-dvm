@@ -26,6 +26,13 @@ logger.array$date.time<-round_date(logger.array$date.time, "5 minutes")
 unique(logger.array$sensor.depth)
 logger.array$sensor.depth<-as.factor(logger.array$sensor.depth)
 
+daily_max_temp <- logger.array %>%
+  mutate(date = as.Date(date.time)) %>%
+  group_by(date) %>%
+  summarize(max_daily_temp = max(temperature, na.rm = TRUE))
+
+head(daily_max_temp)
+
 colors <- c("#8C2B0E", "#C5692D", "#FEB359","#81A88D", "#132F5B", "#435F90", "#426737",  "#291919")
 
 #colors <- c("goldenrod2", "#D67236", "#3F3F7B", "#02401B", "#81A88D", "#972D15", )

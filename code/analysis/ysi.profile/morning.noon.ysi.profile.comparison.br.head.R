@@ -62,7 +62,7 @@ for(i in 1:nrow(di)){
     new.dat[cntr,1]<-d.unif 
     new.dat[cntr,2]<-tf 
     new.dat[cntr,3] <-dof
-    new.dat[cntr,4]<- "noon" 
+    new.dat[cntr,4]<- "afternoon" 
   }
 
 colnames(new.dat)<- c("depth.m", "temp.c", "do.mg.l", "day.segment")
@@ -70,15 +70,17 @@ colnames(new.dat)<- c("depth.m", "temp.c", "do.mg.l", "day.segment")
 log5.new <-rbind(new.dat, log5.morning)
 
 log5.new <- log5.new[order(log5.new$depth.m),]  
+log5.new$day.segment <- factor(log5.new$day.segment,
+                               levels = c("morning", "afternoon"))
 
 f1 <- ggplot(log5.new, aes(x = temp.c, y = depth.m, col = day.segment))+
   geom_point(size = 1.5, alpha = 0.9)+
   geom_path(linewidth = 1)+
   scale_y_reverse()+
-  scale_color_manual(values = c("#8C2B0E", "#FEB359"))+
+  scale_color_manual(values = c("#8C2B0E","#FEB359"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        legend.position = "right", legend.key = element_rect(fill = "transparent"),
+        legend.position = "right", legend.key = element_blank(),   ,
         text = element_text(size = 15, family = "serif"), legend.title = element_blank())+
   ylab("Depth (m)")+
   xlab("Temperature (\u00B0C)")
@@ -87,10 +89,10 @@ f2 <- ggplot(log5.new, aes(x = do.mg.l, y = depth.m, col = day.segment))+
   geom_point(size = 1.5, alpha = 0.9)+
   geom_path(linewidth = 1)+
   scale_y_reverse()+
-  scale_color_manual(values = c("#8C2B0E", "#FEB359"))+
+  scale_color_manual(values = c("#8C2B0E","#FEB359"))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
-        legend.position = "right", legend.key = element_rect(fill = "transparent"),
+        legend.position = "right", legend.key = element_blank(),   ,
         text = element_text(size = 15, family = "serif"), legend.title = element_blank())+
   ylab("Depth (m)")+
   xlab("Dissolved oxygen (mg/L)")

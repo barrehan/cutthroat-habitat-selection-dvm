@@ -18,6 +18,12 @@ array <- array %>% force_tz(array$date.time, tzone = "America/Los_Angeles")
 array<- array[array$date.time >="2021-07-25 12:00:00",]
 array<- array[array$date.time < "2021-08-14 00:00:00",]
 
+daily_max_temp <- logger.array %>%
+  mutate(date = as.Date(date.time)) %>%
+  group_by(date) %>%
+  summarize(max_daily_temp = max(temperature, na.rm = TRUE))
+
+
 colors <- c("#212E52", "#444E7E","#278192", "#00B089", "#8FF7BD", "#FEB424", "#FD8700", "#DA6C41")
 
 ggplot(data= array, aes(x = date.time))+

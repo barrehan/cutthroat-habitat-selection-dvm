@@ -1,0 +1,7 @@
+"Window","Model","AIC","edf","deltaAIC"
+"DO-maxima (high)","Temperature only",86.0347360737258,3.25048211933431,0
+"DO-maxima (high)","Both (bivariate)",94.4265610059743,7.05744562796541,8.39182493224845
+"DO-maxima (high)","DO only",209.77007541628,1.00829624296008,123.735339342554
+"DO-minima (low)","Temperature only",159.264665578301,4.26190317418917,0
+"DO-minima (low)","Both (bivariate)",163.757849500773,7.63338747515002,4.4931839224721
+"DO-minima (low)","DO only",198.532217551449,3.56652371554881,39.2675519731477

@@ -10,18 +10,28 @@ library(gridExtra)
 library(data.table)
 library(ggpubr)
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm/data/modif.data/ibutton/do.depth.interpolation")
+setwd("~/GitHub/cutthroat-dvm/data/modif.data/ibutton/do.depth.interpolation")
 
-list_csv_files <- list.files(path = "/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm/data/modif.data/ibutton/do.depth.interpolation/")
+list_csv_files <- list.files(path = "~/GitHub/cutthroat-dvm/data/modif.data/ibutton/do.depth.interpolation")
 df <- do.call(rbind, lapply(list_csv_files, function(x) read.csv(x, stringsAsFactors = FALSE)))
 
-setwd("C:/Users/barrehan/GitHub/projects/cwa.habitat.selection.dvm")
+setwd("C:/Users/barrehan/GitHub/projects/cutthroat-dvm")
 
 df$date.time<- ymd_hms(df$date.time)
 df$Hour <- hour(df$date.time)
 
 df<-df[df$date.time >="2021-07-30 00:00:00" & df$date.time < "2021-08-05 12:00:00",]
 
+avg_lowest_daily_per_tag <- df %>%
+  mutate(date = as.Date(date.time)) %>%                 # extract date
+  group_by(ibutton, date) %>%                           # group by tag and day
+  summarize(daily_min_DO = min(dissolved.oxygen, na.rm = TRUE)) %>%
+  group_by(ibutton) %>%                                 # regroup by tag
+  summarize(avg_lowest_daily_DO = mean(daily_min_DO, na.rm = TRUE))
+
+avg_lowest_daily_per_tag
+
+head(lowest_DO_by_tag)
 nor <- df[df$site == "norwood.mouth",]
 br <- df[df$site == "blue.ruin.1" | df$site == "blue.ruin.2",]
 
