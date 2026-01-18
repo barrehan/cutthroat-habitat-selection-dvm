@@ -160,7 +160,8 @@ br_do_high <- ggplot(do_br_high$plot_data, aes(x = x, y = fit)) +
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 14, family = "serif")) +
   labs(x = "Dissolved Oxygen (mg/L)", y = NULL) +
-  ylim(c(0, max(temp_br_high$plot_data$fit))) +
+  # ylim(c(0, max(temp_br_high$plot_data$fit))) +
+  ylim(c(0, max(temp_br_high$plot_data$upper, na.rm = TRUE))) +
   xlim(c(min(do_br_low$plot_data$x, na.rm = TRUE), max(do_br_high$plot_data$x, na.rm = TRUE)))
 
 
@@ -175,7 +176,8 @@ br_temp_high <- ggplot(temp_br_high$plot_data, aes(x = x, y = fit)) +
         panel.background = element_blank(), axis.line = element_line(colour = "black"),
         text = element_text(size = 14, family = "serif")) +
   labs(x = "Temperature (\u00B0C)", y = NULL) +
-  ylim(c(0, max(temp_br_high$plot_data$fit))) +
+  # ylim(c(0, max(temp_br_high$plot_data$fit))) +
+  ylim(c(0, max(temp_br_high$plot_data$upper, na.rm = TRUE)))+
   xlim(c(min(temp_br_low$plot_data$x, na.rm = TRUE), max(temp_br_high$plot_data$x, na.rm = TRUE)))
 
 
